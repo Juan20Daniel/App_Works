@@ -1,4 +1,4 @@
-import { Modal, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Modal, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { ItemLocation } from './components/ItemLocation';
 import { ListBtnLocations } from './components/ListBtnLocations';
@@ -16,7 +16,7 @@ export const ModalSelectLocation = ({visible, closeModal}:Props) => {
     const { top } = useSafeAreaInsets();
     return (
         <Modal visible={visible} transparent={false} animationType='slide'>
-            <View style={{...styles.container, marginTop: top}}>
+            <View style={{...styles.container, marginTop:Platform.OS === 'ios' ? top : 0}}>
                 <HeaderApp 
                     subText='Ubicaciónes'
                     actionBtnClose={() => closeModal()} 

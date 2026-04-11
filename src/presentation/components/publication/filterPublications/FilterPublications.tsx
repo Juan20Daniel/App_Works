@@ -9,7 +9,7 @@ export const FilterPublications = () => {
     const [ listLocationsModal, setListLocationModal ] = useState(false);
     return (
         <>
-            <View style={{...styles.container, height:isTablet? 120 : 90,}}>
+            <View style={{...styles.container, height:isTablet? 120 : 90}}>
                 <Text style={[styles.note, isTablet && styles.noteTable]}>
                     Mira las ofertas de trabajo que tiene tu ciudad
                 </Text>

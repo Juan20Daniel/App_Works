@@ -1,4 +1,4 @@
-import { Modal } from 'react-native';
+import { Modal, Platform } from 'react-native';
 import { HeaderApp } from '@/presentation/components/ui';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -16,7 +16,7 @@ export const OptionsModal = ({visible, subTitle, children, close}:Props) => {
             <HeaderApp
                 actionBtnClose={close}
                 subText={subTitle}
-                paddingTop={top+20}
+                paddingTop={ Platform.OS === 'ios' ? top + 20 : 20 }
             />
             {children}
         </Modal>
