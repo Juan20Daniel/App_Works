@@ -1,0 +1,15 @@
+import React from 'react';
+import { Path, Svg, SvgProps } from 'react-native-svg';
+
+function SvgSearch({ ...props }: SvgProps) {
+  if (!props.width) props.width = 24;
+  if (!props.height) props.height = 24;
+  
+  return (
+    <Svg viewBox="0 -960 960 960" fill="none" {...props}>
+      <Path d="m777.65-143.89-247.89-248q-29.61 24.77-68.3 38.22-38.69 13.44-79.23 13.44-100.36 0-169.74-69.43-69.37-69.42-69.37-169.5 0-100.07 69.32-169.53 69.31-69.46 169.49-69.46t169.65 69.47q69.46 69.47 69.46 169.62 0 41.91-14.08 80.75-14.08 38.85-37.58 67.28l248 247.41-39.73 39.73Zm-395.57-252.3q76.8 0 129.9-53.02 53.1-53.03 53.1-130 0-76.98-53.1-129.98-53.1-53-130-53t-129.9 53.02q-53 53.02-53 130 0 76.98 53.01 129.98 53.02 53 129.99 53Z" fill={props.color}/>
+    </Svg>
+  );
+}
+
+export default React.memo(SvgSearch);

@@ -1,0 +1,16 @@
+export const expretions:Record<string, RegExp> = {
+    email: /^[a-zA-Z0-9+%,=\._-]{1,64}@[a-zA-Z0-9\.-]{1,63}\.[a-zA-Z]{2,15}(\.[a-zA-Z]{2,5})?$/,
+    password: /^.{8,}$/,
+    logoCompany: /^.{30,}$/,
+    companyName: /^[A-Za-z0-9+áÁúÚíÍóÓéÉñÑ_ .-]{2,100}$/,
+    image:/^.{30,}$/,
+    typeWork: /^[A-Za-zñÑÁáúÚéÉíÍóÓ ]{5,50}$/,
+    minimumWage: /^[0-9]{3,6}$/,
+    maximumWage: /^[0-9]{3,6}$/,
+    schedule: /^.{10,}$/,
+    description: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{5,}$/,
+    companyDesc: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{5,}$/,
+    requirements: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
+    benefits: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
+    coords: /^.{10,}$/,
+}

@@ -1,0 +1,1 @@
+export { ModalSelectLocation } from "./modalSelectLocation/ModalSelectLocation";

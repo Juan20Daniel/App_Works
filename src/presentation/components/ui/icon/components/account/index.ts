@@ -1,0 +1,1 @@
+export { default as AccountCircle } from './Account_circle';

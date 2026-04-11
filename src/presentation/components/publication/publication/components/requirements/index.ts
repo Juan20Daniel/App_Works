@@ -1,0 +1,1 @@
+export { RequirmentsList } from "./RequirmentsList";
