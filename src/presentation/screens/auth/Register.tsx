@@ -2,11 +2,10 @@ import { useCallback, useEffect, useReducer, useState } from 'react';
 import { Keyboard, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigators/StackNavigator';
-import { simpleFormReducer } from '../../reducers/simpleForm/simpleForm';
-import { AuthLayout } from '../../layouts';
+import { simpleFormReducer } from '../../reducers/simpleForm/formReducer';
 import { AuthSwitchLink, InputTextAnimate, SocialAuthButton } from '@/presentation/components/auth';
 import { BtnBasic } from '@/presentation/components/ui';
-import type { SimpleForm } from '@/presentation/types/simple-form';
+import type { SimpleForm } from '@/presentation/types/form';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 

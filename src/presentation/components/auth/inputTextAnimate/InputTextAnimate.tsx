@@ -1,49 +1,44 @@
 import { KeyboardTypeOptions, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { InputStatus } from '@/presentation/types/input';
-import { BtnClearInput, Ionicons } from '../../ui';
+import { InputState } from '@/presentation/types/input';
+import { FormField } from '@/presentation/types/form';
+import { Icon } from '../../ui';
+import { BtnClearInput } from '../../shared';
 
 interface Props {
+    state:InputState;
     label: string;
     placeholder: string;
-    value: string;
     type: KeyboardTypeOptions;
-    name: string;
-    isFocus:boolean;
     secureTextEntry?:boolean;
     inputPassword?:boolean;
-    errorFieldEmpty?: string;
-    errorFieldInvalid?: string;
-    statusError?: InputStatus;
-    onChange:(value:string, field:string) => void;
-    onFocus:(field:string) => void;
-    clearInput:(field:string) => void;
+    onChange:(field:FormField, value:string) => void;
+    onFocus:(field:FormField) => void;
+    clearInput:(field:FormField) => void;
     togglePasswordVisibility?: () => void;
+    removeFocus:() => void;
 }
 
 export const InputTextAnimate = ({
+    state,
     label, 
     placeholder, 
-    name, 
-    type, 
-    value,
-    isFocus, 
+    type,
     secureTextEntry=false,
     inputPassword=false,
-    errorFieldEmpty,
-    errorFieldInvalid,
-    statusError,
     onChange,
     onFocus,
     clearInput,
-    togglePasswordVisibility
+    togglePasswordVisibility,
+    removeFocus
 }:Props) => {
+    const { status, isFocus, value, name } = state;
     return (
         <View style={{
             ...styles.container, 
-            borderColor: isFocus 
+            borderColor: isFocus
                 ? globalColors.azureBlue 
-                : (statusError !== null && statusError !== 'valid') 
+                : (status !== null && status !== 'valid') 
                     ?   globalColors.darkRed
                     :   globalColors.softGray,
         }}>
@@ -55,7 +50,7 @@ export const InputTextAnimate = ({
                     ...styles.label, 
                     color:isFocus 
                         ?   globalColors.azureBlue 
-                        :   (statusError !== null && statusError !== 'valid') 
+                        :   (status !== null && status !== 'valid') 
                             ?   globalColors.darkRed
                             :   globalColors.gray
                 }}>
@@ -66,11 +61,12 @@ export const InputTextAnimate = ({
                 style={{...styles.textInput, paddingRight:inputPassword ? 100 : 50}}
                 keyboardType={type}
                 value={value}
-                onChangeText={textValue => onChange(textValue, name)}
+                onChangeText={textValue => onChange(name, textValue)}
                 secureTextEntry={!secureTextEntry}
                 onFocus={() => {
                     onFocus(name);
                 }}
+                onBlur={removeFocus}
             />
             {inputPassword &&
                 <Pressable 
@@ -87,23 +83,19 @@ export const InputTextAnimate = ({
                         togglePasswordVisibility && togglePasswordVisibility();
                     }}
                 >
-                    <Ionicons
-                        name={secureTextEntry? 'eye-off-outline' : 'eye-outline'} 
-                        color={globalColors.gray} 
-                        size={26}
-                    />
+                    <Icon name={ secureTextEntry ? "Visibility" : "Visibility_off" } />
                 </Pressable>
             }
             {value !== '' &&
                 <BtnClearInput
                     name={name}
-                    action={(name) => clearInput(name)}
+                    action={() => clearInput(name)}
                 />
             }
-            {(statusError !== null && statusError !== 'valid') &&
+            {(status !== null && status !== 'valid') &&
                 <View style={styles.boxMessageError}>
                     <Text style={styles.messageError}>
-                        {statusError === 'empty' ? errorFieldEmpty : errorFieldInvalid}
+                        {state.errorMessage}
                     </Text>
                 </View>
             }

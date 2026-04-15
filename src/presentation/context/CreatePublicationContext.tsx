@@ -1,7 +1,7 @@
 import { Keyboard } from "react-native";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState } from "react";
-import { simpleFormReducer } from "../reducers/simpleForm/simpleForm";
-import { SimpleForm } from "../types/simple-form";
+import { simpleFormReducer } from "../reducers/simpleForm/formReducer";
+import { SimpleForm } from "../types/form";
 import { ItemList } from "../types/input-list-manager";
 import { AlertState } from "../types/alerts";
 

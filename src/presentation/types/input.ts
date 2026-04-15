@@ -1,14 +1,19 @@
-import { ItemList } from "./input-list-manager";
+import { FormField } from "./form";
 
-export interface InputValue {
-    value:string;
-    isFocus:boolean;
-    isRequired: boolean;
-    list?:ItemList[]
-}
-export interface InputError {
+export interface InputState {
+    name: FormField;
+    value: string;
+    isFocus: boolean;
+    isValid: boolean | null;
     status: InputStatus;
-    valid: boolean|null;
+    errorMessage?: string;
+    isRequired: boolean;
 }
 
 export type InputStatus = null|'empty'|'valid'|'invalid';
+
+export type InputErrorMessage = {
+    empty: string;
+    invalid?: string;
+    generic?: string;
+}

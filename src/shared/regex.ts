@@ -1,4 +1,6 @@
-export const expretions:Record<string, RegExp> = {
+import { FormField } from "@/presentation/types/form";
+
+export const expretions:Record<FormField, RegExp> = {
     email: /^[a-zA-Z0-9+%,=\._-]{1,64}@[a-zA-Z0-9\.-]{1,63}\.[a-zA-Z]{2,15}(\.[a-zA-Z]{2,5})?$/,
     password: /^.{8,}$/,
     logoCompany: /^.{30,}$/,
