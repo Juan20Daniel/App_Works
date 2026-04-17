@@ -17,6 +17,9 @@ export type FormField =
     | 'requirements'
     | 'benefits'
     | 'coords'
+    | 'firstname'
+    | 'lastname'
+    | 'phone'
 
 export type FormState = Partial<Record<FormField, InputState>>;
 export type FormErrorMessage = Partial<Record<FormField, InputErrorMessage>>;

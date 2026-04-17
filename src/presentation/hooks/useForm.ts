@@ -1,8 +1,8 @@
 import { useReducer } from "react";
-import { FormField, FormState } from "../types/form";
+import { FormErrorMessage, FormField, FormState } from "../types/form";
 import { formReducer } from "../reducers/simpleForm/formReducer";
 
-export const useForm = (initialState:FormState) => {
+export const useForm = (initialState:FormState, errorMessages:FormErrorMessage) => {
     const [formState, dispatch] = useReducer(formReducer, initialState);
 
     const setValue = (field:FormField, value:string) => {
@@ -29,6 +29,10 @@ export const useForm = (initialState:FormState) => {
         dispatch({type:'VALIDATE_FORM'});
     }
 
+    const isFormValid = () => {
+
+    }
+
     return {
         formState,
         setValue,
@@ -36,6 +40,7 @@ export const useForm = (initialState:FormState) => {
         removeFocus,
         clearInput,
         clearInputs,
-        validateForm
+        validateForm,
+        isFormValid
     }
 }

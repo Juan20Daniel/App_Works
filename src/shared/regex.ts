@@ -1,6 +1,9 @@
 import { FormField } from "@/presentation/types/form";
 
 export const expretions:Record<FormField, RegExp> = {
+    firstname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
+    lastname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
+    phone: /^[0-9]{10}$/,
     email: /^[a-zA-Z0-9+%,=\._-]{1,64}@[a-zA-Z0-9\.-]{1,63}\.[a-zA-Z]{2,15}(\.[a-zA-Z]{2,5})?$/,
     password: /^.{8,}$/,
     logoCompany: /^.{30,}$/,

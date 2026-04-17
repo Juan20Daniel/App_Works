@@ -27,7 +27,7 @@ const availableJobs:InputSelectOption[] = [
 ]
 
 export const FormCreatePublication = () => {
-    const { formState, putFocus, handleChange, removeFocus, clearInput, addToList, removeItemFromList, updateListItem } = useCreatePublication();
+    const { formState } = useCreatePublication();
     return (
         <>
             <Row>
@@ -39,39 +39,25 @@ export const FormCreatePublication = () => {
                 <InputTextForm
                     label="Nombre de la empresa"
                     placeholder="Ingresa el nombre de la empresa"
-                    value={formState.values.companyName.value}
                     keyboardType="default"
                     name="companyName"
-                    isFocus={formState.values.companyName.isFocus}
-                    statusError={formState.errors.companyName.status}
-                    errorFieldInvalid="El nombre de la empresa no es válido"
-                    onChange={handleChange}
-                    onFocus={putFocus}
-                    clearInput={clearInput}
                 />
             </Row>
             <Row>
                 <InputTextForm
                     label="Acerca de la empresa"
                     placeholder="Descripción de la empresa"
-                    value={formState.values.companyDesc.value}
                     keyboardType="default"
                     name="companyDesc"
                     multiline
                     inputType='input-area'
-                    isFocus={formState.values.companyDesc.isFocus}
-                    statusError={formState.errors.companyDesc.status}
-                    errorFieldInvalid="La descripción de la empresa no es válida"
                     containerWidth='100%'
-                    onChange={handleChange}
-                    onFocus={putFocus}
-                    clearInput={clearInput}
                 />
             </Row>
             <Row>
                 <UploadImage />
             </Row>
-            <Row>
+            {/* <Row>
                 <InputSelect
                     label="Tipo de trabajo" 
                     placeholder="Selecciona una opción" 
@@ -97,54 +83,34 @@ export const FormCreatePublication = () => {
                     handleChange={handleChange}
                     closeFocus={removeFocus}
                 />
-            </Row>
+            </Row> */}
             <Row>
                 <InputTextForm
                     label="Descrición del empleo"
                     placeholder="Ingresa la descrición del empleo"
-                    value={formState.values.description.value}
                     keyboardType="default"
                     name="description"
                     multiline
                     inputType='input-area'
-                    isFocus={formState.values.description.isFocus}
-                    statusError={formState.errors.description.status}
-                    errorFieldEmpty="El campo nombre no puede estar vacio"
                     containerWidth='100%'
-                    onChange={handleChange}
-                    onFocus={putFocus}
-                    clearInput={clearInput}
                 />
             </Row>
             <Row>
                 <InputTextForm 
                     label="Sueldo mínimo"
                     placeholder="Ingresa el sueldo"
-                    value={formState.values.minimumWage.value}
                     keyboardType="numeric"
                     name="minimumWage"
-                    isFocus={formState.values.minimumWage.isFocus}
-                    statusError={formState.errors.minimumWage.status}
-                    errorFieldInvalid="El sueldo mínimo no es válido"
-                    onChange={handleChange}
-                    onFocus={putFocus}
-                    clearInput={clearInput}
                 />
                 <InputTextForm
                     label="Sueldo máximo"
                     placeholder="Ingresa el sueldo"
-                    value={formState.values.maximumWage.value}
+                   
                     keyboardType="numeric"
                     name="maximumWage"
-                    isFocus={formState.values.maximumWage.isFocus}
-                    statusError={formState.errors.maximumWage.status}
-                    errorFieldInvalid="El sueldo máximo no es válido"
-                    onChange={handleChange}
-                    onFocus={putFocus}
-                    clearInput={clearInput}
                 />
             </Row>
-            <Row>
+            {/* <Row>
                 <InputListManager
                     name="requirements"
                     title="Lista de requisitos"
@@ -177,8 +143,8 @@ export const FormCreatePublication = () => {
                     removeItemFromList={removeItemFromList}
                     updateListItem={updateListItem}
                 />
-            </Row>
-            <Row>
+            </Row> */}
+            {/* <Row>
                 <CoordinateSelector 
                     name="coords"
                     isRequired={true}
@@ -188,7 +154,7 @@ export const FormCreatePublication = () => {
                     errorFieldInvalid="La ubicación no es valida"
                     handleChange={handleChange}
                 />
-            </Row>
+            </Row> */}
         </>
     );
 }

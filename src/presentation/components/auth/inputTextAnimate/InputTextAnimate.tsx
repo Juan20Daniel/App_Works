@@ -24,7 +24,7 @@ export const InputTextAnimate = ({
     label, 
     placeholder, 
     type,
-    secureTextEntry=false,
+    secureTextEntry=true,
     inputPassword=false,
     onChange,
     onFocus,

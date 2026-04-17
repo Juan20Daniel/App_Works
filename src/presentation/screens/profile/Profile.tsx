@@ -18,7 +18,7 @@ export const Profile = ({navigation}:Props) => {
   const width = useWindowDimensions().width;
   return (
     <PublicationSettingsProvider>
-      {/* <Container>
+      <Container>
         <HeaderApp
           alignTitle='flex-start' 
           subText='Mi cuenta' 
@@ -32,11 +32,11 @@ export const Profile = ({navigation}:Props) => {
         <View style={{paddingHorizontal: 20, height:isTablet ? 40 : 30, justifyContent:'center'}}>
           <Text style={{fontSize:15}}>Ofertas guardadas</Text>
         </View>
-         <HorizontalPagination list={list}>
+         {/* <HorizontalPagination list={list}>
           <OfferInImgSmall 
             openOptions={() => setSavedOfferOpModal(true)}
           />
-        </HorizontalPagination>
+        </HorizontalPagination> */}
         <EmptyListPublications
           message='No has guardado ninguna vacante' 
           valueBtn='Ver ofertas' 
@@ -45,9 +45,9 @@ export const Profile = ({navigation}:Props) => {
         <View style={{paddingHorizontal: 20, height:isTablet ? 40 : 30, justifyContent:'center'}}>
           <Text style={{fontSize:15}}>Mis ofertas creadas</Text> 
         </View> 
-        <HorizontalPagination>
+        {/* <HorizontalPagination>
           <OfferPersonalizedSmall />
-        </HorizontalPagination>
+        </HorizontalPagination> */}
         <EmptyListPublications
           message='No has creado ninguna oferta laboral' 
           valueBtn='Crear oferta' 
@@ -59,7 +59,7 @@ export const Profile = ({navigation}:Props) => {
       <SavedPublicationOptionsModal
         visible={savedOfferOpModal} 
         closeModal={() => setSavedOfferOpModal(!savedOfferOpModal)} 
-      /> */}
+      />
     </PublicationSettingsProvider>
   );
 }

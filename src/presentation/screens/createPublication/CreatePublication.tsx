@@ -24,7 +24,7 @@ export const CreatePublication = (props:Props) => {
 export const ScreenContent = ({navigation}:Props) => {
     const [ keyboarIsShow, setKeyboardIsShow ] = useState(false);
     const [ confirmAlert, setConfirmAlert ] = useState<AlertState>({visible:false, title:'', message:''});
-    const { formState, alertMessage, removeFocus, createPublication, closeAlertMesssage } = useCreatePublication();
+    const { formState, alertMessage, closeAlertMesssage } = useCreatePublication();
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
     useEffect(() => {
@@ -46,26 +46,26 @@ export const ScreenContent = ({navigation}:Props) => {
         closeAlertConfirm();
         navigation.goBack();
     }
-    const isFormClean = () => {
-        let isClear = true;
-        const formCamps = formState.values;
-        for(let camp in formCamps) {
-            if(formCamps[camp].value !== '') {
-                isClear = false;
-                break;
-            }
-            if(formCamps[camp].list && formCamps[camp].list.length > 0) {
-                isClear = false;
-                break;
-            }
-        }
-        if(isClear) return navigation.goBack();
-        setConfirmAlert({
-            visible:true, 
-            title:'Si sales, se perdera la información agregada.', 
-            message:'¿Seguro que quieres salir del formulario?'
-        });
-    }
+    // const isFormClean = () => {
+    //     let isClear = true;
+    //     const formCamps = formState.values;
+    //     for(let camp in formCamps) {
+    //         if(formCamps[camp].value !== '') {
+    //             isClear = false;
+    //             break;
+    //         }
+    //         if(formCamps[camp].list && formCamps[camp].list.length > 0) {
+    //             isClear = false;
+    //             break;
+    //         }
+    //     }
+    //     if(isClear) return navigation.goBack();
+    //     setConfirmAlert({
+    //         visible:true, 
+    //         title:'Si sales, se perdera la información agregada.', 
+    //         message:'¿Seguro que quieres salir del formulario?'
+    //     });
+    // }
     return (
         <View style={{flex: 1, backgroundColor: globalColors.white}}>
             <ScrollView 
@@ -78,10 +78,10 @@ export const ScreenContent = ({navigation}:Props) => {
             >
                 <HeaderApp
                     subText='Crear publicación'
-                    actionBtnClose={() => isFormClean()}
-                    actionBox={removeFocus}
+                    actionBtnClose={() => {}}
+                    actionBox={() => {}}
                 />
-                <TouchableWithoutFeedback accessible={false} onPress={removeFocus}>
+                <TouchableWithoutFeedback accessible={false} onPress={() => {}}>
                     <View style={{width, backgroundColor:globalColors.white}}>
                         <Text style={{...styles.title, fontSize: isTablet ? 30 : 20}}>
                             Nueva publicación
@@ -93,7 +93,7 @@ export const ScreenContent = ({navigation}:Props) => {
                         <PublishOnCompletionToggle />
                         <BtnBasic
                             value="Crear"
-                            action={() => createPublication()}
+                            action={() => {}}
                             customStylesBox={{marginTop: 20, marginBottom: 50, paddingHorizontal:10}}
                         />
                         <View style={{
