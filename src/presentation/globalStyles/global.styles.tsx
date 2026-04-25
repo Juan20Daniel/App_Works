@@ -3,7 +3,7 @@ export const globalColors = {
     gray: '#767676',
     black: '#000000',
     azureBlue: '#4084C3',
-    cornflowerBlue: '#83B7E6',
+    cornfsmallerBlue: '#83B7E6',
     lightGray: '#F9F9F9',
     softGray: '#cececeff',
     darkGray: '#4E4E4E',

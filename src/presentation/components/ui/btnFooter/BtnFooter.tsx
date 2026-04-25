@@ -25,7 +25,7 @@ export const BtnFooter = ({disable=false, value='Value', iconName='Question', he
                         styles.btnFilter,
                         {backgroundColor:disable
                             ?   globalColors.softGray
-                            :   pressed ? globalColors.cornflowerBlue : globalColors.azureBlue}
+                            :   pressed ? globalColors.cornfsmallerBlue : globalColors.azureBlue}
                     ]}
                 >
                     <Text style={styles.textBtnFlter}>{value}</Text>

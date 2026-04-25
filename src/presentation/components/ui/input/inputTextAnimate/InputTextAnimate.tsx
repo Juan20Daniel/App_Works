@@ -2,8 +2,9 @@ import { KeyboardTypeOptions, Pressable, StyleSheet, Text, TextInput, View } fro
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { InputState } from '@/presentation/types/input';
 import { FormField } from '@/presentation/types/form';
-import { Icon } from '../../ui';
-import { BtnClearInput } from '../../shared';
+import { Icon } from '../../';
+import { BtnClearInput } from '../../../shared';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     state:InputState;
@@ -44,7 +45,7 @@ export const InputTextAnimate = ({
         }}>
             <View style={{
                 ...styles.boxLabel, 
-                transform: [{translateY:(isFocus || value!=='')? -33 : 0}]}
+                transform: [{translateY:(isFocus || value!=='')? calcDimension({small:-25, medium:-33})  : 0}]}
             }>
                 <Text style={{
                     ...styles.label, 
@@ -106,7 +107,7 @@ export const InputTextAnimate = ({
 const styles = StyleSheet.create({
     container: {
         position: 'relative',
-        height: 65,
+        height: calcDimension({small:50, medium: 65}),
         borderRadius: 20,
         justifyContent: 'center',
         borderWidth: 1,

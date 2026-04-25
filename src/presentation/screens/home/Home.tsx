@@ -4,7 +4,7 @@ import { AdsCarrucel } from '@/presentation/components/home';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { 
     FilterPublications,
-    Publication
+    ItemPublication
 } from '@/presentation/components/publication';
 
 const source:ImageSourcePropType = require('../../../assets/publications/imgOffer.jpg');
@@ -22,9 +22,14 @@ export const Home = () => {
                 stickyHeaderHiddenOnScroll
                 showsVerticalScrollIndicator={false}
                 ListFooterComponent={
-                    <View style={{width: '100%', height: 100, backgroundColor: globalColors.lightGray}} />
+                    <View style={{
+                        width: '100%', 
+                        height: 100, 
+                        backgroundColor: globalColors.lightGray
+                    }} />
                 }
                 keyExtractor={(item) => item.toString()}
+                
                 renderItem={({item}) => {
                     if(item === 'carrucel') {
                         return <AdsCarrucel />
@@ -33,9 +38,15 @@ export const Home = () => {
                         return <FilterPublications /> 
                     }
                     if(item === 3) {
-                        return <Publication title='Chofer de camión' source={source3}/>
+                        return <ItemPublication 
+                            title='Chofer de camión' 
+                            source={source3}
+                        />
                     }
-                    return <Publication title='Chofer de camión' source={Number(item) % 2 === 0 ? source : source2}/>
+                    return <ItemPublication
+                        title='Chofer de camión' 
+                        source={Number(item) % 2 === 0 ? source : source2}
+                    />
                 }}
             />
         </Container>

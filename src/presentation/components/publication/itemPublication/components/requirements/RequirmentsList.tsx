@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Requirment } from './components/Requirment'
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice'
+import { calcDimension } from '@/presentation/helpers/calcDimension'
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles'
 import { publicationStyles } from '../../styles'
 
@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: globalStyles.fontMonserratMedium,
-        fontSize: calcResolutionDevice({low: 15, medium: 18})
+        fontSize: calcDimension({small: 15, medium: 18})
     },
     showMore: {
         color: globalColors.azureBlue,
-        fontSize: calcResolutionDevice({low: 10, medium: 12}),
+        fontSize: calcDimension({small: 10, medium: 12}),
         paddingLeft: 15,
     }
 })

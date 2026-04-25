@@ -1,12 +1,13 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles'; 
 import { Icon } from '../../ui';
+import { FormField } from '@/presentation/types/form';
 
 interface Props {
-    name:string;
+    name: FormField;
     top?: number;
     right?: number;
-    action:(name:string) => void;
+    action:(name:FormField) => void;
 }
 
 export const BtnClearInput = ({name, top, right, action}:Props) => {

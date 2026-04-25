@@ -1,32 +1,25 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-
-import { InputStatus } from '@/presentation/types/input';
 import { Icon } from '@/presentation/components/ui/icon/Icon';
+import { InputState } from '@/presentation/types/input';
 
 interface Props {
-    name:string;
+    state: InputState;
     placeholder: string;
-    isFocus:boolean;
-    value: string;
     showIconRight?: boolean;
     iconName?: string;
     pressable?: boolean;
-    statusError?: InputStatus;
     onPress:(field:string) => void;
 }
 
 export const BtnSelect = ({
-    name, 
+    state,
     placeholder, 
-    isFocus, 
-    value, 
     showIconRight=false, 
-    iconName='help-outline', 
     pressable=false,
-    statusError,
     onPress
 }:Props) => {
+    const { name, value, isFocus, status } = state;
     return (
         <Pressable 
             style={({pressed}) => [
@@ -34,7 +27,7 @@ export const BtnSelect = ({
                     ...styles.container,
                     borderColor:isFocus 
                         ? globalColors.azureBlue 
-                        : (statusError !== null && statusError !== 'valid') 
+                        : (status !== null && status !== 'valid') 
                             ?   globalColors.darkRed
                             :   globalColors.softGray,
                 },
@@ -47,7 +40,7 @@ export const BtnSelect = ({
             <Text style={styles.textBtn}>
                 {value === '' 
                     ?   <Text style={{
-                            color: (statusError !== null && statusError !== 'valid') 
+                            color: (status !== null && status !== 'valid') 
                                 ?   globalColors.darkRed
                                 :   globalColors.gray,
                         }}>

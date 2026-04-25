@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { TruncatedText } from '@/presentation/components/ui/truncatedText/TruncatedText';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { publicationStyles } from '../styles';
 
 export const Description = () => {
@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
         ...publicationStyles.paddingHorizontal
     },
     value: {
-        fontSize: calcResolutionDevice({low: 10, medium: 12, high: 14}),
+        fontSize: calcDimension({small: 10, medium: 12, large: 14}),
     }
 })

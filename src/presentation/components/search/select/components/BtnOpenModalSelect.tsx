@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { Icon } from '@/presentation/components/ui';
 import { IconType } from '@/presentation/types/icons';
 
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
         boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.1)',
     },
     label: {
-        fontSize: calcResolutionDevice({low: 10, medium: 14, high: 18}),
+        fontSize: calcDimension({small: 10, medium: 14, large: 18}),
         color:globalColors.softGray,
         fontFamily: 'Montserrat-Medium'
     },
     value: {
-        fontSize: calcResolutionDevice({low: 10, medium: 14, high: 18}),
+        fontSize: calcDimension({small: 10, medium: 14, large: 18}),
         color:globalColors.black,
         fontFamily: 'Montserrat-Medium'
     }

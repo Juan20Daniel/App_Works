@@ -1,47 +1,36 @@
-import { DimensionValue, KeyboardTypeOptions, StyleSheet, Text, TextInput, View } from 'react-native';
+import { DimensionValue, KeyboardTypeOptions, StyleSheet, TextInput, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { InputStatus } from '@/presentation/types/input';
+import { InputState } from '@/presentation/types/input';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { Label } from '@/presentation/components/createPublication/formCreatePublication/components/Label';
 import { BtnClearInput } from '@/presentation/components/shared';
 import { BtnBasic } from '@/presentation/components/ui';
 import { InputErrorMessage } from './InputErrorMessage';
+import { FormField } from '@/presentation/types/form';
 
 interface Props {
+    state: InputState;
     label: string;
     placeholder: string;
-    value: string;
     keyboardType: KeyboardTypeOptions;
-    name: string;
-    isFocus:boolean;
     inputType?: 'default' | 'input-area' | 'input-action'
-    errorFieldEmpty?: string;
-    errorFieldInvalid?: string;
-    statusError?: InputStatus;
     multiline?:boolean;
-    isRequired?: boolean;
     containerWidth?: DimensionValue;
     disableBtnAction?: boolean;
     textBtnInputAction?:string;
     inputAction?: () => void;
-    onChange:(field:string, value:string) => void;
-    onFocus:(field:string) => void;
-    clearInput:(field:string) => void;
+    onChange:(field:FormField, value:string) => void;
+    onFocus:(field:FormField) => void;
+    clearInput:(field:FormField) => void;
 }
 
 export const InputTextForm = ({
+    state,
     label, 
-    placeholder, 
-    name, 
-    keyboardType, 
-    value,
-    isFocus,
+    placeholder,
+    keyboardType,
     inputType='default',
-    errorFieldEmpty,
-    errorFieldInvalid,
-    statusError,
     multiline=false,
-    isRequired=false,
     disableBtnAction=true,
     containerWidth,
     textBtnInputAction='Agregar',
@@ -50,6 +39,7 @@ export const InputTextForm = ({
     onFocus,
     clearInput
 }:Props) => {
+    const { name, value, isFocus, isRequired, status } = state;
     return (
         <View style={{
             ...styles.container,
@@ -62,7 +52,7 @@ export const InputTextForm = ({
                 isFocus={isFocus}
                 showTextRequire
                 isRequired={isRequired}
-                statusError={statusError}
+                statusError={status}
             />
             <View style={{
                 ...styles.boxInput, 
@@ -71,7 +61,7 @@ export const InputTextForm = ({
                 alignItems: inputType === 'input-action' ? 'center' : 'flex-start',
                 borderColor: isFocus 
                     ?   globalColors.azureBlue 
-                    :   (statusError != null && statusError != 'valid')
+                    :   (status != null && status != 'valid')
                         ?   globalColors.darkRed
                         :   globalColors.softGray
             }}>
@@ -107,7 +97,6 @@ export const InputTextForm = ({
                                 height: 57, 
                                 borderRadius:20
                             }}
-                            fontSize={12}
                             fontColor={globalColors.gray}
                         />
                     </View>
@@ -121,11 +110,10 @@ export const InputTextForm = ({
                     action={(name) => clearInput(name)}
                 />
             }
-            {(statusError !== null && statusError !== 'valid') &&
+            {(status !== null && status !== 'valid') &&
                 <InputErrorMessage 
-                    statusError={statusError}
-                    errorFieldEmpty={errorFieldEmpty}
-                    errorFieldInvalid={errorFieldInvalid}
+                    statusError={status}
+
                 />
             }
         </View>

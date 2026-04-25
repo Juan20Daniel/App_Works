@@ -1,7 +1,7 @@
 import React from 'react';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { StyleSheet, Text, View } from 'react-native';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface Props {
@@ -21,10 +21,10 @@ export const TextShowMore = ({smallSize,mediumSize,hideSize}:Props) => {
             >
                 <Text style={{
                     color: globalColors.azureBlue,
-                    fontSize: calcResolutionDevice({
-                        low: smallSize, 
+                    fontSize: calcDimension({
+                        small: smallSize, 
                         medium:mediumSize??smallSize, 
-                        high:hideSize??mediumSize??smallSize
+                        large:hideSize??mediumSize??smallSize
                     })
                 }}>     ...mas</Text>
             </LinearGradient>

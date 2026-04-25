@@ -36,7 +36,7 @@ export const SearchInputMap = () => {
                 />
                 {(valueToSearch !== '') &&
                     <BtnClearInput
-                        name='searchInputMap'
+                        name='firstname'
                         right={isTablet ? 110 : 85}
                         action={() => setValueToSearch('')}
                     />

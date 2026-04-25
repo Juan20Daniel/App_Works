@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { NavLink } from './NavLink';
 import { TitleApp } from '../titleApp/TitleApp';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 export const Navbar = () => {
     const {top} = useSafeAreaInsets();
@@ -12,7 +13,7 @@ export const Navbar = () => {
             <View style={styles.boxButtons}>
                 <NavLink
                     iconName="Search"
-                    iconSize={30}
+                    iconSize={calcDimension({small:30, medium:30, large:35})}
                     redirect='Search'
                 />
                 <NavLink
@@ -41,6 +42,6 @@ const styles = StyleSheet.create({
     },
     boxButtons: {
         flexDirection: 'row',
-        gap: 20
+        gap: calcDimension({small: 20, medium:20, large:30})
     }
 });

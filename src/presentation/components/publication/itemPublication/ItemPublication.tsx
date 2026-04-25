@@ -1,4 +1,4 @@
-import { Dimensions, Image, ImageSourcePropType } from 'react-native';
+import { Dimensions, Image, ImageSourcePropType, Text } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { Container, Description, Header, Salary, Title, Footer, RequirmentsList } from './components';
@@ -47,14 +47,14 @@ const calcImgSize = (source:ImageSourcePropType) => {
     }
 }
 
-export const Publication = ({title, hasSeen=false, source}:Props) => {
+export const ItemPublication = ({title, hasSeen=false, source}:Props) => {
     return (
         <Container>
             <Header
                 companyName='People Carso'
                 description='Neque porro quisquam est quiooo das dwdds fwefewf ewf w fwef wefwe fw das dwdds fwefewf fff ddsds ad adsad ad'
             />
-            <Image
+            {/* <Image
                 source={source}
                 style={{
                     width: calcImgSize(source).width,
@@ -62,12 +62,12 @@ export const Publication = ({title, hasSeen=false, source}:Props) => {
                     backgroundColor: globalColors.white,
                 }}
                 resizeMode='stretch'
-            />
-            <Title value={title??''} />
+            /> */}
+            {/* <Title value={title??''} />
             <Description />
             <Salary />
             <RequirmentsList />
-            <Footer />
+            <Footer /> */}
         </Container>
     );
 }

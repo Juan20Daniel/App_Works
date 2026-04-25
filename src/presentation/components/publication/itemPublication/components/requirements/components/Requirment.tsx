@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
-import { publicationStyles } from '@/presentation/components/publication/publication/styles';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { publicationStyles } from '@/presentation/components/publication/itemPublication/styles';
 
 
 export const Requirment = () => {
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
         backgroundColor: globalColors.black
     },
     value: {
-        fontSize: calcResolutionDevice({low: 10, medium: 12})
+        fontSize: calcDimension({small: 10, medium: 12})
     }
 });

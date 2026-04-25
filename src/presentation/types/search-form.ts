@@ -1,3 +1,3 @@
-import { InputValue } from "./input";
+import { InputState } from "./input";
 
-export type SearchForm = Record<string, InputValue>; 
+export type SearchForm = Record<string, InputState>; 

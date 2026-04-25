@@ -1,5 +1,6 @@
 import { Image, ImageSourcePropType, Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
+import { calcDimension } from "@/presentation/helpers/calcDimension";
 
 interface Props {
     value:string;
@@ -21,8 +22,8 @@ export const SocialAuthButton = ({value, customStylesBox, image, action}:Props) 
                 <Image 
                     source={image}
                     style={{
-                        width: 30,
-                        height: 30
+                        width: calcDimension({small:20, medium:28}),
+                        height: calcDimension({small:20, medium:28})
                     }}
                 />
                 <Text style={styles.textValue}>{value}</Text>
@@ -34,7 +35,7 @@ export const SocialAuthButton = ({value, customStylesBox, image, action}:Props) 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 60,
+        height: calcDimension({small:45, medium:60}),
     },
     btn: {
         width: '100%',
@@ -51,6 +52,6 @@ const styles = StyleSheet.create({
     textValue: {
         color: globalColors.gray,
         fontFamily: globalStyles.fontMonserratMedium,
-        fontSize: 16
+        fontSize: calcDimension({small:11, medium:16})
     }
 });

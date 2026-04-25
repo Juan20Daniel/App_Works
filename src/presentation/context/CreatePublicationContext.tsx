@@ -1,7 +1,7 @@
 import { Keyboard } from "react-native";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useReducer, useState } from "react";
 import { formReducer } from "../reducers/simpleForm/formReducer";
-import { FormState } from "../types/form";
+import { FormField, FormState } from "../types/form";
 import { ItemList } from "../types/input-list-manager";
 import { AlertState } from "../types/alerts";
 import { useForm } from "../hooks";
@@ -13,6 +13,10 @@ interface InitialState {
     setPublishPublication: Dispatch<SetStateAction<boolean>>;
     closeAlertMesssage: () => void;
     showAlertMessage: ({title, message}:{title:string, message:string}) => void;
+    setFocus: (field:FormField,) => void;
+    setValue: (field:FormField, value:string) => void; 
+    clearInput: (field:FormField) => void;
+    removeFocus: () => void;
 }
 
 export const formInitialState:FormState = {
@@ -35,10 +39,10 @@ export const formInitialState:FormState = {
 export const CreatePublicationContext = createContext<InitialState|null>(null);
 
 export const CreatePublicationProvider = ({children}:PropsWithChildren) => {
-    const { formState } = useForm(formInitialState, {});
+    const { formState, setFocus, setValue, clearInput, removeFocus } = useForm(formInitialState, {});
     const [ publishPublication, setPublishPublication ] = useState(false);
     const [ alertMessage, setAlertMessage ] = useState<AlertState>({visible:false, title:'', message:''});
-   
+    
     const showAlertMessage = ({title, message}:{title:string, message:string}) => {
         setAlertMessage({visible:true, title, message});
     }
@@ -59,7 +63,11 @@ export const CreatePublicationProvider = ({children}:PropsWithChildren) => {
                 alertMessage,
                 setPublishPublication,
                 closeAlertMesssage,
-                showAlertMessage
+                showAlertMessage,
+                setFocus,
+                setValue,
+                clearInput,
+                removeFocus
             }}
         >
             {children}

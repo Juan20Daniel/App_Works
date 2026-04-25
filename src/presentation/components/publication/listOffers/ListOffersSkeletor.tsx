@@ -1,15 +1,15 @@
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { PublicationSkeletor } from '../publication/components';
+// import { PublicationSkeletor } from '../publication/components';
 
 export const ListOffersSkeletor = () => {
     const width = useWindowDimensions().width;
     return (
         <View style={[styles.container, width > 500 && styles.containerTable]}>
+            {/* <PublicationSkeletor />
             <PublicationSkeletor />
             <PublicationSkeletor />
-            <PublicationSkeletor />
-            <PublicationSkeletor />
+            <PublicationSkeletor /> */}
         </View>
     );
 }

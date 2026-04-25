@@ -1,6 +1,6 @@
 import { SetStateAction } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { Icon } from '@/presentation/components/ui';
 import { BtnClearInput } from '@/presentation/components/shared';
@@ -24,7 +24,7 @@ export const InputFilter = ({value, onChangeTaxt}:Props) => {
                 />
                 {(value !== '') &&
                     <BtnClearInput
-                        name='clear'
+                        name='firstname'
                         action={() => onChangeTaxt('')}
                     />
                 }
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     boxInput: {
         position: 'relative',
-        height: calcResolutionDevice({low: 40, medium: 55}),
+        height: calcDimension({small: 40, medium: 55}),
         flexDirection: 'row',
         backgroundColor: globalColors.white,
         marginBottom: 20,
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width:'100%',
         height: '100%',
-        paddingLeft: calcResolutionDevice({low: 45, medium:60}),
+        paddingLeft: calcDimension({small: 45, medium:60}),
         paddingRight: 20,
         fontFamily: 'Montserrat-Medium',
-        fontSize: calcResolutionDevice({low:14, medium: 16})
+        fontSize: calcDimension({small:14, medium: 16})
     }
 })

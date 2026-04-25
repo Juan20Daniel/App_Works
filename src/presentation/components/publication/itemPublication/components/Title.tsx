@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { publicationStyles } from '../styles';
 import { globalStyles } from '@/presentation/globalStyles/global.styles';
 
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     },
     value: {
         fontFamily: globalStyles.fontMonserratMedium,
-        fontSize: calcResolutionDevice({low: 16, medium: 18, high: 21}),
+        fontSize: calcDimension({small: 16, medium: 18, large: 21}),
     }
 })

@@ -16,7 +16,7 @@ export const BtnFloat = ({iconName='Question', value, customStyle, action}:Props
             style={({pressed}) => [
                 styles.container,
                 {   
-                    backgroundColor:pressed ? globalColors.cornflowerBlue : globalColors.azureBlue,
+                    backgroundColor:pressed ? globalColors.cornfsmallerBlue : globalColors.azureBlue,
                     paddingRight:value ? 20 : 10,
                 },
                 customStyle,

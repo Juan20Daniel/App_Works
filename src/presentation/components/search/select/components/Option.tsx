@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { SelectOption } from '@/presentation/types/select-option';
 import { Icon } from '@/presentation/components/ui';
 
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     },
     label: {
         fontFamily: 'Montserrat-Medium',
-        fontSize: calcResolutionDevice({low: 10, medium: 14, high: 17})
+        fontSize: calcDimension({small: 10, medium: 14, large: 17})
     }
 });

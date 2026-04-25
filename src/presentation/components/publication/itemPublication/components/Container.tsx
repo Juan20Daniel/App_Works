@@ -4,6 +4,7 @@ import { globalColors, globalStyles } from '@/presentation/globalStyles/global.s
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { UserInfo } from './UserInfo';
 import { isTablet } from '@/presentation/helpers/isTablet';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     children:React.ReactNode;
@@ -34,10 +35,11 @@ const styles = StyleSheet.create({
         backgroundColor:globalColors.lightGray,
         alignItems: 'center',
         paddingTop: 60,
-        marginHorizontal: globalStyles.marginHorizontal
+        paddingHorizontal: calcDimension({small:0, medium:0, large: 30})
     },
     content: {
         backgroundColor: globalColors.white,
+        maxWidth: 500,
         borderRadius: isTablet ? 30 : 0,
         ...globalStyles.shadow
     },

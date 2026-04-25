@@ -1,15 +1,15 @@
 import { Keyboard } from "react-native";
 import { useCreatePublication } from "@/presentation/context/CreatePublicationContext";
 import type { InputSelectOption } from "@/presentation/types/input-select-option";
-import { 
-    BtnSelectLogo, 
-    CoordinateSelector, 
-    InputListManager, 
+import {
+    BtnSelectLogo,
+    CoordinateSelector,
+    InputListManager,
     InputSelect,
-    InputSelectSchedule, 
-    InputTextForm, 
-    Row, 
-    UploadImage, 
+    InputSelectSchedule,
+    InputTextForm,
+    Row,
+    UploadImage,
 } from "./components";
 
 const availableJobs:InputSelectOption[] = [
@@ -27,31 +27,36 @@ const availableJobs:InputSelectOption[] = [
 ]
 
 export const FormCreatePublication = () => {
-    const { formState } = useCreatePublication();
+    const { formState, setFocus, setValue, clearInput } = useCreatePublication();
     return (
         <>
             <Row>
                 <BtnSelectLogo
-                    name="logoCompany"
-                    value={formState.values.logoCompany.value}
-                    onChange={handleChange}
+                    state={formState.logoCompany!}
+                    onChange={setValue}
                 />
                 <InputTextForm
+                    state={formState.companyName!}
                     label="Nombre de la empresa"
                     placeholder="Ingresa el nombre de la empresa"
                     keyboardType="default"
-                    name="companyName"
+                    onChange={setValue}
+                    onFocus={setFocus}
+                    clearInput={clearInput}
                 />
             </Row>
             <Row>
                 <InputTextForm
+                    state={formState.companyDesc!}
                     label="Acerca de la empresa"
                     placeholder="Descripción de la empresa"
                     keyboardType="default"
-                    name="companyDesc"
                     multiline
                     inputType='input-area'
                     containerWidth='100%'
+                    onChange={setValue}
+                    onFocus={setFocus}
+                    clearInput={clearInput}
                 />
             </Row>
             <Row>
@@ -86,28 +91,36 @@ export const FormCreatePublication = () => {
             </Row> */}
             <Row>
                 <InputTextForm
+                    state={formState.description!}
                     label="Descrición del empleo"
                     placeholder="Ingresa la descrición del empleo"
                     keyboardType="default"
-                    name="description"
                     multiline
                     inputType='input-area'
                     containerWidth='100%'
+                    onChange={setValue}
+                    onFocus={setFocus}
+                    clearInput={clearInput}
                 />
             </Row>
             <Row>
                 <InputTextForm 
+                    state={formState.maximumWage!}
                     label="Sueldo mínimo"
                     placeholder="Ingresa el sueldo"
                     keyboardType="numeric"
-                    name="minimumWage"
+                    onChange={setValue}
+                    onFocus={setFocus}
+                    clearInput={clearInput}
                 />
                 <InputTextForm
+                    state={formState.maximumWage!}
                     label="Sueldo máximo"
                     placeholder="Ingresa el sueldo"
-                   
                     keyboardType="numeric"
-                    name="maximumWage"
+                     onChange={setValue}
+                    onFocus={setFocus}
+                    clearInput={clearInput}
                 />
             </Row>
             {/* <Row>

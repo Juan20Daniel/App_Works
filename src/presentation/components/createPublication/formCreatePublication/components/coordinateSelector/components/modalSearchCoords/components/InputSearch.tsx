@@ -2,7 +2,7 @@ import { SetStateAction } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 
 import { globalColors } from "@/presentation/globalStyles/global.styles";
-import { calcResolutionDevice } from "@/presentation/helpers/calcResolutionDevice";
+import { calcDimension } from "@/presentation/helpers/calcDimension";
 import { formStyles } from "@/presentation/components/createPublication/formCreatePublication/styles";
 import { Icon } from "@/presentation/components/ui/icon/Icon";
 
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         borderColor: globalColors.softGray,
         paddingLeft: 50,
         paddingRight: 20,
-        fontSize: calcResolutionDevice({low: 14, medium: 16}),
+        fontSize: calcDimension({small: 14, medium: 16}),
         zIndex: 1,  
     }
 })

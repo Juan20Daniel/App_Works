@@ -2,7 +2,7 @@ import { FlatList, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { Container, HeaderApp } from '@/presentation/components/ui';
 import { StatusResult } from '@/presentation/components/search/searchResultsModal/components';
-import { Publication } from '../../components/publication/publication';
+import { ItemPublication } from '../../components/publication/itemPublication';
 import { ModalPublicationOptions } from '@/presentation/components/publication';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -38,7 +38,7 @@ export const SearchResults = ({ navigation, route }: Props) => {
                             </View>
                         )
                     } 
-                    return <Publication
+                    return <ItemPublication
                         title='Cores netos'
                         source={require('../../../assets/publications/imgOffer3.jpg')}
                     />

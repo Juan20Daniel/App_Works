@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { globalStyles } from '@/presentation/globalStyles/global.styles';
 
 export const Schedule = () => {
@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
         gap: 5
     },
     titleDays: {
-        fontSize: calcResolutionDevice({low: 9, medium: 12}),
+        fontSize: calcDimension({small: 9, medium: 12}),
         fontFamily: globalStyles.fontMonserratSemiBold,
     },
     value: {
-        fontSize: calcResolutionDevice({low: 9, medium: 12}),
+        fontSize: calcDimension({small: 9, medium: 12}),
         fontFamily: globalStyles.fontMonserratMedium,
     }
 })

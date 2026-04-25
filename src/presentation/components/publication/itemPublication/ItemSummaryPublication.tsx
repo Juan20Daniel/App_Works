@@ -12,7 +12,7 @@ interface Props {
     openOptions: () => void;
 }
 
-export const PublicationSmall = ({hasSeen=false, openOptions}:Props) => {
+export const ItemSummaryPublication = ({hasSeen=false, openOptions}:Props) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const width = useWindowDimensions().width;
     return (

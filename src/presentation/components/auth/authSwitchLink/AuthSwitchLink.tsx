@@ -1,5 +1,6 @@
 import { View, Pressable, Text } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     textQuestion:string;
@@ -10,7 +11,7 @@ interface Props {
 export const AuthSwitchLink = ({textQuestion, textLink, navigateTo}:Props) => {
     return (
         <View style={{flexDirection:'row', gap:5, justifyContent: 'center',marginTop:30}}>
-            <Text>
+            <Text style={{fontSize:calcDimension({small: 12, medium:15})}}>
                 {textQuestion}
             </Text>
             <Pressable 
@@ -22,7 +23,7 @@ export const AuthSwitchLink = ({textQuestion, textLink, navigateTo}:Props) => {
                 <Text style={{
                     color:globalColors.azureBlue,
                     fontFamily: globalStyles.fontMonserratMedium,
-                    fontSize: 15
+                    fontSize: calcDimension({small: 12, medium:15})
                 }}>
                     {textLink}
                 </Text>

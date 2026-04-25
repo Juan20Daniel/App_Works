@@ -1,5 +1,6 @@
 import { Pressable, StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
+import { calcDimension } from "@/presentation/helpers/calcDimension";
 
 interface Props {
     value:string;
@@ -7,7 +8,6 @@ interface Props {
     customStylesBtn?: StyleProp<ViewStyle>;
     disable?:boolean;
     backgroundColor?: string;
-    fontSize?: number;
     fontColor?: string;
     action:() => void;
 }
@@ -18,7 +18,6 @@ export const BtnBasic = ({
     customStylesBtn,
     disable=false,
     backgroundColor, 
-    fontSize=16,
     fontColor=globalColors.white,
     action
 }:Props) => {
@@ -41,7 +40,7 @@ export const BtnBasic = ({
             >
                 <Text style={{
                     ...styles.textValue, 
-                    fontSize,
+                    fontSize: calcDimension({small: 11, medium:15, large: 16}),
                     color:fontColor
                 }}>
                         {value}
@@ -54,7 +53,7 @@ export const BtnBasic = ({
 const styles = StyleSheet.create({
     container: {
         width: '100%',
-        height: 60,
+        height: calcDimension({small:45, medium:60}),
     },
     btn: {
         width: '100%',

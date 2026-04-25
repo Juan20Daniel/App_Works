@@ -1,5 +1,5 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { TruncatedText } from '@/presentation/components/ui/truncatedText/TruncatedText';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { publicationStyles } from '../styles';
@@ -10,7 +10,6 @@ interface Props {
     companyName: string;
     description: string;
 }
-
 export const Header = ({companyName, description}:Props) => {
     return (
         <View style={styles.container}>
@@ -41,7 +40,7 @@ const styles = StyleSheet.create({
     container: {
         gap: 20,
         paddingBottom: 10,
-        ...publicationStyles.paddingHorizontal,
+        paddingHorizontal: 20,
         ...publicationStyles.rowCenter
     },
     boxImage: {
@@ -53,12 +52,14 @@ const styles = StyleSheet.create({
         height: '100%',
         objectFit: 'cover'
     },
+    //el ancho de la pantalla - el ancho de la imagen - 40 de padding - 100 de padding del padre - 20 de gap
     boxTitle: {
-        width: isTablet ? widthWindow - 200: widthWindow - 180,
+        width: isTablet ? 500 - 180 : widthWindow - 120 - 40 - 20,
+        // backgroundColor: 'red',
         gap: 5
     },
     title: {
-        fontSize: calcResolutionDevice({low: 16, medium: 18, high: 21}),
+        fontSize: calcDimension({small: 16, medium: 18, large: 21}),
         fontFamily: globalStyles.fontMonserratMedium
     }
 });

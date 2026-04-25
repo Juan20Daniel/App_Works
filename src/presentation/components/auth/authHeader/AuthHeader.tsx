@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { BtnClose } from "../../ui";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
 import { globalStyles } from "@/presentation/globalStyles/global.styles";
-import { isTablet } from "@/presentation/helpers/isTablet";
+import { calcDimension } from "@/presentation/helpers/calcDimension";
 
 interface Props {
     navigation: StackNavigationProp<RootStackParamList>;
@@ -36,16 +36,16 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: '100%',
         alignItems: 'center',
-        padding:isTablet ? 30:10
+        padding:calcDimension({small: 10, medium:10, large:30})
     },
     title: {
         fontFamily: globalStyles.fontMonserratSemiBold,
-        fontSize: isTablet?40:35, 
-        width:isTablet?400:300
+        fontSize: calcDimension({small: 25, medium:35, large:40}), 
+        width: calcDimension({small: 200, medium:250, large:300})
     },
     subTitle: {
-        fontSize: 16,
+        fontSize: calcDimension({small: 12, medium:14, large:16}),
         fontFamily: globalStyles.fontMonserratMedium,
-        width:isTablet ? 250 : 230
+        width:calcDimension({small: 180, medium:220, large:270})
     }
 });

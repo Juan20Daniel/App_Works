@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Platform, Text, TextLayoutEvent, View } from 'react-native';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { TextShowMore } from './components/TextShowMore';
 
 interface Props {
@@ -39,10 +39,10 @@ export const TruncatedText = ({
                 onTextLayout={handleText}
                 numberOfLines={numberofLines} 
                 style={{
-                    fontSize: calcResolutionDevice({
-                        low: smallSize, 
+                    fontSize: calcDimension({
+                        small: smallSize, 
                         medium:mediumSize??smallSize, 
-                        high:hideSize??mediumSize??smallSize
+                        large:hideSize??mediumSize??smallSize
                     })
                 }}
             >

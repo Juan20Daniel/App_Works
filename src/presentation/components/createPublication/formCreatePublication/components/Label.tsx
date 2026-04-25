@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Point } from '@/presentation/components/ui';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { InputStatus } from '@/presentation/types/input';
+import { Icon } from '@/presentation/components/ui';
 
 interface Props {
     text: string;
@@ -32,15 +32,9 @@ export const Label = ({
             </Text>
             {showTextRequire &&
                 <>
-                    <Point 
-                        size={3}
-                        color={(statusError !== null && statusError !== 'valid')
-                            ? globalColors.darkRed
-                            : globalColors.gray
-                        }
-                    />
+                    <Icon name="Circle" size={5} />
                     <Text style={{
-                        fontSize:calcResolutionDevice({low:8, medium:11}), 
+                        fontSize:calcDimension({small:8, medium:11}), 
                         color:(statusError !== null && statusError !== 'valid')
                             ? globalColors.darkRed
                             : globalColors.gray
@@ -64,7 +58,7 @@ const styles = StyleSheet.create({
     label: {
         paddingLeft: 20,
         paddingHorizontal: 3,
-        fontSize: calcResolutionDevice({low:12, medium:16}),
+        fontSize: calcDimension({small:12, medium:16}),
         fontFamily: globalStyles.fontMonserratMedium
     }
 });

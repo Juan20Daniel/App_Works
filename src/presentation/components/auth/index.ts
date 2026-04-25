@@ -1,4 +1,3 @@
-export * from "./authSwitchLink/AuthSwitchLink";
-export * from "./inputTextAnimate/InputTextAnimate";
-export * from "./socialAuthButton/SocialAuthButton";
+export * from "./authSwitchLink";
+export * from "./socialAuthButton";
 export * from './authHeader';

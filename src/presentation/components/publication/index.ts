@@ -1,7 +1,7 @@
-export { EmptyListPublications } from "./emptyListPublications/EmptyListPublications";
-export { FilterPublications } from "./filterPublications/FilterPublications";
-export { ModalPublicationOptions } from "./modalPublicationOptions";
-export { ModalPublicationSettings } from "./modalPublicationSettings/ModalOfferSettings";
-export { Publication } from "./publication";
-export { PublicationDetails } from "./publicationDetails/PublicationDetails";
-export { SavedPublicationOptionsModal } from "./savedPublicationOptionsModal/SavedPublcationOptionsModal";
+export * from "./emptyListPublications/EmptyListPublications";
+export * from "./filterPublications/FilterPublications";
+export * from "./modalPublicationOptions";
+export * from "./modalPublicationSettings/ModalOfferSettings";
+export * from "./itemPublication";
+export * from "./publicationDetails/PublicationDetails";
+export * from "./savedPublicationOptionsModal/SavedPublcationOptionsModal";

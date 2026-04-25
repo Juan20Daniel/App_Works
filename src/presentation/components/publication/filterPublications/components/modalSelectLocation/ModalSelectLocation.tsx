@@ -5,7 +5,7 @@ import { ListBtnLocations } from './components/ListBtnLocations';
 import { BtnFooter, HeaderApp } from '@/presentation/components/ui';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     visible: boolean;
@@ -21,7 +21,7 @@ export const ModalSelectLocation = ({visible, closeModal}:Props) => {
                     subText='Ubicaciónes'
                     actionBtnClose={() => closeModal()} 
                 />
-                <Text style={{...styles.textDescriptión, fontSize: calcResolutionDevice({low: 12, medium: 15}), width: isTablet ? 450 : 300}}>
+                <Text style={{...styles.textDescriptión, fontSize: calcDimension({small: 12, medium: 15}), width: isTablet ? 450 : 300}}>
                     Seleccióna las ciudades para ver las ofertas de trabajo disponibles
                 </Text>
                 <ListBtnLocations />

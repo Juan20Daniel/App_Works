@@ -6,12 +6,12 @@ import { isTablet } from '@/presentation/helpers/isTablet';
 import { useCreatePublication } from '@/presentation/context/CreatePublicationContext';
 
 export const UploadImage = () => {
-    const { formState, alertMessage, handleChange, closeAlertMesssage, showAlertMessage } = useCreatePublication();
+    const { formState, alertMessage, setValue, closeAlertMesssage, showAlertMessage } = useCreatePublication();
     const loadImage = async () => {
         try {
             const result = await PictureAdapter.getPictureFromLibrary(200000);
             console.log(result);
-            handleChange('image', result.url??'');
+            setValue('image', result.url??'');
         } catch (error) {
             const errorMessage = (error as Error).message;
             showAlertMessage({title:'Error al cargar la imagen', message:errorMessage});
@@ -28,9 +28,9 @@ export const UploadImage = () => {
                     onPress={() => loadImage()}
                     style={({pressed}) => [{flex:1, opacity: pressed ? 0.5 : 1}]}
                 >
-                    {(formState.values.image.value !== '')
+                    {(formState.image?.value !== '')
                         ?   <Image
-                                source={{uri:formState.values.image.value}}
+                                source={{uri:formState.image?.value}}
                                 style={styles.imgOffer}
                             />
                         :   <Placeholder />

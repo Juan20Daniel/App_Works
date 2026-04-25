@@ -2,7 +2,7 @@ import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { TitleApp } from '../titleApp/TitleApp';
 import { BtnClose } from '../btnClose/BtnClose';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { Icon } from '../icon/Icon';
 
 interface Props {
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
        
     },
     subText: {
-        fontSize: calcResolutionDevice({low:12, medium: 14, high: 16}), 
+        fontSize: calcDimension({small:12, medium: 14, large: 16}), 
         color:globalColors.darkGray
     }
 });

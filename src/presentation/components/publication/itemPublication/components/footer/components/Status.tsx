@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { calcResolutionDevice } from '@/presentation/helpers/calcResolutionDevice';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { Icon } from '@/presentation/components/ui/icon/Icon';
 
 
@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
     },
     value: {
         color: globalColors.gray, 
-        fontSize: calcResolutionDevice({low: 10, medium: 12})
+        fontSize: calcDimension({small: 10, medium: 12})
     }
 });

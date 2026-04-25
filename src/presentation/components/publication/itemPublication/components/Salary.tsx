@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { globalColors } from "@/presentation/globalStyles/global.styles";
-import { calcResolutionDevice } from "@/presentation/helpers/calcResolutionDevice";
+import { calcDimension } from "@/presentation/helpers/calcDimension";
 import { publicationStyles } from "../styles";
 
 export const Salary = () => {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        fontSize: calcResolutionDevice({low: 10, medium: 12})
+        fontSize: calcDimension({small: 10, medium: 12})
     },
     boxSalary: {
         backgroundColor: globalColors.black,
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
     },
     salary: {
         color: globalColors.white,
-        fontSize: calcResolutionDevice({low: 12, medium: 15}),
+        fontSize: calcDimension({small: 12, medium: 15}),
     }
 })

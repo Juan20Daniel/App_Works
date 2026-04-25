@@ -1,9 +1,0 @@
-export { Container } from "./Container";
-export { UserInfo } from "./UserInfo";
-export { PublicationSkeletor } from "./PublicationSkeletor";
-export { Header } from "./Header";
-export { Title } from "./Title";
-export { Description } from "./Description";
-export { Salary } from "./Salary";
-export { RequirmentsList } from "./requirements";
-export { Footer } from "./footer";
