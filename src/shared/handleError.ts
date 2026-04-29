@@ -24,7 +24,8 @@ export class AppError extends Error {
 
 export const handleError = (error:any) => {
     if(error.response) {
-        const errorData = error.response;
+        const errorData = error.response.data;
+       
         const { errorCode, message } = errorData;
         return new AppError(errorCode, message, true, error);
     } else if(error.request) {

@@ -3,16 +3,13 @@ import { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext,
 import { formReducer } from "../reducers/simpleForm/formReducer";
 import { FormField, FormState } from "../types/form";
 import { ItemList } from "../types/input-list-manager";
-import { AlertState } from "../types/alerts";
+import { AlertState } from "../types/alertMessage";
 import { useForm } from "../hooks";
 
 interface InitialState {
     formState: FormState;
     publishPublication: boolean;
-    alertMessage: AlertState;
     setPublishPublication: Dispatch<SetStateAction<boolean>>;
-    closeAlertMesssage: () => void;
-    showAlertMessage: ({title, message}:{title:string, message:string}) => void;
     setFocus: (field:FormField,) => void;
     setValue: (field:FormField, value:string) => void; 
     clearInput: (field:FormField) => void;
@@ -41,15 +38,7 @@ export const CreatePublicationContext = createContext<InitialState|null>(null);
 export const CreatePublicationProvider = ({children}:PropsWithChildren) => {
     const { formState, setFocus, setValue, clearInput, removeFocus } = useForm(formInitialState, {});
     const [ publishPublication, setPublishPublication ] = useState(false);
-    const [ alertMessage, setAlertMessage ] = useState<AlertState>({visible:false, title:'', message:''});
-    
-    const showAlertMessage = ({title, message}:{title:string, message:string}) => {
-        setAlertMessage({visible:true, title, message});
-    }
-    const closeAlertMesssage = () => {
-        setAlertMessage({visible:false, title:'', message:''});
-    }
-    
+
     const createPublication = () => {
         console.log(formState);
        
@@ -60,10 +49,7 @@ export const CreatePublicationProvider = ({children}:PropsWithChildren) => {
             value={{
                 formState,
                 publishPublication,
-                alertMessage,
                 setPublishPublication,
-                closeAlertMesssage,
-                showAlertMessage,
                 setFocus,
                 setValue,
                 clearInput,

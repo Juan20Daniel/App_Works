@@ -8,7 +8,7 @@ import { RootStackParamList } from '../../navigators/StackNavigator';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { FormCreatePublication, PublishOnCompletionToggle } from '@/presentation/components/createPublication';
 import { BtnBasic, ConfirmationAlert, HeaderApp } from '@/presentation/components/ui';
-import type { AlertState } from '@/presentation/types/alerts';
+import type { AlertState } from '@/presentation/types/alertMessage';
 import { AlertMessage } from '@/presentation/components/ui/alerts/alertMessage/AlertMessage';
 
 interface Props extends StackScreenProps<RootStackParamList, 'CreatePublication'>{}

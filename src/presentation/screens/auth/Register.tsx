@@ -7,8 +7,14 @@ import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { useForm } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { FormErrorMessage, FormState } from '@/presentation/types/form';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { registerUser } from '@/domain/useCase';
+import { AuthRepositoryImpl } from '@/data/repositories';
+import { RegisterUser } from '@/domain/types';
+import { handleError } from '@/shared';
+import type { FormErrorMessage, FormState } from '@/presentation/types/form';
+
+const authResponseImpl = new AuthRepositoryImpl();
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
@@ -88,8 +94,7 @@ export const Register = ({navigation}:Props) => {
         setValue, 
         clearInput, 
         removeFocus, 
-        isFormValid, 
-        setError 
+        isFormValid,
     } = useForm(formInitialState, formErrorMessage);
 
     useEffect(() => {
@@ -107,8 +112,19 @@ export const Register = ({navigation}:Props) => {
 
     const register = async () => {
         if(!isFormValid()) return;
-
-        console.log(formState)
+        const data:RegisterUser = {
+            firstname: formState.firstname?.value!,
+            lastname: formState.lastname?.value!,
+            phone: formState.phone?.value!,
+            email: formState.email?.value!,
+            password: formState.password?.value!
+        }
+        try {
+            await registerUser(authResponseImpl, data);
+        } catch (error) {
+            const {errorCode, message} = handleError(error);
+            console.log(errorCode, message);
+        }
     }
    
     return (

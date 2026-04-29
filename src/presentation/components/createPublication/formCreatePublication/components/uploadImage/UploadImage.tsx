@@ -1,12 +1,11 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { PictureAdapter } from '@/config/adapters/picture-adapter';
-import { AlertMessage } from '@/presentation/components/ui/alerts/alertMessage/AlertMessage';
 import { Placeholder } from './components/Placeholder';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { useCreatePublication } from '@/presentation/context/CreatePublicationContext';
 
 export const UploadImage = () => {
-    const { formState, alertMessage, setValue, closeAlertMesssage, showAlertMessage } = useCreatePublication();
+    const { formState, setValue } = useCreatePublication();
     const loadImage = async () => {
         try {
             const result = await PictureAdapter.getPictureFromLibrary(200000);

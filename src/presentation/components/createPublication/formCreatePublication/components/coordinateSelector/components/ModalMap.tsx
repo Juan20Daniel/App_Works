@@ -7,7 +7,7 @@ import { BtnClose } from '@/presentation/components/ui/btnClose/BtnClose';
 import { GoogleMap } from '@/presentation/components/googleMap/GoogleMap';
 import { BtnFloat } from '@/presentation/components/ui/btnFloat/BtnFloat';
 import { ModalSearchCoords } from './modalSearchCoords/ModalSearchCoords';
-import type { AlertState } from '@/presentation/types/alerts';
+import type { AlertState } from '@/presentation/types/alertMessage';
 
 interface Props {
   visible: boolean;
