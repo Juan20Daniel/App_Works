@@ -13,6 +13,14 @@ export const useForm = (initialState:FormState, errorMessages:FormErrorMessage) 
         dispatch({type:'SET_FOCUS', field});
     }
 
+    const setError = (field:FormField, errorMessage:string) => {
+        dispatch({
+            type:'SET_ERROR',
+            field:field,
+            errorMessage:errorMessage
+        })
+    }
+
     const removeFocus = () => {
         dispatch({type:'REMOVE_FOCUS'});
     }
@@ -25,22 +33,23 @@ export const useForm = (initialState:FormState, errorMessages:FormErrorMessage) 
         dispatch({type:'CLEAR_INPUTS'});
     }
 
-    const validateForm = () => {
-        dispatch({type:'VALIDATE_FORM'});
-    }
-
+    
     const isFormValid = () => {
+        dispatch({type:'VALIDATE_FORM', errorMessages:errorMessages});
 
+        return Object.values(formState)
+            .map(camp => camp.isValid)
+            .every(isValid => isValid)
     }
 
     return {
         formState,
         setValue,
         setFocus,
+        setError,
         removeFocus,
         clearInput,
         clearInputs,
-        validateForm,
         isFormValid
     }
 }

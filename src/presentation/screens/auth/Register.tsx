@@ -7,12 +7,35 @@ import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { useForm } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import type { FormState } from '@/presentation/types/form';
+import type { FormErrorMessage, FormState } from '@/presentation/types/form';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
-export const formInitialState:FormState = {
+const formErrorMessage:FormErrorMessage = {
+    'firstname': {
+        empty:'El nombre es requerido',
+        invalid:'El nombre no es válido'
+    },
+    'lastname': {
+        empty:'El apellido es requerido',
+        invalid:'El apellido no es válido'
+    },
+    'phone': {
+        empty: 'El teléfono es requerido',
+        invalid: 'El teléfono no es válido'
+    },
+    'email': {
+        empty: 'El corre es requerido',
+        invalid: 'El correo no es válido'
+    },
+    'password': {
+        empty: 'La contraseña es requerida',
+        invalid: 'La contraseña requiere mínimo 8 caracteres'
+    }
+}
+
+const formInitialState:FormState = {
     'firstname': {
         name: 'firstname', 
         value: '', 
@@ -58,8 +81,16 @@ export const formInitialState:FormState = {
 export const Register = ({navigation}:Props) => {
     const [ keyboardVisible, setKeyboarVisible ] = useState(false);
     const [ showPass, setShowPass ] = useState(false);
-    const { formState, setFocus, setValue, clearInput, removeFocus } = useForm(formInitialState, {});
     const { top, bottom } = useSafeAreaInsets();
+    const { 
+        formState, 
+        setFocus, 
+        setValue, 
+        clearInput, 
+        removeFocus, 
+        isFormValid, 
+        setError 
+    } = useForm(formInitialState, formErrorMessage);
 
     useEffect(() => {
         const showSubsciption = Keyboard.addListener("keyboardDidShow", () => {
@@ -73,6 +104,12 @@ export const Register = ({navigation}:Props) => {
             hideSubscription.remove();
         }; 
     },[]);
+
+    const register = async () => {
+        if(!isFormValid()) return;
+
+        console.log(formState)
+    }
    
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
@@ -155,7 +192,7 @@ export const Register = ({navigation}:Props) => {
                                 />
                                 <BtnBasic
                                     value='CREAR CUENTA'
-                                    action={() => {}}
+                                    action={register}
                                 />
                                 <AuthSwitchLink 
                                     textQuestion='¿Ya tienes una cuenta?'

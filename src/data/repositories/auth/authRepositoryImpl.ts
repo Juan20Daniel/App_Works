@@ -2,26 +2,15 @@ import { axiosInstance } from "@/data/services/http/axios";
 import { AuthEntity } from "@/domain/entities";
 import { AuthRepository } from "@/domain/repositories";
 import { AuthMapper, AuthAPIResponse } from "@/data/models/auth";
+import { RegisterUser } from "@/domain/types";
 
 export class AuthRepositoryImpl implements AuthRepository {
-    async register(fistname: string, lastname: string, phone: string, email: string, password: string): Promise<AuthEntity> {
+    async register(data:RegisterUser): Promise<AuthEntity> {
         try {
-            console.log({
-                fistname,
-                lastname,
-                phone,
-                email,
-                password
-            });
-            const {data} = await axiosInstance.post<AuthAPIResponse>('/auth/register',{
-                fistname,
-                lastname,
-                phone,
-                email,
-                password
-            });
             console.log(data);
-            return AuthMapper.fromAuthApiToAuthEntity(data);
+            const response = await axiosInstance.post<AuthAPIResponse>('/auth/register',data);
+            console.log(response.data);
+            return AuthMapper.fromAuthApiToAuthEntity(response.data);
         } catch (error) {
             throw error;
         }
