@@ -1,5 +1,5 @@
 export * from './input';
-export * from "./alerts/confirmationAlert/ConfirmationAlert";
+export * from "./alerts";
 export * from "./btnBasic/BtnBasic";
 export * from "./btnClose/BtnClose";
 export * from "./btnFooter/BtnFooter";

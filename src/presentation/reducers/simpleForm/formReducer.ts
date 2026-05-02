@@ -32,8 +32,7 @@ export const formReducer = (state:FormState, action:FormTypes) => {
                 ...state,
                 [action.field]: {
                     ...state[action.field],
-                    isValid:false,
-                    status:'invalid',
+                    status: 'invalid',
                     errorMessage:action.errorMessage
                 }
             }

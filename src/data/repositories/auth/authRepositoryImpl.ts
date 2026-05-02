@@ -1,7 +1,8 @@
-import { axiosInstance } from "@/data/services/http/axios";
+import { axiosInstance } from "@/data/network";
 import { AuthEntity } from "@/domain/entities";
 import { AuthRepository } from "@/domain/repositories";
-import { AuthMapper, AuthAPIResponse } from "@/data/models/auth";
+import { AuthAPIResponse } from "@/data/models";
+import { AuthMapper} from "@/data/mappers";
 import { RegisterUser } from "@/domain/types";
 
 export class AuthRepositoryImpl implements AuthRepository {

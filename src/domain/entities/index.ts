@@ -1,2 +1,2 @@
-export * from './userEntity';
+export * from './user';
 export * from './auth';

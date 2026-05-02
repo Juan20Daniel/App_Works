@@ -3,9 +3,11 @@ import { PictureAdapter } from '@/config/adapters/picture-adapter';
 import { Placeholder } from './components/Placeholder';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { useCreatePublication } from '@/presentation/context/CreatePublicationContext';
+import { useAlertMessageStore } from '@/presentation/store';
 
 export const UploadImage = () => {
     const { formState, setValue } = useCreatePublication();
+    const openAlertModal = useAlertMessageStore(state => state.openAlertMessage);
     const loadImage = async () => {
         try {
             const result = await PictureAdapter.getPictureFromLibrary(200000);
@@ -13,7 +15,7 @@ export const UploadImage = () => {
             setValue('image', result.url??'');
         } catch (error) {
             const errorMessage = (error as Error).message;
-            showAlertMessage({title:'Error al cargar la imagen', message:errorMessage});
+            openAlertModal('error', 'Error al cargar la imagen', errorMessage);
         }
     }
     return (
@@ -36,10 +38,6 @@ export const UploadImage = () => {
                     }
                 </Pressable>
             </View>
-            <AlertMessage
-                alertState={alertMessage}
-                closeAlert={closeAlertMesssage}
-            />
        </>
     );
 }

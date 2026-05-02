@@ -1,5 +1,5 @@
 import { AuthEntity } from "@/domain/entities";
-import { AuthAPIResponse } from "./authTypes";
+import { AuthAPIResponse } from "../../models";
 
 export class AuthMapper {
     static fromAuthApiToAuthEntity(authApi:AuthAPIResponse):AuthEntity {

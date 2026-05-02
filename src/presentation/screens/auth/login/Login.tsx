@@ -1,60 +1,25 @@
-import { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../navigators/StackNavigator';
+import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
 import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
-import { useForm } from '@/presentation/hooks';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import type { FormErrorMessage, FormState } from '@/presentation/types/form';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { login } from './login';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
-const formErrorMessage:FormErrorMessage = {
-    'email': {
-        empty:'El correo es obligatorio',
-        invalid:'El correo no es válido'
-    },
-    'password': {
-        empty:'La contraseña es obligatoria',
-        invalid:'La contraseña no es válida'
-    }
-}
-
-const formInitialState:FormState = { 
-    email: { 
-        name:'email',
-        value:'', 
-        isFocus:false, 
-        isValid: null, 
-        status: null, 
-        isRequired: true 
-    },
-    password: { 
-        name:'password', 
-        value: '', 
-        isFocus:false, 
-        isValid: null, 
-        status: null, 
-        isRequired: true 
-    }
-}
-
 export const Login = ({navigation}:Props) => {
-    const [ showPass, setShowPass ] = useState(false);
     const {
-        formState, 
-        setValue, 
-        setFocus, 
-        removeFocus, 
-        clearInput, 
-        validateForm 
-    } = useForm(formInitialState, formErrorMessage);
-    
-    const submitForm = () => {
-        validateForm();
-    }
+        formState,
+        showPass,
+        setValue,
+        setFocus,
+        removeFocus,
+        clearInput,
+        setShowPass,
+        submitForm
+    } = login();
 
     return (
         <TouchableWithoutFeedback onPress={() => {

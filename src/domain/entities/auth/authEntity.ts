@@ -1,4 +1,4 @@
-import { UserEntity } from "../userEntity";
+import { UserEntity } from "../user";
 
 export interface AuthEntity {
     token: string;

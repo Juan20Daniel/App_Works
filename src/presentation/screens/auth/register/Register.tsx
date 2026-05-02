@@ -1,131 +1,27 @@
-import { useEffect, useState } from 'react';
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../../navigators/StackNavigator';
+import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
 import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { useForm } from '@/presentation/hooks';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
-import { registerUser } from '@/domain/useCase';
-import { AuthRepositoryImpl } from '@/data/repositories';
-import { RegisterUser } from '@/domain/types';
-import { handleError } from '@/shared';
-import type { FormErrorMessage, FormState } from '@/presentation/types/form';
-
-const authResponseImpl = new AuthRepositoryImpl();
+import { register } from './register';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
-const formErrorMessage:FormErrorMessage = {
-    'firstname': {
-        empty:'El nombre es requerido',
-        invalid:'El nombre no es válido'
-    },
-    'lastname': {
-        empty:'El apellido es requerido',
-        invalid:'El apellido no es válido'
-    },
-    'phone': {
-        empty: 'El teléfono es requerido',
-        invalid: 'El teléfono no es válido'
-    },
-    'email': {
-        empty: 'El corre es requerido',
-        invalid: 'El correo no es válido'
-    },
-    'password': {
-        empty: 'La contraseña es requerida',
-        invalid: 'La contraseña requiere mínimo 8 caracteres'
-    }
-}
-
-const formInitialState:FormState = {
-    'firstname': {
-        name: 'firstname', 
-        value: '', 
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false 
-    },
-    'lastname': {
-        name: 'lastname', 
-        value: '',
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false
-    },
-    'phone': {
-        name: 'phone', 
-        value: '',
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false
-    },
-    'email': {
-        name: 'email', 
-        value: '',
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false
-    },
-    'password': {
-        name: 'password', 
-        value: '',
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false
-    }
-}
-
 export const Register = ({navigation}:Props) => {
-    const [ keyboardVisible, setKeyboarVisible ] = useState(false);
-    const [ showPass, setShowPass ] = useState(false);
-    const { top, bottom } = useSafeAreaInsets();
-    const { 
+    const {
+        top,
+        bottom,
+        showPass,
         formState, 
+        keyboardVisible,
+        setShowPass,
         setFocus, 
-        setValue, 
+        setValue,
         clearInput, 
-        removeFocus, 
-        isFormValid,
-    } = useForm(formInitialState, formErrorMessage);
-
-    useEffect(() => {
-        const showSubsciption = Keyboard.addListener("keyboardDidShow", () => {
-            setKeyboarVisible(true);
-        })
-        const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
-            setKeyboarVisible(false);
-        });
-        return () => {
-            showSubsciption.remove();
-            hideSubscription.remove();
-        }; 
-    },[]);
-
-    const register = async () => {
-        if(!isFormValid()) return;
-        const data:RegisterUser = {
-            firstname: formState.firstname?.value!,
-            lastname: formState.lastname?.value!,
-            phone: formState.phone?.value!,
-            email: formState.email?.value!,
-            password: formState.password?.value!
-        }
-        try {
-            await registerUser(authResponseImpl, data);
-        } catch (error) {
-            const {errorCode, message} = handleError(error);
-            console.log(errorCode, message);
-        }
-    }
+        removeFocus,
+    } = register();
    
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>

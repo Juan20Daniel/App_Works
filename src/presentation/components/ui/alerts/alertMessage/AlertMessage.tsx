@@ -2,20 +2,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { BoxAlert } from '../boxAlert/BoxAlert';
 import { BtnAlert } from '../btnAlert/BtnAlert';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
+import { useAlertMessageStore } from '@/presentation/store';
 
-interface AlertState {
-    visible: boolean;
-    title: string;
-    message: string;
-}
-
-interface Props {
-    alertState: AlertState;
-    closeAlert: () => void;
-}
-
-export const AlertMessage = ({alertState, closeAlert}:Props) => {
-    const { visible, title, message } = alertState;
+export const AlertMessage = () => {
+    const { visible, title, message, closeAlertMessage } = useAlertMessageStore();
     return (
         <BoxAlert visible={visible}>
             <View style={styles.boxInfo}>
@@ -25,7 +15,7 @@ export const AlertMessage = ({alertState, closeAlert}:Props) => {
             <View style={styles.boxBtn}>
                 <BtnAlert 
                     value='Ok'
-                    action={() => closeAlert()}
+                    action={closeAlertMessage}
                 />  
             </View>    
        </BoxAlert>

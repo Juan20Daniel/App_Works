@@ -2,6 +2,7 @@ import { StatusBar, StyleSheet } from "react-native";
 import StackNavigator from "./presentation/navigators/StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { AlertMessage } from "./presentation/components/ui";
 const App = () => {
     return (
         <>
@@ -10,6 +11,7 @@ const App = () => {
                 <NavigationContainer>
                     <StackNavigator />
                 </NavigationContainer>
+                <AlertMessage />
             </GestureHandlerRootView>
         </>
     );
