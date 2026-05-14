@@ -1,10 +1,10 @@
-import { AuthEntity } from "@/domain/entities";
+import { AuthEntity, UserEntity } from "@/domain/entities";
 import { AuthAPIResponse } from "../../models";
 
 export class AuthMapper {
-    static fromAuthApiToAuthEntity(authApi:AuthAPIResponse):AuthEntity {
+    static fromAuthApiToAuthEntity(authApi:AuthAPIResponse):{user:UserEntity, auth:AuthEntity} {
         return {
-            token:authApi.token,
+            auth:{token:authApi.token},
             user: {
                 id:authApi.user._id,
                 fisrtname:authApi.user.firstname,

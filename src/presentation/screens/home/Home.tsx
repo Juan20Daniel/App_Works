@@ -12,7 +12,6 @@ const source2:ImageSourcePropType = require('../../../assets/publications/imgOff
 const source3:ImageSourcePropType = require('../../../assets/publications/imgOffer3.jpg');
 
 export const Home = () => {
-    
     return (
         <Container marginTop={0}>
             <Navbar />

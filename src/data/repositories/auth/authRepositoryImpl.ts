@@ -1,34 +1,32 @@
-import { axiosInstance } from "@/data/network";
-import { AuthEntity } from "@/domain/entities";
+import { AuthEntity, UserEntity } from "@/domain/entities";
 import { AuthRepository } from "@/domain/repositories";
-import { AuthAPIResponse } from "@/data/models";
 import { AuthMapper} from "@/data/mappers";
 import { RegisterUser } from "@/domain/types";
+import { AuthLocalService, AuthService } from "@/data/datasource";
 
 export class AuthRepositoryImpl implements AuthRepository {
-    async register(data:RegisterUser): Promise<AuthEntity> {
+    constructor(
+        private authService:AuthService,
+        private authLocalService:AuthLocalService
+    ) {}
+
+    async registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
-            const response = await axiosInstance.post<AuthAPIResponse>('/auth/register',data);
+            const response = await this.authService.signInWithEmail(data);
             
-            return AuthMapper.fromAuthApiToAuthEntity(response.data);
+            const result = AuthMapper.fromAuthApiToAuthEntity(response);
+
+            await this.authLocalService.saveAuth(result.auth);
+
+            return result;
         } catch (error) {
             throw error;
         }
     }
 
-    async login(email: string, password: string): Promise<AuthEntity> {
+    async getAuth(): Promise<AuthEntity | null> {
         try {
-            return {
-                token:'',
-                user: {
-                    id:'',
-                    fisrtname:'',
-                    lastname:'',
-                    phone:'',
-                    email:'',
-                    role:''
-                }
-            }
+            return await this.authLocalService.getAuth();
         } catch (error) {
             throw error;
         }

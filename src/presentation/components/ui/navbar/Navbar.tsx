@@ -4,9 +4,24 @@ import { globalColors, globalStyles } from '@/presentation/globalStyles/global.s
 import { NavLink } from './NavLink';
 import { TitleApp } from '../titleApp/TitleApp';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { useAuthStore } from '@/presentation/store';
 
 export const Navbar = () => {
     const {top} = useSafeAreaInsets();
+    const autenticate = useAuthStore(state => state.autenticate);
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    
+    const goToProfile = async () => {
+        const isAutenticated = await autenticate();
+        if(!isAutenticated) {
+            return navigation.navigate('Login', {animationType:'fade'});
+        };
+
+        navigation.navigate('Profile');
+    }
     return (
         <View style={{...styles.container, paddingTop:top, height: 60+top,}}>
             <TitleApp />
@@ -14,16 +29,16 @@ export const Navbar = () => {
                 <NavLink
                     iconName="Search"
                     iconSize={calcDimension({small:30, medium:30, large:35})}
-                    redirect='Search'
+                    onPress={() => navigation.navigate('Search')}
                 />
                 <NavLink
                     iconName="Notification" 
-                    redirect='Notifications' 
+                    onPress={() => navigation.navigate('Notifications')}
                 />
                 <NavLink
                     iconName="AccountCircle" 
                     iconSize={30}
-                    redirect='Profile' 
+                    onPress={goToProfile}
                 />
             </View>
         </View>

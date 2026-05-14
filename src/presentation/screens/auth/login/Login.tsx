@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
@@ -5,21 +6,27 @@ import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/com
 import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
-import { login } from './login';
+import { useLogin } from './hooks';
+import { formInitialState } from './formInitialState';
+import { formErrorMessage } from './formErrorMessages';
+import { useForm } from '@/presentation/hooks';
+import { useCheckSession } from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
 export const Login = ({navigation}:Props) => {
+    const [ showPass, setShowPass ] = useState(false);
+    useCheckSession();
     const {
         formState,
-        showPass,
         setValue,
         setFocus,
         removeFocus,
         clearInput,
-        setShowPass,
-        submitForm
-    } = login();
+        isFormValid
+    } = useForm(formInitialState, formErrorMessage);
+    
+    const { login } = useLogin(isFormValid);
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -72,7 +79,7 @@ export const Login = ({navigation}:Props) => {
                         />
                         <BtnBasic
                             value='INICIAR SESIÓN'
-                            action={() => submitForm()}
+                            action={login}
                         />
                         <AuthSwitchLink
                             textQuestion='¿Aún no tienes una cuenta?'
@@ -82,13 +89,13 @@ export const Login = ({navigation}:Props) => {
                         <View style={{width:'100%', height: calcDimension({small:20, medium:40, large:50})}} />
                         <SocialAuthButton
                             value='Iniciar con google'
-                            image={require('../../../assets/auth/imgGoogle.png')}
+                            image={require('../../../../assets/auth/imgGoogle.png')}
                             action={() => {}}
                         />
                         <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
                         <SocialAuthButton 
                             value='Iniciar con facebook'
-                            image={require('../../../assets/auth/ImgFacebook.png')}
+                            image={require('../../../../assets/auth/ImgFacebook.png')}
                             action={() => {}}
                         />
                     </View>

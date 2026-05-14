@@ -1,15 +1,16 @@
 import { createStackNavigator, StackAnimationName } from '@react-navigation/stack';
 import { 
-    Home, 
-    Search, 
+    Home,
+    Search,
     Profile,
-    Login, 
-    Register, 
-    Publication, 
-    Notifications, 
-    CreatePublication, 
-    SearchResults 
+    Login,
+    Register,
+    Publication,
+    Notifications,
+    CreatePublication,
+    SearchResults,
 } from '../screens';
+
 import { ModalPublicationOptions } from '../components/publication';
 
 export type RootStackParamList = {
@@ -47,14 +48,14 @@ const StackNavigator = () => {
                 <Stack.Screen name='Notifications' component={Notifications} />
                 <Stack.Screen 
                     name='Login' 
-                    component={Login} 
+                    component={Login}
                     options={({route}) => ({
                         animation:route.params.animationType??'fade'
                     })}
                 />
-                <Stack.Screen 
-                    name='Register' 
-                    component={Register} 
+                <Stack.Screen
+                    name='Register'
+                    component={Register}
                     options={({route}) => ({
                         animation:route.params.animationType??'fade'
                     })}

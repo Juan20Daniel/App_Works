@@ -7,8 +7,7 @@ import { CreatePublicationProvider, useCreatePublication } from '@/presentation/
 import { RootStackParamList } from '../../navigators/StackNavigator';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { FormCreatePublication, PublishOnCompletionToggle } from '@/presentation/components/createPublication';
-import { BtnBasic, ConfirmationAlert, HeaderApp } from '@/presentation/components/ui';
-import type { AlertState } from '@/presentation/types/alertMessage';
+import { BtnBasic, HeaderApp } from '@/presentation/components/ui';
 import { AlertMessage } from '@/presentation/components/ui/alerts/alertMessage/AlertMessage';
 
 interface Props extends StackScreenProps<RootStackParamList, 'CreatePublication'>{}
@@ -23,8 +22,8 @@ export const CreatePublication = (props:Props) => {
 
 export const ScreenContent = ({navigation}:Props) => {
     const [ keyboarIsShow, setKeyboardIsShow ] = useState(false);
-    const [ confirmAlert, setConfirmAlert ] = useState<AlertState>({visible:false, title:'', message:''});
-    const { formState, alertMessage, closeAlertMesssage } = useCreatePublication();
+   
+    const { formState } = useCreatePublication();
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
     useEffect(() => {
@@ -40,7 +39,7 @@ export const ScreenContent = ({navigation}:Props) => {
         }
     },[]);
     const closeAlertConfirm = () => {
-        setConfirmAlert({visible:false, title:'', message:''});
+        // setConfirmAlert({visible:false, title:'', message:''});
     }
     const confirmedAction = () => {
         closeAlertConfirm();
@@ -104,17 +103,6 @@ export const ScreenContent = ({navigation}:Props) => {
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>
-            <ConfirmationAlert
-                alertState={confirmAlert}
-                textBtnConfirm='Si'
-                textBtnCancel='No'
-                cancelAction={closeAlertConfirm}
-                confirmAction={confirmedAction}
-            />
-            <AlertMessage 
-                alertState={alertMessage}
-                closeAlert={closeAlertMesssage}
-            />
         </View>
     );
 }

@@ -3,19 +3,15 @@ module.exports = {
   plugins: [
     ['module:react-native-dotenv'],
     [
-      "module-resolver",
+      'module-resolver',
       {
-        root: ["./src"],
-        extensions: [".ios.js", ".android.js", ".js", ".ts", ".tsx", ".json"],
+        root: ['./'], // 👈 importante
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         alias: {
-          "@": "./src",
-          presentation: "./src/presentation",
-          infrestructure: "./src/infrestructure",
-          assets: "./src/assets",
-          regex: "./src/regex"
+          '@': './src'
         },
       },
     ],
     'react-native-worklets/plugin',
-  ]
+  ],
 };

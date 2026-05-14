@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
@@ -5,24 +6,36 @@ import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/com
 import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
-import { register } from './register';
+import { useRegister } from './hooks';
+import { formInitialState } from './formInitialState';
+import { formErrorMessage } from './formErrorMessages';
+import { useForm, useKeyboard } from '@/presentation/hooks';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useCheckSession } from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
 export const Register = ({navigation}:Props) => {
+    const [ showPass, setShowPass ] = useState(false);
+    useCheckSession();
+    const { top, bottom } = useSafeAreaInsets();
     const {
-        top,
-        bottom,
-        showPass,
-        formState, 
-        keyboardVisible,
-        setShowPass,
-        setFocus, 
+        formState,
+        setFocus,
         setValue,
-        clearInput, 
+        setError,
+        clearInput,
         removeFocus,
-    } = register();
-   
+        isFormValid,
+    } = useForm(formInitialState, formErrorMessage);
+    const { isLoading:isRegisteringWithEmail, register } = useRegister(
+        formState,
+        navigation,
+        isFormValid,
+        setError
+    );
+    const { keyboardVisible } = useKeyboard();
+
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
             <ScrollView keyboardShouldPersistTaps='always' showsVerticalScrollIndicator={false}>
@@ -103,7 +116,11 @@ export const Register = ({navigation}:Props) => {
                                     togglePasswordVisibility={() => setShowPass(!showPass)}
                                 />
                                 <BtnBasic
-                                    value='CREAR CUENTA'
+                                    disable={isRegisteringWithEmail}
+                                    value={!isRegisteringWithEmail 
+                                        ? 'CREAR CUENTA'
+                                        : 'CREANDO...'
+                                    }
                                     action={register}
                                 />
                                 <AuthSwitchLink 
@@ -114,13 +131,13 @@ export const Register = ({navigation}:Props) => {
                                 <View style={{width:'100%', height: 40}} />
                                 <SocialAuthButton
                                     value='Crear con google'
-                                    image={require('../../../assets/auth/imgGoogle.png')}
+                                    image={require('../../../../assets/auth/imgGoogle.png')}
                                     action={() => {}}
                                 />
                                 <View style={{width:'100%', height: 30}} />
                                 <SocialAuthButton 
                                     value='Crear con facebook'
-                                    image={require('../../../assets/auth/ImgFacebook.png')}
+                                    image={require('../../../../assets/auth/ImgFacebook.png')}
                                     action={() => {}}
                                 />
                                 {keyboardVisible &&

@@ -16,11 +16,10 @@ const validateData = (data:RegisterUser) => {
     return result.filter(v => v !== null);
 }
 
-export const registerUser = async (repository:AuthRepository, data:RegisterUser) => {
+export const registerUserUseCase = async (repository:AuthRepository, data:RegisterUser) => {
     const validationResult = validateData(data);
     if(validationResult.length > 0) {
         throw new AppError('VALIDATION', 'Error de validación en alguno de los campios', true);
     }
-   
-    return repository.register(data);
+    return repository.registerWithEmail(data);
 }
