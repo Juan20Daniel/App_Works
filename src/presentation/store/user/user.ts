@@ -15,6 +15,7 @@ export const useUserStore = create<State>()((set, get) => ({
     },
     getUser: () => {
         const user = get().user;
+        
         return user;
     },
     removeUser:() => {

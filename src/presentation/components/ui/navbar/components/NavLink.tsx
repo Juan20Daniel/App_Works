@@ -1,5 +1,5 @@
 import { Pressable } from 'react-native';
-import { Icon } from '../icon/Icon';
+import { Icon } from '../../icon/Icon';
 import { IconType } from '@/presentation/types/icons';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 

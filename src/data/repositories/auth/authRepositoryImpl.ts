@@ -15,7 +15,7 @@ export class AuthRepositoryImpl implements AuthRepository {
             const response = await this.authService.signInWithEmail(data);
             
             const result = AuthMapper.fromAuthApiToAuthEntity(response);
-
+            console.log(result);
             await this.authLocalService.saveAuth(result.auth);
 
             return result;
@@ -30,5 +30,9 @@ export class AuthRepositoryImpl implements AuthRepository {
         } catch (error) {
             throw error;
         }
+    }
+
+    async signOut(): Promise<void> {
+        await this.authLocalService.removeAuth();
     }
 }

@@ -1,1 +1,1 @@
-export { BtnCloseSession } from "./BtnCloseSession";
+export * from "./BtnCloseSession";

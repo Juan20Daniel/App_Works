@@ -8,5 +8,5 @@ export * from "./container/Container";
 export * from "./headerApp/HeaderApp";
 export * from "./horizontalPagination/HorizontalPagination";
 export * from "./icon";
-export * from "./navbar/Navbar";
+export * from "./navbar";
 export * from "./switch/Switch";

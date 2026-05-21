@@ -1,21 +1,21 @@
-import { AsyncStorageAdapter } from "@/data/storage";
+import { SecureStorageAdapter } from "@/data/storage";
 import { AuthEntity } from "@/domain/entities";
 import { STORAGE_KEYS } from "@/shared/constants";
 
 export class AuthLocalService {
-    constructor(private storage:AsyncStorageAdapter) {}
+    constructor(private storage:SecureStorageAdapter) {}
     
     async saveAuth(auth:AuthEntity) {
-        await this.storage.save(STORAGE_KEYS.AUTH, JSON.stringify(auth));
+        await this.storage.save(STORAGE_KEYS.AUTH, auth);
     }
 
     async getAuth():Promise<AuthEntity | null> {
-        const auth = await this.storage.get<string>(STORAGE_KEYS.AUTH);
+        const auth = await this.storage.get<AuthEntity>(STORAGE_KEYS.AUTH);
         if(!auth) {
             return null;
         }
-
-        return JSON.parse(auth);
+        
+        return auth
     }
 
     async removeAuth() {

@@ -3,9 +3,10 @@ import StackNavigator from "./presentation/navigators/StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AlertMessage } from "./presentation/components/ui";
+import { AuthProvider } from "./presentation/providers";
 const App = () => {
     return (
-        <>
+        <AuthProvider>
             <StatusBar barStyle='dark-content' />
             <GestureHandlerRootView style={styles.container}>
                 <NavigationContainer>
@@ -13,7 +14,7 @@ const App = () => {
                 </NavigationContainer>
                 <AlertMessage />
             </GestureHandlerRootView>
-        </>
+        </AuthProvider>
     );
 }
 

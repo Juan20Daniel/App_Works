@@ -4,7 +4,10 @@ import { AuthAPIResponse } from "../../models";
 export class AuthMapper {
     static fromAuthApiToAuthEntity(authApi:AuthAPIResponse):{user:UserEntity, auth:AuthEntity} {
         return {
-            auth:{token:authApi.token},
+            auth:{
+                token:authApi.auth.token,
+                refreshToken:authApi.auth.refreshToken
+            },
             user: {
                 id:authApi.user._id,
                 fisrtname:authApi.user.firstname,

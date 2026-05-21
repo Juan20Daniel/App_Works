@@ -8,7 +8,5 @@ export interface AuthRepository {
     // signInWithEmail(email:string, password:string): Promise<AuthEntity>;
     // signInWithGoogle(email:string, password:string): Promise<AuthEntity>;
     getAuth(): Promise<AuthEntity | null>;
-    
-
-    // signOut(): Promise<void>;
+    signOut(): Promise<void>;
 }

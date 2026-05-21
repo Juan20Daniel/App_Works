@@ -1,7 +1,12 @@
 export interface AuthAPIResponse {
-    message: string;
-    user:    UserApi;
-    token:   string;
+    message:      string;
+    user:         UserApi;
+    auth:         AuthApi;
+}
+
+export interface AuthApi {
+    token:        string;
+    refreshToken: string;
 }
 
 export interface UserApi {

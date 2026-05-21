@@ -1,32 +1,35 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
+import { signOutUseCase } from '@/domain/useCase';
+import { authRepositoryImpl } from '@/data/dependencies';
+import { useUserStore } from '@/presentation/store';
+import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { styles } from './styles';
 
-export const BtnCloseSession = () => {
-  return (
-    <View style={{...styles.boxBtnCloseSession, height:120, marginTop:isTablet ? 40 : 0}}>
-      <Pressable style={({pressed})=>[styles.btnCloseSession,{opacity:pressed? 0.3 : 1}]}>
-      <Text style={{fontSize: 18, fontFamily:globalStyles.fontMonserratMedium, color:globalColors.gray}}>
-        Cerrar sesión
-      </Text>
-      </Pressable>
-    </View>
-  )
+interface Props {
+	navigation: StackNavigationProp<RootStackParamList, "Profile", undefined>
 }
 
-const styles = StyleSheet.create({
-  boxBtnCloseSession: {
-    width:'100%', 
-    alignItems:'center', 
-    paddingTop:10, 
-  },
-  btnCloseSession: {
-    width:300, 
-    height: 40, 
-    borderWidth:1, 
-    borderRadius: 10, 
-    borderColor: globalColors.softGray, 
-    justifyContent:'center', 
-    alignItems:'center'
-  }
-});
+export const BtnCloseSession = ({navigation}:Props) => {
+	const removeUser = useUserStore(state => state.removeUser);
+
+	const signOut = async () => {
+		await signOutUseCase(authRepositoryImpl);
+		removeUser();
+		navigation.navigate("Home", {animationType:'slide_from_left'});
+	}
+	return (
+		<View style={{...styles.boxBtnCloseSession, height:120, marginTop:isTablet ? 40 : 0}}>
+			<Pressable 
+				onPress={signOut}
+				style={({pressed})=>[styles.btnCloseSession,{opacity:pressed? 0.3 : 1}]}
+			>
+				<Text style={{fontSize: 18, fontFamily:globalStyles.fontMonserratMedium, color:globalColors.gray}}>
+					Cerrar sesión
+				</Text>
+			</Pressable>
+		</View>
+	);
+}
