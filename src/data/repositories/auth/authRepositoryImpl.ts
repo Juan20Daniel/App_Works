@@ -12,12 +12,26 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     async registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
-            const response = await this.authService.signInWithEmail(data);
+            const response = await this.authService.registerWithEmail(data);
             
             const result = AuthMapper.fromAuthApiToAuthEntity(response);
-            console.log(result);
+            
             await this.authLocalService.saveAuth(result.auth);
 
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async signInWithEmail(email: string, password: string): Promise<{user:UserEntity, auth:AuthEntity}> {
+        try {
+            const response = await this.authService.signInWithEmail(email, password);
+
+            const result = AuthMapper.fromAuthApiToAuthEntity(response);
+
+            await this.authLocalService.saveAuth(result.auth);
+            
             return result;
         } catch (error) {
             throw error;

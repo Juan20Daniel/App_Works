@@ -3,6 +3,7 @@
   "compilerOptions": {
     "types": [],
     "typeRoots": ["./types"],
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AlertMessage } from "./presentation/components/ui";
 import { AuthProvider } from "./presentation/providers";
+
+
 const App = () => {
     return (
         <AuthProvider>

@@ -19,6 +19,6 @@ export const formErrorMessage:FormErrorMessage = {
     },
     'password': {
         empty: 'La contraseña es requerida',
-        invalid: 'La contraseña requiere mínimo 8 caracteres'
+        invalid: 'La contraseña requiere mínimo 7 caracteres'
     }
 }

@@ -16,10 +16,25 @@ const validateData = (data:RegisterUser) => {
     return result.filter(v => v !== null);
 }
 
-export const registerUserUseCase = async (repository:AuthRepository, data:RegisterUser) => {
+export const registerUserUseCase = async (
+    repository: AuthRepository, 
+    data: RegisterUser
+) => {
     const validationResult = validateData(data);
     if(validationResult.length > 0) {
         throw new AppError('VALIDATION', 'Error de validación en alguno de los campios', true);
     }
     return repository.registerWithEmail(data);
+}
+
+export const signInWithEmailUseCase = async (
+    repository: AuthRepository, 
+    email: string, 
+    password: string
+) => {
+    if(expretions.email.test(email) || expretions.password.test(password)) {
+        throw new AppError('VALIDATION', 'Error de validación en alguno de los campios', true);
+    }
+
+    return repository.signInWithEmail(email, password);
 }

@@ -26,7 +26,10 @@ export const Login = ({navigation}:Props) => {
         isFormValid
     } = useForm(formInitialState, formErrorMessage);
     
-    const { login } = useLogin(isFormValid);
+    const { login } = useLogin(
+        formState,
+        isFormValid
+    );
 
     return (
         <TouchableWithoutFeedback onPress={() => {
