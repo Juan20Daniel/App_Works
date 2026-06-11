@@ -10,7 +10,7 @@ import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
 
 export const useRegister = (
     formState: Partial<Record<FormField, InputState>>, 
-    navigation: StackNavigationProp<RootStackParamList, "Register", undefined>,
+    navigation: StackNavigationProp<RootStackParamList, "Register">,
     isFormValid: () => boolean,
     setError: (field: FormField, errorMessage: string) => void,
 ) => {

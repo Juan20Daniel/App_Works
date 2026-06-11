@@ -7,6 +7,9 @@ type ErrorCodes =
     |   'NOT_FOUND'
     |   'INTERNAL_SERVER'
     |   'UNKNOWN_ER'
+    |   'NETWORK_ERROR'
+    |   'TIMEOUT'
+    |   'FORBIDDEN'
 
 
 export class AppError extends Error {
@@ -23,18 +26,30 @@ export class AppError extends Error {
 }
 
 export const handleError = (error:any) => {
+    console.log(error);
     if(error.response) {
         const errorData = error.response.data;
        
         const { errorCode, message } = errorData;
         return new AppError(errorCode, message, true, error);
-    } else if(error.request) {
-        console.log(error);
-        console.log(error.toJSON());
-        const errorCode = error.request.code;
-        const message = error.request.message;
-
-        return new AppError(errorCode, message, true, error);
     }
+    if (error.code === 'ERR_NETWORK') {
+        return new AppError(
+            'NETWORK_ERROR',
+            'No fue posible conectar con el servidor, intente más tarde.',
+            true,
+            error
+        );
+    }
+
+    if (error.code === 'ECONNABORTED') {
+        return new AppError(
+            'TIMEOUT',
+            'La solicitud excedió el tiempo de espera',
+            true,
+            error
+        );
+    }
+
     return new AppError('UNKNOWN_ER', 'Error desconocido', false, error);
 }

@@ -3,7 +3,7 @@ import { globalColors, globalStyles } from '@/presentation/globalStyles/global.s
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { signOutUseCase } from '@/domain/useCase';
 import { authRepositoryImpl } from '@/data/dependencies';
-import { useUserStore } from '@/presentation/store';
+import { useAuthStore, useUserStore } from '@/presentation/store';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { styles } from './styles';
@@ -14,12 +14,15 @@ interface Props {
 
 export const BtnCloseSession = ({navigation}:Props) => {
 	const removeUser = useUserStore(state => state.removeUser);
+	const setAutenticate = useAuthStore(state => state.setAutenticate);
 
 	const signOut = async () => {
 		await signOutUseCase(authRepositoryImpl);
 		removeUser();
+		setAutenticate(false);
 		navigation.navigate("Home", {animationType:'slide_from_left'});
 	}
+
 	return (
 		<View style={{...styles.boxBtnCloseSession, height:120, marginTop:isTablet ? 40 : 0}}>
 			<Pressable 

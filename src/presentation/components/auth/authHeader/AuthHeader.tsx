@@ -1,19 +1,20 @@
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { BtnClose } from "../../ui";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
 import { globalStyles } from "@/presentation/globalStyles/global.styles";
 import { calcDimension } from "@/presentation/helpers/calcDimension";
 
 interface Props {
-    navigation: StackNavigationProp<RootStackParamList>;
     subTitle:string;
+    actionBtnBack?: () => void;
 }
 
-export const AuthHeader = ({navigation, subTitle}:Props) => {
+export const AuthHeader = ({subTitle, actionBtnBack}:Props) => {
     return (
         <View style={styles.content}>
-            <BtnClose backTo={() => navigation.replace('Home', {animationType:'fade'})} top={20} />
+            <BtnClose 
+                backTo={() => actionBtnBack && actionBtnBack()} 
+                top={20}
+            />
             <View style={{width:'100%', maxWidth: 500}}>
                 <Text style={styles.title}>
                     Bienvenido a Nuestra App

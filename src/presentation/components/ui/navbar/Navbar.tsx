@@ -16,6 +16,7 @@ export const Navbar = () => {
     
     const goToProfile = async () => {
         const isAutenticated = await autenticate();
+       
         if(!isAutenticated) {
             return navigation.navigate('Login', {animationType:'fade'});
         };

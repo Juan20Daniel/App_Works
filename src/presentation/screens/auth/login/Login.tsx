@@ -26,8 +26,9 @@ export const Login = ({navigation}:Props) => {
         isFormValid
     } = useForm(formInitialState, formErrorMessage);
     
-    const { login } = useLogin(
+    const { isLoading, login } = useLogin(
         formState,
+        navigation,
         isFormValid
     );
 
@@ -43,8 +44,11 @@ export const Login = ({navigation}:Props) => {
                 height:'100%',
             }}>
                 <AuthHeader
-                    navigation={navigation}
                     subTitle='Inicia sesión con tu cuenta o crea una'
+                    actionBtnBack={() => {
+                        if(isLoading) return;
+                        navigation.replace('Home', {animationType:'fade'})
+                    }}
                 />
                 <View style={{
                     paddingHorizontal: calcDimension({small: 10, medium: 10, large: 30}),
@@ -81,13 +85,17 @@ export const Login = ({navigation}:Props) => {
                             removeFocus={removeFocus}
                         />
                         <BtnBasic
+                            disable={isLoading}
                             value='INICIAR SESIÓN'
                             action={login}
                         />
                         <AuthSwitchLink
                             textQuestion='¿Aún no tienes una cuenta?'
                             textLink='crea una aquí'
-                            navigateTo={() => navigation.replace('Register', {animationType:'slide_from_right'})}
+                            navigateTo={() => {
+                                if(isLoading) return;
+                                navigation.replace('Register', {animationType:'slide_from_right'})
+                            }}
                         />
                         <View style={{width:'100%', height: calcDimension({small:20, medium:40, large:50})}} />
                         <SocialAuthButton
