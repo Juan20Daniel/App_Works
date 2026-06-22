@@ -29,8 +29,8 @@
           <category android:name="android.intent.category.DEFAULT" />
           <category android:name="android.intent.category.BROWSABLE" />
 
-          <data 
-            android:scheme="com.newer"
+          <data
+            android:scheme="com.googleusercontent.apps.179760487635-ac4jjm3bph554lgnm0hrfvutehvkqfma"
             android:host="oauthredirect"
           />
         </intent-filter>
