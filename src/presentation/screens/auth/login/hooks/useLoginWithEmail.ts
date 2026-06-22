@@ -11,7 +11,7 @@ import { authRepositoryImpl } from "@/data/dependencies";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
 
-export const useLogin = (
+export const useLoginWithEmail = (
     formState: Partial<Record<FormField, InputState>>,
     navigation: StackNavigationProp<RootStackParamList, "Login">,
     isFormValid: () => boolean,
@@ -21,7 +21,7 @@ export const useLogin = (
     const setUserStore = useUserStore(state => state.setUser);
     const setAutenticate = useAuthStore(state => state.setAutenticate);
 
-    const login = async () => {
+    const loginWithEmail = async () => {
         if(!isFormValid()) return;
         try {
             setIsLoading(true);
@@ -58,6 +58,6 @@ export const useLogin = (
     }
     return {
         isLoading,
-        login
+        loginWithEmail
     }
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
+import { BtnBasic, InputTextAnimate, LoaderScreen } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useRegister } from './hooks';
@@ -11,11 +11,12 @@ import { formInitialState } from './formInitialState';
 import { formErrorMessage } from './formErrorMessages';
 import { useForm, useKeyboard } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useCheckSession } from '../shared';
+import { useCheckSession, useContinueWithGoogle } from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
 export const Register = ({navigation}:Props) => {
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const { top, bottom } = useSafeAreaInsets();
@@ -36,6 +37,16 @@ export const Register = ({navigation}:Props) => {
     );
     const { keyboardVisible } = useKeyboard();
 
+    const { isLoading:isContinuingWithGoogle, continueWithGoogle } = useContinueWithGoogle();
+
+    useEffect(() => {
+        if(isRegisteringWithEmail || isContinuingWithGoogle) {
+            setIsLoading(true);
+        } else {
+            setIsLoading(false);
+        }
+    },[isRegisteringWithEmail, isContinuingWithGoogle]);
+
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
             <ScrollView keyboardShouldPersistTaps='always' showsVerticalScrollIndicator={false}>
@@ -44,12 +55,15 @@ export const Register = ({navigation}:Props) => {
                     removeFocus();
                 }}>
                     <View style={{
+                        position:'relative',
                         width:'100%',
                         height:'100%'
                     }}>
                         <AuthHeader
-                            navigation={navigation}
                             subTitle='Crea una cuenta en nuestra app con tus datos personales'
+                            actionBtnBack={() => {
+                                navigation.replace('Home', {animationType:'fade'})
+                            }}
                         />
                         <View style={{
                             width:'100%',
@@ -116,11 +130,7 @@ export const Register = ({navigation}:Props) => {
                                     togglePasswordVisibility={() => setShowPass(!showPass)}
                                 />
                                 <BtnBasic
-                                    disable={isRegisteringWithEmail}
-                                    value={!isRegisteringWithEmail 
-                                        ? 'CREAR CUENTA'
-                                        : 'CREANDO...'
-                                    }
+                                    value='CREAR CUENTA'
                                     action={register}
                                 />
                                 <AuthSwitchLink 
@@ -132,7 +142,7 @@ export const Register = ({navigation}:Props) => {
                                 <SocialAuthButton
                                     value='Crear con google'
                                     image={require('../../../../assets/auth/imgGoogle.png')}
-                                    action={() => {}}
+                                    action={continueWithGoogle}
                                 />
                                 <View style={{width:'100%', height: 30}} />
                                 <SocialAuthButton 
@@ -145,6 +155,9 @@ export const Register = ({navigation}:Props) => {
                                 }
                             </View>
                         </View>
+                        <LoaderScreen
+                            isLoading={isLoading}
+                        />
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>

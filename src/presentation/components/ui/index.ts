@@ -10,3 +10,4 @@ export * from "./horizontalPagination/HorizontalPagination";
 export * from "./icon";
 export * from "./navbar";
 export * from "./switch/Switch";
+export * from './loader';

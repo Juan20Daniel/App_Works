@@ -6,7 +6,6 @@ interface Props {
     value:string;
     customStylesBox?: StyleProp<ViewStyle>;
     customStylesBtn?: StyleProp<ViewStyle>;
-    disable?:boolean;
     backgroundColor?: string;
     fontColor?: string;
     action:() => void;
@@ -16,7 +15,6 @@ export const BtnBasic = ({
     value, 
     customStylesBox, 
     customStylesBtn,
-    disable=false,
     backgroundColor, 
     fontColor=globalColors.white,
     action
@@ -28,15 +26,11 @@ export const BtnBasic = ({
                     styles.btn,
                     {
                         backgroundColor:backgroundColor??globalColors.azureBlue,
-                        opacity: disable 
-                            ?   0.4
-                            :   pressed ? 0.7 : 1,
+                        opacity: pressed ? 0.7 : 1,
                     },
                     customStylesBtn
                 ]} 
-                onPress={() => {
-                   !disable && action()
-                }}
+                onPress={() => action()}
             >
                 <Text style={{
                     ...styles.textValue, 

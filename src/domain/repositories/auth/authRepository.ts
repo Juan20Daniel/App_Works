@@ -6,7 +6,7 @@ export interface AuthRepository {
     // registerWithGoogle(data:RegisterUser): Promise<AuthEntity>;
 
     signInWithEmail(email:string, password:string): Promise<{user:UserEntity, auth:AuthEntity}>;
-    signInWithGoogle(): Promise<void>;
+    continueWithGoogle(): Promise<void>;
     getAuth(): Promise<AuthEntity | null>;
     signOut(): Promise<void>;
 }

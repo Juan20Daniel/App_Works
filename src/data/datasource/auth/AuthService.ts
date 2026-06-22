@@ -28,8 +28,15 @@ export class AuthService {
         }
     }
 
-    async signInWithGooglee() {
-        const authState = await authorize(googleAuthConfig);
-        console.log(authState);
+    async continueWithGoogle() {
+        try {
+            const authState = await authorize(googleAuthConfig);
+
+            const tokenId = authState.idToken;
+
+            const response = await axiosInstance.post<AuthAPIResponse>('/auth/continue-with-google');            
+        } catch (error) {
+            throw error;
+        }
     }
 }

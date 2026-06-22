@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
-import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
+import {
+    AuthHeader,
+    AuthSwitchLink,
+    SocialAuthButton
+} from '@/presentation/components/auth';
+import { BtnBasic, InputTextAnimate, LoaderScreen } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
-import { useLogin } from './hooks';
+import { useLoginWithEmail } from './hooks';
 import { formInitialState } from './formInitialState';
 import { formErrorMessage } from './formErrorMessages';
 import { useForm } from '@/presentation/hooks';
-import { useCheckSession } from '../shared';
-import { signInWithGoogleUseCase } from '@/domain/useCase';
-import { authRepositoryImpl } from '@/data/dependencies';
+import { useCheckSession, useContinueWithGoogle } from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
 export const Login = ({navigation}:Props) => {
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const {
@@ -28,19 +31,21 @@ export const Login = ({navigation}:Props) => {
         isFormValid
     } = useForm(formInitialState, formErrorMessage);
     
-    const { isLoading, login } = useLogin(
+    const { isLoading:isLoginWithEmail, loginWithEmail } = useLoginWithEmail(
         formState,
         navigation,
         isFormValid
     );
 
-    const signInWithGoogle = async () => {
-        try {
-            await signInWithGoogleUseCase(authRepositoryImpl);
-        } catch (error) {
-            console.log(error);
+    const { isLoading:isContinuingWithGoogle, continueWithGoogle } = useContinueWithGoogle();
+
+    useEffect(() => {
+        if(isLoginWithEmail || isContinuingWithGoogle) {
+            setIsLoading(true);
+        } else {
+            setIsLoading(false);
         }
-    }
+    },[isLoginWithEmail, isContinuingWithGoogle]);
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -48,6 +53,7 @@ export const Login = ({navigation}:Props) => {
             removeFocus();
         }}>
             <View style={{
+                position:'relative',
                 backgroundColor: globalColors.white, 
                 justifyContent:'center',
                 width:'100%',
@@ -95,9 +101,8 @@ export const Login = ({navigation}:Props) => {
                             removeFocus={removeFocus}
                         />
                         <BtnBasic
-                            disable={isLoading}
                             value='INICIAR SESIÓN'
-                            action={login}
+                            action={loginWithEmail}
                         />
                         <AuthSwitchLink
                             textQuestion='¿Aún no tienes una cuenta?'
@@ -111,7 +116,7 @@ export const Login = ({navigation}:Props) => {
                         <SocialAuthButton
                             value='Iniciar con google'
                             image={require('../../../../assets/auth/imgGoogle.png')}
-                            action={signInWithGoogle}
+                            action={continueWithGoogle}
                         />
                         <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
                         <SocialAuthButton 
@@ -121,6 +126,9 @@ export const Login = ({navigation}:Props) => {
                         />
                     </View>
                 </View>
+                <LoaderScreen 
+                    isLoading={isLoading}
+                />
              </View>
         </TouchableWithoutFeedback>
     );

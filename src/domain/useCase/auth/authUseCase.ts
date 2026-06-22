@@ -40,6 +40,6 @@ export const signInWithEmailUseCase = async (
     return repository.signInWithEmail(email, password);
 }
 
-export const signInWithGoogleUseCase = async (repository: AuthRepository) => {
-    return repository.signInWithGoogle();
+export const continueWithGoogleUseCase = async (repository: AuthRepository) => {
+    return repository.continueWithGoogle();
 }
