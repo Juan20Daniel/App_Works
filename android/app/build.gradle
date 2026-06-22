@@ -86,7 +86,10 @@ android {
         versionName "1.0"
 
         def googleMapsKey = project.findProperty("GOOGLE_MAPS_KEY") ?: ""
-        manifestPlaceholders = [GOOGLE_MAPS_KEY: googleMapsKey]
+        manifestPlaceholders = [
+            GOOGLE_MAPS_KEY: googleMapsKey,
+            appAuthRedirectScheme: "com.googleusercontent.apps.179760487635-9pnsg5eba0jo7l6jgu7j56s3lf544sii"
+        ]
     }
     signingConfigs {
         debug {

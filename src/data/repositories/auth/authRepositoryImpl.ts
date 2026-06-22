@@ -38,6 +38,10 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
+    async signInWithGoogle(): Promise<void> {
+        await this.authService.signInWithGooglee();
+    }
+
     async getAuth(): Promise<AuthEntity | null> {
         try {
             return await this.authLocalService.getAuth();

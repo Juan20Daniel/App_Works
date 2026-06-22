@@ -11,6 +11,8 @@ import { formInitialState } from './formInitialState';
 import { formErrorMessage } from './formErrorMessages';
 import { useForm } from '@/presentation/hooks';
 import { useCheckSession } from '../shared';
+import { signInWithGoogleUseCase } from '@/domain/useCase';
+import { authRepositoryImpl } from '@/data/dependencies';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
@@ -31,6 +33,14 @@ export const Login = ({navigation}:Props) => {
         navigation,
         isFormValid
     );
+
+    const signInWithGoogle = async () => {
+        try {
+            await signInWithGoogleUseCase(authRepositoryImpl);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -101,7 +111,7 @@ export const Login = ({navigation}:Props) => {
                         <SocialAuthButton
                             value='Iniciar con google'
                             image={require('../../../../assets/auth/imgGoogle.png')}
-                            action={() => {}}
+                            action={signInWithGoogle}
                         />
                         <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
                         <SocialAuthButton 
