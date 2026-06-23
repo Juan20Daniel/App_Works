@@ -34,7 +34,10 @@ export class AuthService {
 
             const tokenId = authState.idToken;
 
-            const response = await axiosInstance.post<AuthAPIResponse>('/auth/continue-with-google');            
+            const response = await axiosInstance.post<AuthAPIResponse>('/auth/continue-with-google',{
+                tokenId
+            });       
+            console.log(response);     
         } catch (error) {
             throw error;
         }
