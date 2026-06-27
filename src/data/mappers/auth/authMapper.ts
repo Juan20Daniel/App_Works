@@ -12,9 +12,9 @@ export class AuthMapper {
                 id:authApi.user._id,
                 fisrtname:authApi.user.firstname,
                 lastname:authApi.user.lastname,
-                phone:authApi.user.phone,
                 email:authApi.user.email,
-                role: authApi.user.role
+                role: authApi.user.role,
+                isActive: authApi.user.isActive
             }
         }
     }

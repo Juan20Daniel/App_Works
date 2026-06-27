@@ -1,6 +1,6 @@
 import { FormState } from "@/presentation/types";
 
-export const formInitialState:FormState = {
+export const formInitialState = ():FormState => ({
     'firstname': {
         name: 'firstname', 
         value: '', 
@@ -11,14 +11,6 @@ export const formInitialState:FormState = {
     },
     'lastname': {
         name: 'lastname', 
-        value: '',
-        isFocus: false,
-        status: null,
-        isRequired: true,
-        isValid: false
-    },
-    'phone': {
-        name: 'phone', 
         value: '',
         isFocus: false,
         status: null,
@@ -41,4 +33,4 @@ export const formInitialState:FormState = {
         isRequired: true,
         isValid: false
     }
-}
+});

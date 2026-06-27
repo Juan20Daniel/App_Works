@@ -13,7 +13,6 @@ export interface UserApi {
     _id:       string;
     firstname: string;
     lastname:  string;
-    phone:     string;
     email:     string;
     role:      string;
     isActive:  boolean;

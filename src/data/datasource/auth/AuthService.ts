@@ -7,7 +7,7 @@ import { authorize } from 'react-native-app-auth';
 export class AuthService {
     async registerWithEmail(data:RegisterUser):Promise<AuthAPIResponse> {
         try {
-            const response = await axiosInstance.post<AuthAPIResponse>('/auth/register', data);
+            const response = await axiosInstance.post<AuthAPIResponse>('/auth/register-with-email', data);
 
             return response.data;
         } catch (error) {
@@ -28,16 +28,17 @@ export class AuthService {
         }
     }
 
-    async continueWithGoogle() {
+    async continueWithGoogle():Promise<AuthAPIResponse> {
         try {
             const authState = await authorize(googleAuthConfig);
 
-            const tokenId = authState.idToken;
-
+            const idToken = authState.idToken;
+            
             const response = await axiosInstance.post<AuthAPIResponse>('/auth/continue-with-google',{
-                tokenId
-            });       
-            console.log(response);     
+                idToken
+            });
+            
+            return response.data;    
         } catch (error) {
             throw error;
         }

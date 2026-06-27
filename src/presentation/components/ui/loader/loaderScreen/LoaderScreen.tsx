@@ -9,11 +9,11 @@ export const LoaderScreen = ({isLoading}:Props) => {
 
     return (
         <View style={{
-            position: 'absolute',
-            backgroundColor: 'rgba(202, 202, 202, 0.47)', 
-            width: '100%',
-            height: '100%',
-            zIndex: 10,
+                position: 'absolute',
+                backgroundColor: 'rgba(202, 202, 202, 0.47)', 
+                width: '100%',
+                height: '100%',
+                zIndex: 10,
             }}
         />
     );

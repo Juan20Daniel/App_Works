@@ -1,6 +1,6 @@
 import { FormState } from "@/presentation/types";
 
-export const formInitialState:FormState = {
+export const formInitialState = ():FormState => ({
     email: {
         name:'email',
         value:'',
@@ -17,4 +17,4 @@ export const formInitialState:FormState = {
         status: null,
         isRequired: true
     }
-}
+});

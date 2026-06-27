@@ -13,7 +13,6 @@ export class AuthRepositoryImpl implements AuthRepository {
     async registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
             const response = await this.authService.registerWithEmail(data);
-            
             const result = AuthMapper.fromAuthApiToAuthEntity(response);
             
             await this.authLocalService.saveAuth(result.auth);
@@ -38,8 +37,18 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
-    async continueWithGoogle(): Promise<void> {
-        await this.authService.continueWithGoogle();
+    async continueWithGoogle(): Promise<{user:UserEntity, auth:AuthEntity}> {
+        try {
+            const response = await this.authService.continueWithGoogle();
+
+            const result = AuthMapper.fromAuthApiToAuthEntity(response);
+
+            await this.authLocalService.saveAuth(result.auth);
+
+            return result;
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getAuth(): Promise<AuthEntity | null> {

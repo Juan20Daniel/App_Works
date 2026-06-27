@@ -17,7 +17,7 @@ export const AuthHeader = ({subTitle, actionBtnBack}:Props) => {
             />
             <View style={{width:'100%', maxWidth: 500}}>
                 <Text style={styles.title}>
-                    Bienvenido a Nuestra App
+                    Bienvenido a App Works
                 </Text>
                 <Text style={styles.subTitle}>
                     {subTitle}

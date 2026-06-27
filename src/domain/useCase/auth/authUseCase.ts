@@ -41,5 +41,9 @@ export const signInWithEmailUseCase = async (
 }
 
 export const continueWithGoogleUseCase = async (repository: AuthRepository) => {
-    return repository.continueWithGoogle();
+    try {
+        return repository.continueWithGoogle();
+    } catch (error) {
+        throw error;
+    }
 }

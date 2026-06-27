@@ -24,20 +24,23 @@ export const Register = ({navigation}:Props) => {
         formState,
         setFocus,
         setValue,
-        setError,
         clearInput,
         removeFocus,
         isFormValid,
-    } = useForm(formInitialState, formErrorMessage);
+    } = useForm(formInitialState(), formErrorMessage);
     const { isLoading:isRegisteringWithEmail, register } = useRegister(
         formState,
-        navigation,
-        isFormValid,
-        setError
+        () => navigation.replace("Home", {animationType:'fade'}),
+        isFormValid
     );
     const { keyboardVisible } = useKeyboard();
 
-    const { isLoading:isContinuingWithGoogle, continueWithGoogle } = useContinueWithGoogle();
+    const { 
+        isLoading:isContinuingWithGoogle, 
+        continueWithGoogle 
+    } = useContinueWithGoogle(
+        () => navigation.replace("Home", {animationType:'fade'})
+    );
 
     useEffect(() => {
         if(isRegisteringWithEmail || isContinuingWithGoogle) {
@@ -49,7 +52,10 @@ export const Register = ({navigation}:Props) => {
 
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
-            <ScrollView keyboardShouldPersistTaps='always' showsVerticalScrollIndicator={false}>
+            <ScrollView 
+                keyboardShouldPersistTaps='always' 
+                showsVerticalScrollIndicator={false}
+            >
                 <TouchableWithoutFeedback onPress={() => {
                     Keyboard.dismiss();
                     removeFocus();
@@ -60,7 +66,7 @@ export const Register = ({navigation}:Props) => {
                         height:'100%'
                     }}>
                         <AuthHeader
-                            subTitle='Crea una cuenta en nuestra app con tus datos personales'
+                            subTitle='Crea una cuenta con tus datos personales'
                             actionBtnBack={() => {
                                 navigation.replace('Home', {animationType:'fade'})
                             }}
@@ -71,10 +77,10 @@ export const Register = ({navigation}:Props) => {
                             paddingHorizontal:calcDimension({small: 10, medium:10, large: 30})
                         }}>
                             <View style={{
-                                width:'100%', 
-                                paddingTop:40, 
-                                paddingBottom:bottom+50, 
-                                maxWidth: 500, 
+                                width:'100%',
+                                paddingTop:40,
+                                paddingBottom:bottom+50,
+                                maxWidth: 500,
                             }}>
                                 <InputTextAnimate
                                     state={formState.firstname!}
@@ -91,16 +97,6 @@ export const Register = ({navigation}:Props) => {
                                     label='Apellido'
                                     placeholder='Ingresa tu apellido'
                                     type='default'
-                                    onChange={setValue}
-                                    onFocus={setFocus}
-                                    clearInput={clearInput}
-                                    removeFocus={removeFocus}
-                                />
-                                <InputTextAnimate
-                                    state={formState.phone!}
-                                    label='Teléfono'
-                                    placeholder='Ingresa tu teléfono'
-                                    type='decimal-pad'
                                     onChange={setValue}
                                     onFocus={setFocus}
                                     clearInput={clearInput}

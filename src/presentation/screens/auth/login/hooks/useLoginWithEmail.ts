@@ -8,12 +8,10 @@ import {
 import { handleError } from "@/shared";
 import { signInWithEmailUseCase } from "@/domain/useCase";
 import { authRepositoryImpl } from "@/data/dependencies";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
 
 export const useLoginWithEmail = (
     formState: Partial<Record<FormField, InputState>>,
-    navigation: StackNavigationProp<RootStackParamList, "Login">,
+    navigation: () => void,
     isFormValid: () => boolean,
 ) => {
     const [ isLoading, setIsLoading ] = useState(false);
@@ -30,7 +28,7 @@ export const useLoginWithEmail = (
             const result = await signInWithEmailUseCase(authRepositoryImpl, email, password);
             setUserStore(result.user);
             setAutenticate(true);
-            navigation.replace("Home", {animationType:'fade'});
+            navigation();
         } catch (error) {
             const {message, errorCode} = handleError(error);
             if(errorCode === "UNAUTHORIZED") {

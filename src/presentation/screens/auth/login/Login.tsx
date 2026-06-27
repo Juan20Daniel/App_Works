@@ -29,15 +29,20 @@ export const Login = ({navigation}:Props) => {
         removeFocus,
         clearInput,
         isFormValid
-    } = useForm(formInitialState, formErrorMessage);
+    } = useForm(formInitialState(), formErrorMessage);
     
     const { isLoading:isLoginWithEmail, loginWithEmail } = useLoginWithEmail(
         formState,
-        navigation,
+        () => navigation.replace("Home", {animationType:'fade'}),
         isFormValid
     );
 
-    const { isLoading:isContinuingWithGoogle, continueWithGoogle } = useContinueWithGoogle();
+    const { 
+        isLoading:isContinuingWithGoogle, 
+        continueWithGoogle 
+    } = useContinueWithGoogle(
+        () => navigation.replace("Home", {animationType:'fade'})
+    );
 
     useEffect(() => {
         if(isLoginWithEmail || isContinuingWithGoogle) {
