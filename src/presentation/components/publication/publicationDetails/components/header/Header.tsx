@@ -1,5 +1,4 @@
 import { StyleSheet, View } from 'react-native';
-import { usePublicationSettings } from '@/presentation/context/PublicationSettingsContext';
 import { BtnIcon } from '@/presentation/components/ui/btnIcon/BtnIcon';
 import { CompanyNameAndDate } from './components/CompanyNameAndDate';
 import { LogoCompany } from './components/LogoCompany';
@@ -12,7 +11,6 @@ interface Props {
 
 export const Header = ({typeUser}:Props) => {
   const openModalPublicOptions = useVisibleModalPublicOpStore((state) => state.open);
-  const { toggleSettings } = usePublicationSettings();
   return (
     <View style={{...styles.container, alignItems:isTablet ?'center':'flex-start'}}>
       <View style={{
@@ -35,7 +33,7 @@ export const Header = ({typeUser}:Props) => {
             iconName='Question'
             marginRight={isTablet ? 10 : 5} 
             action={() => {
-              toggleSettings();
+              {}
             }} 
           />
       }

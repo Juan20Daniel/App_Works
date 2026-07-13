@@ -7,9 +7,9 @@ interface Params {
     extraLarge?: number;
 }
 //Para sacar el tamaño de la pantalla
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 // const pixelRatio = PixelRatio.get();
-console.log(width);
+console.log({width, height});
 export const calcDimension = ({small, medium, large, extraLarge}:Params):number => {
     if(!medium && !large) return small;
 

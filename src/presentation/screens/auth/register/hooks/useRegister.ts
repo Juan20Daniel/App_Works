@@ -1,9 +1,13 @@
-import { useState } from "react";
 import { RegisterUser } from "@/domain/types";
 import { FormField, InputState } from "@/presentation/types";
 import { registerUserUseCase } from "@/domain/useCase";
 import { handleError } from "@/shared";
-import { useAlertMessageStore, useAuthStore, useUserStore } from "@/presentation/store";
+import { 
+    useAlertMessageStore, 
+    useAuthStore, 
+    useLoaderScreenStore, 
+    useUserStore 
+} from "@/presentation/store";
 import { authRepositoryImpl } from "@/data/dependencies";
 
 export const useRegister = (
@@ -12,9 +16,10 @@ export const useRegister = (
     isFormValid: () => boolean,
 ) => {
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
-    const [ isLoading, setIsLoading ] = useState(false);
     const setUserStore = useUserStore(state => state.setUser);
-    const setAutenticate = useAuthStore(state => state.setAutenticate);
+    const autenticate = useAuthStore(state => state.autenticate);
+    const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
+    const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
     const register = async () => {
         if(!isFormValid()) return;
@@ -25,14 +30,13 @@ export const useRegister = (
             password: formState.password?.value!
         }
         try {
-            setIsLoading(true);
+            openLoaderScreen('Iniciando sesión')
             const result = await registerUserUseCase(authRepositoryImpl, data);
             setUserStore(result.user);
-            setAutenticate(true);
+            autenticate();
             navigation();
         } catch (error) {
             const {errorCode} = handleError(error);
-            console.log(errorCode)
             if(errorCode === 'DUPLICATE_EMAIL') {
                 return openAlertMessage(
                     'error',
@@ -47,12 +51,11 @@ export const useRegister = (
                 'vuelva a intentarlo más tarde'
             );
         } finally {
-            setIsLoading(false);
+            closeLoaderScreen();
         }
     }
 
     return {
-        isLoading,
         register
     }
 }

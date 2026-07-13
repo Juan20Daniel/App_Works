@@ -15,6 +15,7 @@ export const Container = ({marginTop, children, customStyles}:Props) => {
     return (
         <View style={[
             {
+                position:'relative',
                 backgroundColor: globalColors.white,
                 width:width, 
                 height:height, 

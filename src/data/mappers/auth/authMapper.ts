@@ -10,11 +10,15 @@ export class AuthMapper {
             },
             user: {
                 id:authApi.user._id,
+                profile_image:authApi.user.profile_image,
                 fisrtname:authApi.user.firstname,
                 lastname:authApi.user.lastname,
                 email:authApi.user.email,
                 role: authApi.user.role,
-                isActive: authApi.user.isActive
+                isActive: authApi.user.isActive,
+                provider: authApi.user.provider,
+                provider_id: authApi.user.provider_id,
+                avatarColor: authApi.user.avatarColor
             }
         }
     }

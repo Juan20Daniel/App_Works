@@ -51,6 +51,27 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
+    async refreshSession(): Promise<{user:UserEntity, auth:AuthEntity} | null> {
+        try {
+            const auth = await this.authLocalService.getAuth();
+            if(!auth) {
+                return null;
+            }
+            
+            const response = await this.authService.refreshSession(`Bearer ${auth?.refreshToken}`);
+            
+            const result = AuthMapper.fromAuthApiToAuthEntity(response);
+
+            await this.authLocalService.removeAuth();
+
+            await this.authLocalService.saveAuth(result.auth);
+
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async getAuth(): Promise<AuthEntity | null> {
         try {
             return await this.authLocalService.getAuth();

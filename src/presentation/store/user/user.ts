@@ -3,20 +3,14 @@ import { create } from "zustand";
 
 interface State {
     user: UserEntity | null;
-    setUser: ( user:UserEntity ) => void;
-    getUser: () => UserEntity | null;
+    setUser: ( user:UserEntity|null) => void;
     removeUser:() => void;
 }
 
 export const useUserStore = create<State>()((set, get) => ({
     user: null,
-    setUser: ( user:UserEntity ) => {
+    setUser: ( user:UserEntity|null) => {
         set({user});
-    },
-    getUser: () => {
-        const user = get().user;
-        
-        return user;
     },
     removeUser:() => {
         set({user:null});

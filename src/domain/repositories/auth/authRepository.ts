@@ -7,4 +7,5 @@ export interface AuthRepository {
     continueWithGoogle(): Promise<{user:UserEntity, auth:AuthEntity}>;
     getAuth(): Promise<AuthEntity | null>;
     signOut(): Promise<void>;
+    refreshSession(): Promise<{user:UserEntity, auth:AuthEntity} | null>;
 }

@@ -47,3 +47,11 @@ export const continueWithGoogleUseCase = async (repository: AuthRepository) => {
         throw error;
     }
 }
+
+export const refreshSessionUseCase = async (repository: AuthRepository) => {
+    try {
+        return repository.refreshSession();
+    } catch (error) {
+        throw error;
+    }
+}

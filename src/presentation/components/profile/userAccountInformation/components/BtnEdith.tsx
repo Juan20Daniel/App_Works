@@ -9,8 +9,8 @@ export const BtnEdith = () => {
             {
                 opacity:pressed ? 0.3 : 1,
                 paddingHorizontal:isTablet ? 20 : 15, 
-                paddingVertical:isTablet ? 10 :5,
-                borderRadius:isTablet ? 20 : 10, 
+                paddingVertical: 10,
+                borderRadius: 20, 
             }
         ]}>
             <Text style={{fontSize:isTablet ? 15 : 10}}>Editar</Text>

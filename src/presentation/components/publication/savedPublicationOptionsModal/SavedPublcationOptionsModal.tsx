@@ -1,5 +1,4 @@
-import { BoxModalBottom } from '../../shared/boxModalBottom/BoxModalBottom';
-import { BasicModalOption } from '../../shared/basicModalOption/BasicModalOption';
+import { BoxModalBottom, BasicModalOption } from '../../shared';
 
 interface Props {
     visible: boolean;

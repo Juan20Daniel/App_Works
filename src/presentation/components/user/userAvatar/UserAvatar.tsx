@@ -1,48 +1,39 @@
-import { isTablet } from '@/presentation/helpers/isTablet';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
+import { UserAvatarSkeletor } from './UserAvatarSkeletor';
+import { styles } from './styles';
 
 interface Props {
-    isTable?:boolean;
-    username: string;
-    userImage?:string;
+    imageUrl?: string;
+    userName: string;
+    avatarColor: string;
+    isLoading?: boolean;
 }
 
-export const UserAvatar = ({username, userImage}:Props) => {
+export const UserAvatar = ({
+    imageUrl, 
+    userName, 
+    avatarColor,
+    isLoading
+}:Props) => {
+
+    if(isLoading || !userName) {
+        return <UserAvatarSkeletor />
+    }
+
     return (
         <View style={{
             ...styles.container,
-            width:isTablet ? 90 : 70, 
-            height:isTablet ? 90 : 70
+            backgroundColor: avatarColor
         }}>
-            {userImage 
+            {imageUrl
                 ?   <Image
-                        source={require('../../../../assets/user/userImg.jpg')}
+                        source={{uri:imageUrl}}
                         style={styles.img}
                     />
-                :   <Text style={{...styles.text, fontSize:isTablet ? 50 : 35}}>
-                        {username[0].toUpperCase()}
+                :   <Text style={styles.text}>
+                        {userName[0].toUpperCase()}
                     </Text>
             }
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container:{
-        backgroundColor: '#9A7F20',
-        marginRight: 15,
-        borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    img: {
-        borderRadius: 35,
-        width:'100%', 
-        height:'100%',
-        objectFit: 'cover'
-    },
-    text: {
-        color: 'white',
-        fontSize: 35
-    }
-});

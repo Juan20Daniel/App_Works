@@ -1,26 +1,31 @@
-import { useState } from 'react';
 import { continueWithGoogleUseCase } from '@/domain/useCase';
 import { authRepositoryImpl } from '@/data/dependencies';
-import { useAlertMessageStore, useAuthStore, useUserStore } from '@/presentation/store';
+import { 
+    useAlertMessageStore, 
+    useAuthStore, 
+    useLoaderScreenStore, 
+    useUserStore 
+} from '@/presentation/store';
 import { handleError } from '@/shared';
 
 export const useContinueWithGoogle = (
     navigation: () => void
 ) => {
-    const [ isLoading, setIsLoading ] = useState(false);
     const setUserStore = useUserStore(state => state.setUser);
-    const setAutenticate = useAuthStore(state => state.setAutenticate);
+    const autenticate = useAuthStore(state => state.autenticate);
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
-
+    const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
+    const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
+    
     const continueWithGoogle = async () => {
         try {
-            setIsLoading(true);
+            openLoaderScreen('Iniciando sesión...');
             const result = await continueWithGoogleUseCase(authRepositoryImpl);
             setUserStore(result.user);
-            setAutenticate(true);
+            autenticate();
             navigation();
         } catch (error) {
-            const {message, errorCode} = handleError(error);
+            const { errorCode } = handleError(error);
             if(errorCode === "DUPLICATE_EMAIL" || errorCode === "UNAUTHORIZED") {
                 return openAlertMessage(
                     'error',
@@ -40,12 +45,11 @@ export const useContinueWithGoogle = (
                 'No fue posible iniciar sesión', 
             )
         } finally {
-            setIsLoading(false);
+            closeLoaderScreen();
         }
     }
 
     return {
-        isLoading,
         continueWithGoogle
     }
 }

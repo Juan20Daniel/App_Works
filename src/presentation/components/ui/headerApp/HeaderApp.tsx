@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
         backgroundColor: globalColors.white,
         paddingLeft: globalStyles.marginHorizontal,
         paddingBottom: 10,
-       
     },
     subText: {
-        fontSize: calcDimension({small:12, medium: 14, large: 16}), 
-        color:globalColors.darkGray
+        fontSize: calcDimension({small:12, medium: 16, large: 20}), 
+        color:globalColors.darkGray,
+        fontFamily: globalStyles.fontMonserratSemiBold
     }
 });

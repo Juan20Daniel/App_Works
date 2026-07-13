@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
@@ -7,7 +7,7 @@ import {
     AuthSwitchLink,
     SocialAuthButton
 } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate, LoaderScreen } from '@/presentation/components/ui';
+import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useLoginWithEmail } from './hooks';
@@ -19,7 +19,6 @@ import { useCheckSession, useContinueWithGoogle } from '../shared';
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
 export const Login = ({navigation}:Props) => {
-    const [ isLoading, setIsLoading ] = useState(false);
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const {
@@ -31,26 +30,17 @@ export const Login = ({navigation}:Props) => {
         isFormValid
     } = useForm(formInitialState(), formErrorMessage);
     
-    const { isLoading:isLoginWithEmail, loginWithEmail } = useLoginWithEmail(
+    const { loginWithEmail } = useLoginWithEmail(
         formState,
         () => navigation.replace("Home", {animationType:'fade'}),
         isFormValid
     );
 
-    const { 
-        isLoading:isContinuingWithGoogle, 
+    const {
         continueWithGoogle 
     } = useContinueWithGoogle(
         () => navigation.replace("Home", {animationType:'fade'})
     );
-
-    useEffect(() => {
-        if(isLoginWithEmail || isContinuingWithGoogle) {
-            setIsLoading(true);
-        } else {
-            setIsLoading(false);
-        }
-    },[isLoginWithEmail, isContinuingWithGoogle]);
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -67,7 +57,6 @@ export const Login = ({navigation}:Props) => {
                 <AuthHeader
                     subTitle='Inicia sesión con tu cuenta o crea una'
                     actionBtnBack={() => {
-                        if(isLoading) return;
                         navigation.replace('Home', {animationType:'fade'})
                     }}
                 />
@@ -113,7 +102,6 @@ export const Login = ({navigation}:Props) => {
                             textQuestion='¿Aún no tienes una cuenta?'
                             textLink='crea una aquí'
                             navigateTo={() => {
-                                if(isLoading) return;
                                 navigation.replace('Register', {animationType:'slide_from_right'})
                             }}
                         />
@@ -131,9 +119,6 @@ export const Login = ({navigation}:Props) => {
                         />
                     </View>
                 </View>
-                <LoaderScreen 
-                    isLoading={isLoading}
-                />
              </View>
         </TouchableWithoutFeedback>
     );

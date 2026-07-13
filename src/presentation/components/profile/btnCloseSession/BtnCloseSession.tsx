@@ -6,7 +6,9 @@ import { authRepositoryImpl } from '@/data/dependencies';
 import { useAuthStore, useUserStore } from '@/presentation/store';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
+import { Icon } from '../../ui';
 
 interface Props {
 	navigation: StackNavigationProp<RootStackParamList, "Profile", undefined>
@@ -14,23 +16,35 @@ interface Props {
 
 export const BtnCloseSession = ({navigation}:Props) => {
 	const removeUser = useUserStore(state => state.removeUser);
-	const setAutenticate = useAuthStore(state => state.setAutenticate);
-
+	const deauthenticate = useAuthStore(state => state.deauthenticate);
+	const bottom = useSafeAreaInsets().bottom;
 	const signOut = async () => {
 		await signOutUseCase(authRepositoryImpl);
 		removeUser();
-		setAutenticate(false);
+		deauthenticate();
 		navigation.navigate("Home", {animationType:'slide_from_left'});
 	}
 
 	return (
-		<View style={{...styles.boxBtnCloseSession, height:120, marginTop:isTablet ? 40 : 0}}>
+		<View style={{
+			...styles.boxBtnCloseSession,
+			bottom: 10,
+			marginTop:isTablet ? 40 : 10,
+
+		}}>
 			<Pressable 
 				onPress={signOut}
-				style={({pressed})=>[styles.btnCloseSession,{opacity:pressed? 0.3 : 1}]}
+				style={({pressed})=>[
+					styles.btnCloseSession,
+					{opacity:pressed? 0.3 : 1}
+				]}
 			>
+				<Icon 
+					name='Logout'
+					color={globalColors.gray}
+				/>
 				<Text style={{fontSize: 18, fontFamily:globalStyles.fontMonserratMedium, color:globalColors.gray}}>
-					Cerrar sesión
+					CERRAR SESIÓN
 				</Text>
 			</Pressable>
 		</View>

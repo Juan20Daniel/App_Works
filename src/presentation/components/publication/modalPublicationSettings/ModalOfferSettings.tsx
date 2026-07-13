@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { usePublicationSettings } from '@/presentation/context/PublicationSettingsContext';
 import { OfferAction } from './OfferAction';
 import { Switch } from '../../ui/switch/Switch';
-
-import { BoxModalBottom } from '../../shared/boxModalBottom/BoxModalBottom';
+import { BoxModalBottom } from '../../shared';
 import { Icon } from '../../ui/icon/Icon';
 
 export const ModalPublicationSettings = () => {
     const [switchState, setSwitchState] = useState(false);
-    const { showSettings, toggleSettings } = usePublicationSettings();
 
     return (    
-        <BoxModalBottom title='Configuración' visible={showSettings!} closeModal={toggleSettings}>
+        <BoxModalBottom 
+            title='Configuración' 
+            visible={false} 
+            closeModal={() => {}}
+        >
             <OfferAction 
                 title='Estado de la publicación' 
                 label={switchState ? 'En línea' : 'Fuera de línea' }

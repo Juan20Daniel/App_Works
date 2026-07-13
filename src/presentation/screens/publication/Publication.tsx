@@ -5,7 +5,6 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { StackScreenProps } from "@react-navigation/stack";
 import { globalColors } from "@/presentation/globalStyles/global.styles";
 import { RootStackParamList } from "../../navigators/StackNavigator";
-import { PublicationSettingsProvider } from "../../context/PublicationSettingsContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BtnClose } from "@/presentation/components/ui";
 import { ModalPublicationSettings, PublicationDetails } from "@/presentation/components/publication";
@@ -20,7 +19,7 @@ export const Publication = ({ route }: Props) => {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = ['40%', '85%'];
   return (
-    <PublicationSettingsProvider>
+    <>
       <View style={styles.container}>
         <BtnClose top={top}  backTo={() => navigation.goBack()} />
         <GoogleMap
@@ -45,7 +44,7 @@ export const Publication = ({ route }: Props) => {
       {typeUser === 'owner' &&
         <ModalPublicationSettings />
       }
-    </PublicationSettingsProvider>
+    </>
   );
 }
 

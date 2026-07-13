@@ -1,21 +1,25 @@
-import { authRepositoryImpl } from "@/data/dependencies";
 import { create } from "zustand";
 
 interface State {
+    isLoading: boolean;
     isAutenticated: boolean;
-    setAutenticate: (autenticate:boolean) => void;
-    autenticate: () => Promise<boolean>;
+    autenticate: () => void;
+    deauthenticate: () => void;
 }
 
-export const useAuthStore = create<State>()((set, get) => ({
+export const useAuthStore = create<State>()((set) => ({
+    isLoading: true,
     isAutenticated: false,
-    setAutenticate: (autenticate:boolean) => {
-        set({isAutenticated:autenticate});
+    autenticate: () => {
+        set({
+            isAutenticated: true,
+            isLoading: false
+        });
     },
-    autenticate: async () => {
-        const isAutenticate = get().isAutenticated;
-        if(isAutenticate) return true;
-        const auth = await authRepositoryImpl.getAuth();
-        return !!auth;
+    deauthenticate: () => {
+        set({
+            isAutenticated: false,
+            isLoading: false
+        });
     }
 }));

@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { FormField, InputState } from "@/presentation/types";
 import { 
     useAlertMessageStore, 
     useAuthStore, 
+    useLoaderScreenStore, 
     useUserStore 
 } from "@/presentation/store";
 import { handleError } from "@/shared";
@@ -14,20 +14,21 @@ export const useLoginWithEmail = (
     navigation: () => void,
     isFormValid: () => boolean,
 ) => {
-    const [ isLoading, setIsLoading ] = useState(false);
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
     const setUserStore = useUserStore(state => state.setUser);
-    const setAutenticate = useAuthStore(state => state.setAutenticate);
+    const autenticate = useAuthStore(state => state.autenticate);
+    const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
+    const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
     const loginWithEmail = async () => {
         if(!isFormValid()) return;
         try {
-            setIsLoading(true);
+            openLoaderScreen('Iniciando sesión...');
             const email = formState.email?.value!;
             const password = formState.password?.value!;
             const result = await signInWithEmailUseCase(authRepositoryImpl, email, password);
             setUserStore(result.user);
-            setAutenticate(true);
+            autenticate();
             navigation();
         } catch (error) {
             const {message, errorCode} = handleError(error);
@@ -51,11 +52,10 @@ export const useLoginWithEmail = (
                 message
             )
         } finally {
-            setIsLoading(false);
+            closeLoaderScreen();
         }
     }
     return {
-        isLoading,
         loginWithEmail
     }
 }

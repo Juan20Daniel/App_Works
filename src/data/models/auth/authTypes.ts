@@ -10,10 +10,14 @@ export interface AuthApi {
 }
 
 export interface UserApi {
-    _id:       string;
-    firstname: string;
-    lastname:  string;
-    email:     string;
-    role:      string;
-    isActive:  boolean;
+    _id:            string;
+    firstname:      string;
+    lastname:       string;
+    email:          string;
+    role:           string;
+    isActive:       boolean;
+    profile_image?: string;
+    provider?:      string;
+    provider_id?:   string;
+    avatarColor:    string;
 }

@@ -6,23 +6,13 @@ import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { useAuthStore } from '@/presentation/store';
+import { BtnOpenProfile } from '../../profile';
 import { styles } from './styles';
 
 export const Navbar = () => {
     const {top} = useSafeAreaInsets();
-    const autenticate = useAuthStore(state => state.autenticate);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     
-    const goToProfile = async () => {
-        const isAutenticated = await autenticate();
-       
-        if(!isAutenticated) {
-            return navigation.navigate('Login', {animationType:'fade'});
-        };
-
-        navigation.navigate('Profile');
-    }
     return (
         <View style={{...styles.container, paddingTop:top, height: 60+top}}>
             <TitleApp />
@@ -36,11 +26,7 @@ export const Navbar = () => {
                     iconName="Notification" 
                     onPress={() => navigation.navigate('Notifications')}
                 />
-                <NavLink
-                    iconName="AccountCircle" 
-                    iconSize={30}
-                    onPress={goToProfile}
-                />
+                <BtnOpenProfile />
             </View>
         </View>
     );

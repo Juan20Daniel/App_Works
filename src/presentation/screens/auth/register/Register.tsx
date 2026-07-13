@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate, LoaderScreen } from '@/presentation/components/ui';
+import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useRegister } from './hooks';
@@ -16,7 +16,6 @@ import { useCheckSession, useContinueWithGoogle } from '../shared';
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
 export const Register = ({navigation}:Props) => {
-    const [ isLoading, setIsLoading ] = useState(false);
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const { top, bottom } = useSafeAreaInsets();
@@ -28,27 +27,18 @@ export const Register = ({navigation}:Props) => {
         removeFocus,
         isFormValid,
     } = useForm(formInitialState(), formErrorMessage);
-    const { isLoading:isRegisteringWithEmail, register } = useRegister(
+    const { register } = useRegister(
         formState,
         () => navigation.replace("Home", {animationType:'fade'}),
         isFormValid
     );
     const { keyboardVisible } = useKeyboard();
 
-    const { 
-        isLoading:isContinuingWithGoogle, 
+    const {
         continueWithGoogle 
     } = useContinueWithGoogle(
         () => navigation.replace("Home", {animationType:'fade'})
     );
-
-    useEffect(() => {
-        if(isRegisteringWithEmail || isContinuingWithGoogle) {
-            setIsLoading(true);
-        } else {
-            setIsLoading(false);
-        }
-    },[isRegisteringWithEmail, isContinuingWithGoogle]);
 
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
@@ -151,9 +141,6 @@ export const Register = ({navigation}:Props) => {
                                 }
                             </View>
                         </View>
-                        <LoaderScreen
-                            isLoading={isLoading}
-                        />
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>

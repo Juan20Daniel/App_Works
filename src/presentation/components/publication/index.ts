@@ -1,4 +1,3 @@
-export * from "./emptyListPublications/EmptyListPublications";
 export * from "./filterPublications/FilterPublications";
 export * from "./modalPublicationOptions";
 export * from "./modalPublicationSettings/ModalOfferSettings";

@@ -1,4 +1,4 @@
-import { IconType } from "presentation/types/icons";
+import { IconType } from "@/presentation/types/icons";
 import * as icons from "./components";
 
 interface Props {

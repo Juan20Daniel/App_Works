@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const NavLink = ({iconName, iconSize, onPress}:Props) => (
-    <Pressable 
+    <Pressable
         onPress={onPress}
         style={({pressed}) => [
             {opacity: pressed ? 0.2 : 1, justifyContent:'center'}

@@ -43,4 +43,16 @@ export class AuthService {
             throw error;
         }
     }
+
+    async refreshSession(refreshToken:string):Promise<AuthAPIResponse> {
+        try {            
+            const response = await axiosInstance.post<AuthAPIResponse>('/auth/refresh',{
+                refreshToken
+            });
+            
+            return response.data;    
+        } catch (error) {
+            throw error;
+        }
+    }
 }

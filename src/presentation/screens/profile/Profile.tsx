@@ -1,69 +1,95 @@
 import { useState } from 'react';
-import { Text, useWindowDimensions, View } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigators/StackNavigator';
-import { PublicationSettingsProvider } from '../../context/PublicationSettingsContext';
-import { isTablet } from '@/presentation/helpers/isTablet';
 import { Container, HeaderApp } from '../../components/ui';
-import { UserAccountInformation } from '@/presentation/components/user';
-import { 
-  EmptyListPublications, 
+import {
   ModalPublicationSettings, 
-  SavedPublicationOptionsModal 
+  SavedPublicationOptionsModal
 } from '@/presentation/components/publication';
-import { BtnCloseSession } from '@/presentation/components/profile';
-import { styles } from './styles';
+import { 
+	BtnCloseSession, 
+	UserAccountInformation,
+	ProfileSectionHeader,
+	ProfileEmptySection
+} from '@/presentation/components/profile';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Profile'>{};
 const list = [1,2,3,4,5,6,7,8,9];
 
 export const Profile = ({navigation}:Props) => {
 	const [ savedOfferOpModal, setSavedOfferOpModal ] = useState(false);
-	const width = useWindowDimensions().width;
+	const statusBarSpace = useSafeAreaInsets().top;
+	const bottomMenuSpace = useSafeAreaInsets().bottom;
+	const height = useWindowDimensions().height;
+
 	return (
-		<PublicationSettingsProvider>
+		<>
 			<Container>
-				<HeaderApp
-					alignTitle='flex-start' 
-					subText='Mi cuenta' 
-					actionBtnClose={() => navigation.goBack()} 
-				/>
-				<UserAccountInformation
-					username='Juan Daniel Morales Abarca' 
-					email='carlosmanuel@gmail.com'
-				/>
-				<View style={{...styles.line, width:width-20}} />
-					<View style={{paddingHorizontal: 20, height:isTablet ? 40 : 30, justifyContent:'center'}}>
-					<Text style={{fontSize:15}}>Ofertas guardadas</Text>
-				</View>
-				{/* <HorizontalPagination list={list}>
-				<OfferInImgSmall 
-					openOptions={() => setSavedOfferOpModal(true)}
-				/>
-				</HorizontalPagination> */}
-				<EmptyListPublications
-					message='No has guardado ninguna vacante' 
-					valueBtn='Ver ofertas' 
-					action={() => navigation.navigate('Home', {animationType:'slide_from_left'})}
-				/>
-				<View style={{paddingHorizontal: 20, height:isTablet ? 40 : 30, justifyContent:'center'}}>
-					<Text style={{fontSize:15}}>Mis ofertas creadas</Text> 
-				</View> 
-				{/* <HorizontalPagination>
-				<OfferPersonalizedSmall />
-				</HorizontalPagination> */}
-				<EmptyListPublications
-					message='No has creado ninguna oferta laboral' 
-					valueBtn='Crear oferta' 
-					action={() => navigation.navigate('CreatePublication')}
-				/>
-				<BtnCloseSession navigation={navigation} />
+				<ScrollView
+					showsVerticalScrollIndicator={false}
+				>
+					<View style={{
+						position: 'relative',
+						width:'100%',
+						
+						height:height < 700 
+							? 700 
+							: height-statusBarSpace-bottomMenuSpace,
+						paddingBottom: height < 700 
+							? 70 
+							: 0,
+					}}>
+						<HeaderApp
+							alignTitle='flex-start'
+							subText='Mi cuenta' 
+							actionBtnClose={() => navigation.goBack()} 
+						/>
+						<UserAccountInformation />
+						<ProfileSectionHeader 
+							iconName='BookmarkFill'
+							title='Publicaciones guardadas'
+							subTitle='Aquí puedes ver las publicaciones que has guardado'
+							marginTop={20}
+						/>
+						<ProfileEmptySection
+							title='Aún no has guardado ninguna publicación'
+							description='Guarda publicaciones que te interesen y encuéntralas fácilmente.'
+							textBtnAction='Explorar publicaciones'
+							ilustration={require('@/assets/profile/empty-saved-posts.png')}
+							background='#F9FCFF'
+						/>
+						<ProfileSectionHeader 
+							iconName='EditDocumentFill'
+							title='Mis publicaciones'
+							subTitle='Aquí puedes gestionar y consultar todas las publicaciones que has creado.'
+							marginTop={20}
+						/>
+						<ProfileEmptySection
+							title='Aún no has creado ninguna publicación'
+							description='Comparte tu primera publicación y comienza a conectar con audiencia.'
+							textBtnAction='Crear publicacion'
+							ilustration={require('@/assets/profile/empty-created-posts.png')}
+							background='#F9FBFA'
+						/>
+						{/* <HorizontalPagination list={list}>
+						<OfferInImgSmall 
+							openOptions={() => setSavedOfferOpModal(true)}
+						/>
+						</HorizontalPagination> */}
+						{/* <HorizontalPagination>
+						<OfferPersonalizedSmall />
+						</HorizontalPagination> */}
+						<BtnCloseSession navigation={navigation} />
+					</View>
+				</ScrollView>
 			</Container>
 			<ModalPublicationSettings />
 			<SavedPublicationOptionsModal
 				visible={savedOfferOpModal} 
 				closeModal={() => setSavedOfferOpModal(!savedOfferOpModal)} 
 			/>
-		</PublicationSettingsProvider>
+		</>
 	);
 }
