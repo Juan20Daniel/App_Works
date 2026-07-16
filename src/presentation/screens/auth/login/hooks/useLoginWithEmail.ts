@@ -5,7 +5,7 @@ import {
     useLoaderScreenStore, 
     useUserStore 
 } from "@/presentation/store";
-import { handleError } from "@/shared";
+import { handleError } from "@/shared/error";
 import { signInWithEmailUseCase } from "@/domain/useCase";
 import { authRepositoryImpl } from "@/data/dependencies";
 

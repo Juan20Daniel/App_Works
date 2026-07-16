@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Newer</string>
+    
+     <string name="facebook_app_id">1771589793891062</string>
+
+    <string name="facebook_client_token">1841e4c982f4924e5af82f0137dd8d26</string>
+
+    <string name="fb_login_protocol_scheme">fb1771589793891062</string>
 </resources>

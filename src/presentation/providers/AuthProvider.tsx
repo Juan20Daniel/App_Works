@@ -2,6 +2,7 @@ import { useLayoutEffect } from "react";
 import { authRepositoryImpl } from "@/data/dependencies";
 import { refreshSessionUseCase } from "@/domain/useCase";
 import { useAuthStore, useUserStore } from "../store";
+import { Settings } from 'react-native-fbsdk-next';
 
 interface Props {
     children: React.ReactNode;
@@ -30,6 +31,10 @@ export const AuthProvider = ({children}:Props) => {
         }
         refreshSession();
     },[]);
+
+    useLayoutEffect(() => {
+        Settings.initializeSDK();
+    }, []);
     
     return (
         <>

@@ -2,12 +2,14 @@ import { AuthEntity, UserEntity } from "@/domain/entities";
 import { AuthRepository } from "@/domain/repositories";
 import { AuthMapper} from "@/data/mappers";
 import { RegisterUser } from "@/domain/types";
-import { AuthLocalService, AuthService } from "@/data/datasource";
+import { AuthLocalService, AuthService, FacebookAuthService, GoogleAuthService } from "@/data/datasource";
 
 export class AuthRepositoryImpl implements AuthRepository {
     constructor(
         private authService:AuthService,
-        private authLocalService:AuthLocalService
+        private authLocalService:AuthLocalService,
+        private googleAuthService:GoogleAuthService,
+        private facebookAuthService:FacebookAuthService
     ) {}
 
     async registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}> {
@@ -39,13 +41,27 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     async continueWithGoogle(): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
-            const response = await this.authService.continueWithGoogle();
+            const response = await this.googleAuthService.continueWithGoogle();
 
             const result = AuthMapper.fromAuthApiToAuthEntity(response);
 
             await this.authLocalService.saveAuth(result.auth);
 
             return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+     async continueWithFacebook(): Promise<null> {
+        try {
+            await this.facebookAuthService.continueWithFacebook();
+           
+            // const result = AuthMapper.fromAuthApiToAuthEntity(response);
+
+            // await this.authLocalService.saveAuth(result.auth);
+
+            return null;
         } catch (error) {
             throw error;
         }

@@ -3,6 +3,7 @@ import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
 import GoogleMaps
+import FBSDKCoreKit
 
 @main
 class AppDelegate: UIResponder,
@@ -24,6 +25,11 @@ class AppDelegate: UIResponder,
 
     let mapsKey = Bundle.main.object(forInfoDictionaryKey: "GOOGLE_MAPS_KEY") as? String
     GMSServices.provideAPIKey(mapsKey ?? "")
+
+    ApplicationDelegate.shared.application(
+      application,
+      didFinishLaunchingWithOptions: launchOptions
+    )
 
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
@@ -48,6 +54,10 @@ class AppDelegate: UIResponder,
     open url: URL,
     options: [UIApplication.OpenURLOptionsKey : Any] = [:]
   ) -> Bool {
+
+    if ApplicationDelegate.shared.application(app, open: url, options: options) {
+      return true
+    }
 
     if authorizationFlowManagerDelegate?.resumeExternalUserAgentFlow(with: url) == true {
       return true

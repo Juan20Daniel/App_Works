@@ -6,7 +6,7 @@ import {
     useLoaderScreenStore, 
     useUserStore 
 } from '@/presentation/store';
-import { handleError } from '@/shared';
+import { handleError } from '@/shared/error';
 
 export const useContinueWithGoogle = (
     navigation: () => void
@@ -25,6 +25,7 @@ export const useContinueWithGoogle = (
             autenticate();
             navigation();
         } catch (error) {
+            console.log(error);
             const { errorCode } = handleError(error);
             if(errorCode === "DUPLICATE_EMAIL" || errorCode === "UNAUTHORIZED") {
                 return openAlertMessage(

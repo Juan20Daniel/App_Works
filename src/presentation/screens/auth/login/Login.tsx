@@ -14,7 +14,11 @@ import { useLoginWithEmail } from './hooks';
 import { formInitialState } from './formInitialState';
 import { formErrorMessage } from './formErrorMessages';
 import { useForm } from '@/presentation/hooks';
-import { useCheckSession, useContinueWithGoogle } from '../shared';
+import { 
+    useCheckSession, 
+    useContinueWithGoogle, 
+    useContinueWithFacebook
+} from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
@@ -41,6 +45,13 @@ export const Login = ({navigation}:Props) => {
     } = useContinueWithGoogle(
         () => navigation.replace("Home", {animationType:'fade'})
     );
+
+    const {
+        continueWithFacebook
+    } = useContinueWithFacebook(
+        () => navigation.replace("Home", {animationType:'fade'})
+    );
+
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -112,10 +123,10 @@ export const Login = ({navigation}:Props) => {
                             action={continueWithGoogle}
                         />
                         <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
-                        <SocialAuthButton 
+                        <SocialAuthButton
                             value='Iniciar con facebook'
                             image={require('../../../../assets/auth/ImgFacebook.png')}
-                            action={() => {}}
+                            action={continueWithFacebook}
                         />
                     </View>
                 </View>

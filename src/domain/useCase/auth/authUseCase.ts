@@ -48,6 +48,14 @@ export const continueWithGoogleUseCase = async (repository: AuthRepository) => {
     }
 }
 
+export const continueWithFacebookUseCase = async (repository: AuthRepository) => {
+    try {
+        return repository.continueWithFacebook();
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const refreshSessionUseCase = async (repository: AuthRepository) => {
     try {
         return repository.refreshSession();

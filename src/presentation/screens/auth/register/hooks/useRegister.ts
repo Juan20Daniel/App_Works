@@ -1,12 +1,12 @@
 import { RegisterUser } from "@/domain/types";
 import { FormField, InputState } from "@/presentation/types";
 import { registerUserUseCase } from "@/domain/useCase";
-import { handleError } from "@/shared";
-import { 
-    useAlertMessageStore, 
-    useAuthStore, 
-    useLoaderScreenStore, 
-    useUserStore 
+import { handleError } from "@/shared/error";
+import {
+    useAlertMessageStore,
+    useAuthStore,
+    useLoaderScreenStore,
+    useUserStore
 } from "@/presentation/store";
 import { authRepositoryImpl } from "@/data/dependencies";
 
@@ -30,7 +30,7 @@ export const useRegister = (
             password: formState.password?.value!
         }
         try {
-            openLoaderScreen('Iniciando sesión')
+            openLoaderScreen('Registrando usuario...')
             const result = await registerUserUseCase(authRepositoryImpl, data);
             setUserStore(result.user);
             autenticate();

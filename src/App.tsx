@@ -5,7 +5,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AlertMessage, LoaderScreen } from "./presentation/components/ui";
 import { AuthProvider } from "./presentation/providers";
 
-
 const App = () => {
     return (
         <AuthProvider>
