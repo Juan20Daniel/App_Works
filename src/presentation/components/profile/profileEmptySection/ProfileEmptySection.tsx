@@ -28,7 +28,7 @@ export const ProfileEmptySection = ({
                 backgroundColor:background,
                 height: height < 750 
                     ? 160 
-                    : percentageHeight(isTablet ? 24 : 21),    
+                    : percentageHeight(isTablet ? 25 : 22),    
             }}>
                 
                 <View style={{width: '40%', alignItems:'flex-end'}}>

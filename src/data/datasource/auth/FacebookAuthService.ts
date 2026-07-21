@@ -1,41 +1,42 @@
 import {
     LoginManager,
-    AccessToken
+    AccessToken,
+    AuthenticationToken,
 } from 'react-native-fbsdk-next';
-
-// import { axiosInstance } from '@/data/network/axios';
+import { axiosInstance } from '@/data/network/axios';
 import { AuthAPIResponse } from '@/data/models';
 import { AppError } from '@/shared';
+import { Platform } from 'react-native';
 
 export class FacebookAuthService {
     async continueWithFacebook(): Promise<AuthAPIResponse> {
-        const accessToken = await this.getAccessToken();
-        console.log(accessToken);
+        const data = await this.authenticate();
+      
+        const payload = Platform.OS === 'ios'
+            ?   {
+                    token: (data as AuthenticationToken).authenticationToken,
+                    tokenType: 'authentication_token' as const,
+                }
+            :   {
+                    token: (data as AccessToken).accessToken,
+                    tokenType: 'access_token' as const,
+                }
+        
+        const response = await axiosInstance.post<AuthAPIResponse>(
+            '/auth/continue-with-facebook',
+            payload
+        );
 
-        return {
-            message: 'Inicio de sesión facebook',
-            auth: {
-                token: '',
-                refreshToken: ''
-            },
-            user: {
-                _id:'',
-                firstname:'',
-                lastname: '',
-                email:'',
-                avatarColor:'',
-                isActive: true,
-                role:''
-            }
-        };
+        return response.data;
     }
 
-    private async getAccessToken() {
+    private async authenticate() {
+
         const result = await LoginManager.logInWithPermissions([
             'public_profile',
             'email'
         ]);
-
+    
         if (result.isCancelled) {
             throw new AppError(
                 'FACEBOOK_CANCELLED',
@@ -43,15 +44,17 @@ export class FacebookAuthService {
             );
 
         }
-
-        const accessToken = await AccessToken.getCurrentAccessToken();
-        if (!accessToken) {
+        const data = Platform.OS === 'ios'
+            ? await AuthenticationToken.getAuthenticationTokenIOS()
+            : await AccessToken.getCurrentAccessToken()
+        
+        if (!data) {
             throw new AppError(
-                'FACEBOOK_NO_ACCESS_TOKEN',
-                'Facebook no devolvió un Access Token.',
+                'FACEBOOK_NO_TOKEN',
+                'Facebook no devolvió un token válido.',
             );
         }
        
-        return accessToken;
+        return data;
     }
 }

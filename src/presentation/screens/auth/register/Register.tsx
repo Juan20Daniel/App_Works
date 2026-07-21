@@ -11,7 +11,7 @@ import { formInitialState } from './formInitialState';
 import { formErrorMessage } from './formErrorMessages';
 import { useForm, useKeyboard } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useCheckSession, useContinueWithGoogle } from '../shared';
+import { useCheckSession, useContinueWithFacebook, useContinueWithGoogle } from '../shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
@@ -37,6 +37,12 @@ export const Register = ({navigation}:Props) => {
     const {
         continueWithGoogle 
     } = useContinueWithGoogle(
+        () => navigation.replace("Home", {animationType:'fade'})
+    );
+
+    const {
+        continueWithFacebook
+    } = useContinueWithFacebook(
         () => navigation.replace("Home", {animationType:'fade'})
     );
 
@@ -134,7 +140,7 @@ export const Register = ({navigation}:Props) => {
                                 <SocialAuthButton 
                                     value='Crear con facebook'
                                     image={require('../../../../assets/auth/ImgFacebook.png')}
-                                    action={() => {}}
+                                    action={continueWithFacebook}
                                 />
                                 {keyboardVisible &&
                                     <View style={{width:'100%', height: 100}} />

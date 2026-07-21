@@ -53,15 +53,15 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
-     async continueWithFacebook(): Promise<null> {
+     async continueWithFacebook(): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
-            await this.facebookAuthService.continueWithFacebook();
+            const response = await this.facebookAuthService.continueWithFacebook();
            
-            // const result = AuthMapper.fromAuthApiToAuthEntity(response);
+            const result = AuthMapper.fromAuthApiToAuthEntity(response);
 
-            // await this.authLocalService.saveAuth(result.auth);
+            await this.authLocalService.saveAuth(result.auth);
 
-            return null;
+            return result;
         } catch (error) {
             throw error;
         }

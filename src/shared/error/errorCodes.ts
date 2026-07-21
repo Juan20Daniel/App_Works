@@ -8,6 +8,8 @@ export type ErrorCodes =
     |   'NOT_FOUND'
     |   'INTERNAL_SERVER'
     |   'FORBIDDEN'
+    |   'INVALID_FACEBOOK_TOKEN_TYPE'
+    |   'FACEBOOK_PROFILE_REQUEST_FAILED'
     
     //  Axios
     |   'NETWORK_ERROR'
@@ -15,7 +17,7 @@ export type ErrorCodes =
     
     // Facebook
     | 'FACEBOOK_CANCELLED'
-    | 'FACEBOOK_NO_ACCESS_TOKEN'
+    | 'FACEBOOK_NO_TOKEN'
     | 'FACEBOOK_UNKNOWN_ERR'
 
     // Google

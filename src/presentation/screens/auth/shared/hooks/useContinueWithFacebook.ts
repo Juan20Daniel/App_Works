@@ -20,32 +20,31 @@ export const useContinueWithFacebook = (
     const continueWithFacebook = async () => {
         try {
             openLoaderScreen('Iniciando sesión...');
-            await continueWithFacebookUseCase(authRepositoryImpl);
+            const result = await continueWithFacebookUseCase(authRepositoryImpl);
             
-            // setUserStore(result.user);
-            // autenticate();
-            // navigation();
+            setUserStore(result.user);
+            autenticate();
+            navigation();
         } catch (error) {
-            console.log(error);
-            // const { errorCode } = handleError(error);
-            // if(errorCode === "DUPLICATE_EMAIL" || errorCode === "UNAUTHORIZED") {
-            //     return openAlertMessage(
-            //         'error',
-            //         'No fue posible iniciar sesión',
-            //         'Ya existe una cuenta con este correo electrónico.'
-            //     );
-            // }
-            // if(errorCode === "FORBIDDEN") {
-            //     return openAlertMessage(
-            //         'error',
-            //         'No fue posible iniciar con este correo',
-            //         'La cuenta no se encuentra activa'
-            //     );
-            // }
-            // return openAlertMessage(
-            //     'error', 
-            //     'No fue posible iniciar sesión', 
-            // )
+            const { errorCode } = handleError(error);
+            if(errorCode === "DUPLICATE_EMAIL" || errorCode === "UNAUTHORIZED") {
+                return openAlertMessage(
+                    'error',
+                    'No fue posible iniciar sesión',
+                    'Ya existe una cuenta con este correo electrónico.'
+                );
+            }
+            if(errorCode === "FORBIDDEN") {
+                return openAlertMessage(
+                    'error',
+                    'No fue posible iniciar con este correo',
+                    'La cuenta no se encuentra activa'
+                );
+            }
+            return openAlertMessage(
+                'error', 
+                'No fue posible iniciar sesión', 
+            )
         } finally {
             closeLoaderScreen();
         }

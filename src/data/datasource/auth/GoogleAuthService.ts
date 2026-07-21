@@ -19,7 +19,7 @@ export class GoogleAuthService {
             }
             
             const response = await axiosInstance.post<AuthAPIResponse>('/auth/continue-with-google',{
-                idToken
+                accessToken:idToken
             });
             
             return response.data;    

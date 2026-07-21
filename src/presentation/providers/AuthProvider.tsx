@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { authRepositoryImpl } from "@/data/dependencies";
 import { refreshSessionUseCase } from "@/domain/useCase";
 import { useAuthStore, useUserStore } from "../store";
@@ -13,7 +13,7 @@ export const AuthProvider = ({children}:Props) => {
     const autenticate = useAuthStore(state => state.autenticate);
     const deauthenticate = useAuthStore(state => state.deauthenticate);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const refreshSession =  async () => {
             try {
                 const result = await refreshSessionUseCase(authRepositoryImpl);
@@ -32,7 +32,7 @@ export const AuthProvider = ({children}:Props) => {
         refreshSession();
     },[]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         Settings.initializeSDK();
     }, []);
     
