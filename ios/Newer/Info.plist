@@ -39,7 +39,7 @@
 				
 				<key>CFBundleURLSchemes</key>
 				<array>
-					<string>fb1771589793891062</string>
+					<string>$(ACEBOOK_URL_SCHEME)</string>
 				</array>
 			</dict>
 		</array>
@@ -48,11 +48,11 @@
 		<key>GOOGLE_MAPS_KEY</key>
 		<string>$(GOOGLE_MAPS_KEY)</string>
 		<key>FacebookAppID</key>
-		<string>1771589793891062</string>
+		<string>$(FACEBOOK_APP_ID)</string>
 		<key>FacebookClientToken</key>
-		<string>1841e4c982f4924e5af82f0137dd8d26</string>
+		<string>$(FACEBOOK_CLIENT_TOKEN)</string>
 		<key>FacebookDisplayName</key>
-		<string>app-works</string>
+		<string>$(FACEBOOK_DISPLAY_NAME)</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
 			<string>fbapi</string>
@@ -60,7 +60,7 @@
 			<string>fbauth2</string>
 			<string>fbshareextension</string>
 		</array>
-		<key>LSRequiresIPhoneOS</key>
+		<key>LSReqauiresIPhoneOS</key>
 		<true/>
 		<key>NSAppTransportSecurity</key>
 		<dict>
