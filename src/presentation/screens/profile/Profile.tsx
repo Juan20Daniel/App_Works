@@ -16,7 +16,6 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Profile'>{};
-const list = [1,2,3,4,5,6,7,8,9];
 
 export const Profile = ({navigation}:Props) => {
 	const [ savedOfferOpModal, setSavedOfferOpModal ] = useState(false);
@@ -44,7 +43,9 @@ export const Profile = ({navigation}:Props) => {
 						<HeaderApp
 							alignTitle='flex-start'
 							subText='Mi cuenta' 
-							actionBtnClose={() => navigation.goBack()} 
+							actionBtnClose={() => {
+								navigation.replace('Home', {animationType:"slide_from_left"})
+							}} 
 						/>
 						<UserAccountInformation />
 						<ProfileSectionHeader 
@@ -59,6 +60,9 @@ export const Profile = ({navigation}:Props) => {
 							textBtnAction='Explorar publicaciones'
 							ilustration={require('@/assets/profile/empty-saved-posts.png')}
 							background='#F9FCFF'
+							btnAction={() => {
+								navigation.replace('Home', {animationType:"slide_from_left"})
+							}}
 						/>
 						<ProfileSectionHeader 
 							iconName='EditDocumentFill'
@@ -72,6 +76,7 @@ export const Profile = ({navigation}:Props) => {
 							textBtnAction='Crear publicacion'
 							ilustration={require('@/assets/profile/empty-created-posts.png')}
 							background='#F9FBFA'
+							btnAction={() => navigation.navigate('CreatePublication')}
 						/>
 						{/* <HorizontalPagination list={list}>
 						<OfferInImgSmall 

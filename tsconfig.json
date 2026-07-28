@@ -1,8 +1,11 @@
 {
   "extends": "@react-native/typescript-config",
   "compilerOptions": {
-    "types": [],
-    "typeRoots": ["./types"],
+    "types": ["jest"],
+    "typeRoots": [
+      "./types",
+       "./node_modules/@types"
+    ],
     "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {

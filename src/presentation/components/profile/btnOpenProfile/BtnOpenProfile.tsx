@@ -18,7 +18,7 @@ export const BtnOpenProfile = () => {
         if(!isAutenticated) {
             return navigation.navigate('Login', {animationType:'fade'});
         };
-        navigation.navigate('Profile');
+        navigation.navigate('Profile', {});
     }
 
     if(isAutenticating) {

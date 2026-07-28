@@ -43,7 +43,7 @@ export const ScreenContent = ({navigation}:Props) => {
     }
     const confirmedAction = () => {
         closeAlertConfirm();
-        navigation.goBack();
+        navigation.replace('Profile', {animationType:'slide_from_left'});
     }
     // const isFormClean = () => {
     //     let isClear = true;
@@ -77,7 +77,7 @@ export const ScreenContent = ({navigation}:Props) => {
             >
                 <HeaderApp
                     subText='Crear publicación'
-                    actionBtnClose={() => {}}
+                    actionBtnClose={() => confirmedAction()}
                     actionBox={() => {}}
                 />
                 <TouchableWithoutFeedback accessible={false} onPress={() => {}}>

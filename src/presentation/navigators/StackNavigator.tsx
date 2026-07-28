@@ -17,7 +17,7 @@ export type RootStackParamList = {
     Home: {animationType?:StackAnimationName};
     Search: undefined;
     SearchResults: undefined;
-    Profile: undefined;
+    Profile: { animationType?:StackAnimationName };
     Login: { animationType?:StackAnimationName };
     Register: { animationType?:StackAnimationName };
     CreatePublication: undefined;
@@ -40,12 +40,37 @@ const StackNavigator = () => {
                         :'fade'
                     })}
                 />
-                <Stack.Screen name='Search' component={Search} options={{animation:'slide_from_left'}} />
-                <Stack.Screen name='SearchResults' component={SearchResults} options={{animation:'fade'}} />
-                <Stack.Screen name='Profile' component={Profile} options={{animation:'slide_from_right'}} />
-                <Stack.Screen name='Publication' component={Publication} options={{animation:'slide_from_right'}} />
-                <Stack.Screen name='CreatePublication' component={CreatePublication} options={{animation:'fade'}} />
-                <Stack.Screen name='Notifications' component={Notifications} />
+                <Stack.Screen 
+                    name='Search' 
+                    component={Search}
+                    options={{animation:'slide_from_left'}} 
+                />
+                <Stack.Screen 
+                    name='SearchResults' 
+                    component={SearchResults} 
+                    options={{animation:'fade'}} 
+                />
+                <Stack.Screen
+                    name='Profile'
+                    component={Profile}
+                    options={({route}) => ({
+                        animation:route.params.animationType??'slide_from_right'
+                    })}
+                />
+                <Stack.Screen 
+                    name='Publication' 
+                    component={Publication} 
+                    options={{animation:'slide_from_right'}} 
+                />
+                <Stack.Screen 
+                    name='CreatePublication' 
+                    component={CreatePublication} 
+                    options={{animation:'slide_from_right'}} 
+                />
+                <Stack.Screen 
+                    name='Notifications' 
+                    component={Notifications} 
+                />
                 <Stack.Screen 
                     name='Login' 
                     component={Login}
