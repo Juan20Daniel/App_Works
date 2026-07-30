@@ -1,11 +1,11 @@
-import { DimensionValue, KeyboardTypeOptions, StyleSheet, TextInput, View } from 'react-native';
+import { DimensionValue, KeyboardTypeOptions, StyleSheet, TextInput as Input, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { InputState } from '@/presentation/types/input';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { Label } from '@/presentation/components/createPublication/formCreatePublication/components/Label';
+import { Label } from '../shared/label/Label';
 import { BtnClearInput } from '@/presentation/components/shared';
 import { BtnBasic } from '@/presentation/components/ui';
-import { InputErrorMessage } from './InputErrorMessage';
+import { InputErrorMessage } from '../shared';
 import { FormField } from '@/presentation/types/form';
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
     clearInput:(field:FormField) => void;
 }
 
-export const InputTextForm = ({
+export const InputText = ({
     state,
     label, 
     placeholder,
@@ -65,7 +65,7 @@ export const InputTextForm = ({
                         ?   globalColors.darkRed
                         :   globalColors.softGray
             }}>
-                <TextInput
+                <Input
                     keyboardType={keyboardType}
                     value={value}
                     onChangeText={textValue => onChange(name, textValue)}
@@ -92,7 +92,6 @@ export const InputTextForm = ({
                                 inputAction && inputAction();
                             }}
                             backgroundColor={globalColors.softGray}
-                            disable={disableBtnAction}
                             customStylesBtn={{
                                 height: 57, 
                                 borderRadius:20

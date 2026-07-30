@@ -14,8 +14,8 @@ interface Props {
 
 export const BtnSelect = ({
     state,
-    placeholder, 
-    showIconRight=false, 
+    placeholder,
+    showIconRight=false,
     pressable=false,
     onPress
 }:Props) => {
@@ -38,7 +38,7 @@ export const BtnSelect = ({
             onPress={() => onPress(name)}
         >
             <Text style={styles.textBtn}>
-                {value === '' 
+                {value === ''
                     ?   <Text style={{
                             color: (status !== null && status !== 'valid') 
                                 ?   globalColors.darkRed

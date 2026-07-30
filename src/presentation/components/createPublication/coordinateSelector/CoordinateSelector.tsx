@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ModalMap } from './components/ModalMap';
 import { Coords } from '@/presentation/types/google-map';
-import { BtnSelect } from '../BtnSelect';
-import { BoxBtnSelect } from '../BoxBtnSelect';
+import { BtnSelect } from '../shared/btnSelect/BtnSelect';
+import { BoxBtnSelect } from '../shared';
 import { InputStatus } from '@/presentation/types/input';
 
 interface Props {
@@ -37,19 +37,16 @@ export const CoordinateSelector = ({
             <BoxBtnSelect 
                 label='Ubicación de la empresa' 
                 width='100%' 
-                showTextRequire 
+                showTextRequire
                 isRequired={isRequired}
                 statusError={statusError}
                 errorFieldEmpty={errorFieldEmpty}
                 errorFieldInvalid={errorFieldInvalid}
             >
                 <BtnSelect
-                    name='btnSelect'
+                    state={{name:'coords', value:'', status:null, isValid:false, isRequired:true, isFocus:false}}
                     placeholder='Seleccionar ubicación en google maps'
-                    isFocus={false}
-                    value={value}
                     pressable
-                    statusError={statusError}
                     onPress={() => setVisible(true)}
                 />
             </BoxBtnSelect>

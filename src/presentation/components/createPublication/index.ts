@@ -1,2 +1,5 @@
-export { FormCreatePublication } from "./formCreatePublication/FormCreatePublication";
-export { PublishOnCompletionToggle } from "./publishOnCompletionToggle/PublishOnCompletionToggle";
+export * from "./publishOnCompletionToggle/PublishOnCompletionToggle";
+export * from './inputText';
+export * from './row';
+export * from './btnSelectLogo';
+export * from './uploadImage';

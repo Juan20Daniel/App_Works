@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 
 import { globalColors } from "@/presentation/globalStyles/global.styles";
 import { calcDimension } from "@/presentation/helpers/calcDimension";
-import { formStyles } from "@/presentation/components/createPublication/formCreatePublication/styles";
+import { formStyles } from "@/presentation/components/createPublication/styles";
 import { Icon } from "@/presentation/components/ui/icon/Icon";
 
 interface Props {

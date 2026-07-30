@@ -2,12 +2,10 @@ import { SetStateAction, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Coords } from '@/presentation/types/google-map';
-import { ConfirmationAlert } from '@/presentation/components/ui/alerts/confirmationAlert/ConfirmationAlert';
 import { BtnClose } from '@/presentation/components/ui/btnClose/BtnClose';
 import { GoogleMap } from '@/presentation/components/googleMap/GoogleMap';
 import { BtnFloat } from '@/presentation/components/ui/btnFloat/BtnFloat';
 import { ModalSearchCoords } from './modalSearchCoords/ModalSearchCoords';
-import type { AlertState } from '@/presentation/types/alertMessage';
 
 interface Props {
   visible: boolean;
@@ -18,7 +16,6 @@ interface Props {
 
 export const ModalMap = ({visible, markerCoords, setMarkerCoords, closeModal}:Props) => {
   const [ modalSearchCoords, setModalSearchCoords ] = useState(false);
-  const [ confirmAlert, setConfirmAlert ] = useState<AlertState>({visible:false, title:'', message:''});
   const initialMarkerCoords = useRef<Coords>({latitude:markerCoords.latitude, longitude: markerCoords.longitude});
   const {top} = useSafeAreaInsets();
 
@@ -38,20 +35,20 @@ export const ModalMap = ({visible, markerCoords, setMarkerCoords, closeModal}:Pr
       latitude:initialMarkerCoords.current.latitude, 
       longitude:initialMarkerCoords.current.longitude
     });
-    setConfirmAlert({visible:false, title:'', message:''});
+    // setConfirmAlert({visible:false, title:'', message:''});
   }
   const getCoords = (lat:number, lon:number) => {
     setMarkerCoords({latitude: lat, longitude:lon});
     setTimeout(() => {
-      setConfirmAlert({
-        visible:true,
-        title:'Agregar ubicación',
-        message:'¿Quieres agregar esta ubicación?'
-      });
+      // setConfirmAlert({
+      //   visible:true,
+      //   title:'Agregar ubicación',
+      //   message:'¿Quieres agregar esta ubicación?'
+      // });
     }, 500);
   }
   const resetAndCloseModal = () => {
-    setConfirmAlert({visible:false, title:'', message:''});
+    // setConfirmAlert({visible:false, title:'', message:''});
     setTimeout(() => {
       closeModal();
     },500);
@@ -72,7 +69,8 @@ export const ModalMap = ({visible, markerCoords, setMarkerCoords, closeModal}:Pr
         />
         <BtnFloat
           value='Buscar'
-          iconName='search'
+          // Colocar icono de buscar
+          iconName='Close'
           customStyle={{
             top: top+20
           }}
@@ -82,13 +80,6 @@ export const ModalMap = ({visible, markerCoords, setMarkerCoords, closeModal}:Pr
       <ModalSearchCoords 
         visible={modalSearchCoords}
         closeModal={() => setModalSearchCoords(false)}
-      />
-      <ConfirmationAlert
-        alertState={confirmAlert}
-        textBtnCancel='No'
-        textBtnConfirm='Si'
-        cancelAction={() => cancelAlert()}
-        confirmAction={() => confirm()}
       />
     </Modal>
   );

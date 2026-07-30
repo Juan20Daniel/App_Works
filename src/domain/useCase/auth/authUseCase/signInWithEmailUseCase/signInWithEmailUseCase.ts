@@ -7,7 +7,7 @@ export const signInWithEmailUseCase = async (
     password: string
 ) => {
     if(!expretions.email.test(email) || !expretions.password.test(password)) {
-        throw new AppError('VALIDATION', 'Error de validación en alguno de los campios', true);
+        throw new AppError('VALIDATION', 'Error de validación en alguno de los campos', true);
     }
 
     return repository.signInWithEmail(email, password);

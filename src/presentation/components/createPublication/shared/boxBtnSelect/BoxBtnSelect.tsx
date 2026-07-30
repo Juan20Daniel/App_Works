@@ -1,15 +1,15 @@
 import { DimensionValue, StyleSheet, Text, View } from 'react-native';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { Label } from './Label';
 import { InputStatus } from '@/presentation/types/input';
+import { Label } from '../label/Label';
 
 interface Props {
-    label:string;
+    label: string;
     children: React.ReactNode;
-    showTextRequire?:boolean;
-    isRequired?:boolean;
-    width?:DimensionValue;
+    showTextRequire?: boolean;
+    isRequired?: boolean;
+    width?: DimensionValue;
     statusError?: InputStatus;
     errorFieldEmpty?: string;
     errorFieldInvalid?: string;

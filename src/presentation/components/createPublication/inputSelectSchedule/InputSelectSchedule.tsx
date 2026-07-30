@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { BoxModal } from './components/Modal';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { Label } from '../Label';
-import { BtnSelect } from '../BtnSelect';
+import { Label } from '../shared/label/Label';
+import { BtnSelect } from '../shared/btnSelect/BtnSelect';
 import { InputStatus } from '@/presentation/types/input';
 
 interface Props {
@@ -62,11 +62,8 @@ export const InputSelectSchedule = ({
                         statusError={statusError}
                     />
                     <BtnSelect
-                        name={name}
+                        state={{name:'benefits', value:'', isValid: false, status:null, isFocus:false, isRequired:true}}
                         placeholder='Selecciona el horario de trabajo'
-                        isFocus={isFocus}
-                        value={value}
-                        statusError={statusError}
                         onPress={() => {
                             onFocus(name);
                             setShowModal(!showModal);

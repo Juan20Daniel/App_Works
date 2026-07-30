@@ -1,13 +1,13 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { formStyles } from '@/presentation/components/createPublication/formCreatePublication/styles';
+import { formStyles } from '@/presentation/components/createPublication/styles';
 
 export const Placeholder = () => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../../../../../assets/createPublication/uploadPublicationImg.png')}
+                source={require('../../../../../assets/createPublication/uploadPublicationImg.png')}
                 style={{
                     objectFit: 'contain', 
                     width: isTablet ? 300 : 250, 

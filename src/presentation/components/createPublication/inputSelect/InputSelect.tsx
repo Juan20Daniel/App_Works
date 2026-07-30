@@ -1,11 +1,11 @@
 import { View } from 'react-native';
 import { InputSelectOption } from '@/presentation/types/input-select-option';
 import { ListOptions } from './components/ListOptions';
-import { BtnSelect } from '../BtnSelect';
+import { BtnSelect } from '../shared/btnSelect/BtnSelect';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { Label } from '../Label';
+import { Label } from '../shared/label/Label';
 import { InputStatus } from '@/presentation/types/input';
-import { InputErrorMessage } from '../InputErrorMessage';
+import { InputErrorMessage } from '../shared/inputErrorMessage/InputErrorMessage';
 
 interface Props {
     label:string;
@@ -53,13 +53,10 @@ export const InputSelect = ({
                     statusError={statusError}
                 />
                 <BtnSelect
-                    name={name}
+                    state={{name:'description', value:'', isFocus:false, status:null, isValid:false, isRequired:true}}
                     placeholder={placeholder}
-                    isFocus={isFocus}
                     onPress={onFocus}
-                    value={value}
                     showIconRight
-                    statusError={statusError}
                     iconName='chevron-down-outline'
                 />
                 {isFocus &&

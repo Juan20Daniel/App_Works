@@ -7,7 +7,7 @@ import { SelectonScroll } from "./SelectonScroll";
 import { HourSelector } from "./HourSelector";
 import { SelectScrollItem } from "@/presentation/types/select-scroll";
 import { isTablet } from "@/presentation/helpers/isTablet";
-import { formStyles } from "../../../styles";
+import { formStyles } from "../../styles";
 
 
 interface Props {

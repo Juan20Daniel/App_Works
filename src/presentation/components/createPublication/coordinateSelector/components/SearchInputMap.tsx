@@ -3,7 +3,7 @@ import { Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-na
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { formStyles } from '@/presentation/components/createPublication/formCreatePublication/styles';
+import { formStyles } from '@/presentation/components/createPublication/styles';
 import { BtnClearInput } from '@/presentation/components/shared';
 import { Icon } from '@/presentation/components/ui/icon/Icon';
 

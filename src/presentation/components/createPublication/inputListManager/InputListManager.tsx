@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { View } from 'react-native';
 import { ItemList } from '@/presentation/types/input-list-manager';
 import { ListItems } from './components/ListItems';
-import { InputTextForm } from '../InputTextForm';
+import { InputText } from '../inputText/InputText';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { InputStatus } from '@/presentation/types/input';
 import { expretions } from '@/shared/regex';
@@ -48,7 +48,8 @@ export const InputListManager = ({
     const counter = useRef(0);
 
     const validValue = () => {
-        return expretions[name].test(value);
+        // return expretions[name].test(value);
+        return false
     }
     const addItem = () => {
         const resultValidation = validValue()
@@ -81,21 +82,16 @@ export const InputListManager = ({
                     editItem={editItem}
                 />
             }
-            <InputTextForm
+            <InputText
                 label={label}
                 placeholder={placeholder}
-                value={value}
+                state={{name:'description', value:'', isFocus:false, isRequired:false, status:null, isValid:false}}
                 keyboardType='default'
-                isRequired={isRequired}
-                name={name}
-                inputType="input-action"                
-                isFocus={isFocus}
+                inputType="input-action"
                 containerWidth="100%"
                 textBtnInputAction={isAdding ? 'Agregar' : 'Modificar'}
                 inputAction={isAdding ? addItem : saveEdition}
                 disableBtnAction={value.length < 5}
-                statusError={error}
-                errorFieldInvalid={errorFieldInvalid}
                 onChange={onChange}
                 onFocus={onFocus}
                 clearInput={() => {
