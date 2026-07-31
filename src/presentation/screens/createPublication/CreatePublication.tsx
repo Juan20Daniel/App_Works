@@ -79,9 +79,9 @@ export const CreatePublication = ({navigation}:Props) => {
                                 state={}
                             />
                         </Row> */}
-                        <Row>
+                        {/* <Row>
                             <UploadImage />
-                        </Row>
+                        </Row> */}
                         {/* <Row>
                             <InputSelect
                                 label="Tipo de trabajo" 

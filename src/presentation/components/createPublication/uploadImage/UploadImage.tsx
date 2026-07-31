@@ -2,7 +2,6 @@ import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { PictureAdapter } from '@/config/adapters/picture-adapter';
 import { Placeholder } from './components/Placeholder';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { useCreatePublication } from '@/presentation/context/CreatePublicationContext';
 import { useAlertMessageStore } from '@/presentation/store';
 
 export const UploadImage = () => {
