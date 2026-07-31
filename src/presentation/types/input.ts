@@ -1,16 +1,52 @@
-import { FormField } from "./form";
+export type InputName = 
+    | 'email'
+    | 'password'
+    | 'companyName'
+    | 'image'
+    | 'typeWork'
+    | 'minimumWage'
+    | 'maximumWage'
+    | 'schedule'
+    | 'image'
+    | 'companyName'
+    | 'logoCompany'
+    | 'description'
+    | 'companyDesc'
+    | 'requirements'
+    | 'benefits'
+    | 'coords'
+    | 'firstname'
+    | 'lastname'
+    | 'phone'
 
-export interface InputState {
-    name: FormField;
+interface Input {
+    name: InputName;
     value: string;
     isFocus: boolean;
     isValid: boolean | null;
     status: InputStatus;
-    errorMessage?: string;
     isRequired: boolean;
+    errorMessage?: string;
 }
 
-export type InputStatus = null|'empty'|'valid'|'invalid';
+export interface InputText extends Input {
+    type: 'text';
+}
+
+export interface InputSelect extends Input {
+    type: 'select';
+    selectedOptionId: number | null;
+}
+
+export type InputState = 
+    |   InputText
+    |   InputSelect
+
+export type InputStatus = 
+    | null
+    | 'empty'
+    | 'valid'
+    | 'invalid';
 
 export type InputErrorMessage = {
     empty: string;

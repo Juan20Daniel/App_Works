@@ -1,18 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { InputStatus } from '@/presentation/types/input';
+import { InputState } from '@/presentation/types/input';
 
 interface Props {
-    statusError?: InputStatus;
-    errorFieldEmpty?: string;
-    errorFieldInvalid?: string;
+    state: InputState;
 }
 
-export const InputErrorMessage = ({statusError, errorFieldEmpty, errorFieldInvalid}:Props) => {
+export const InputErrorMessage = ({state}:Props) => {
+    const { status, errorMessage } = state;
     return (
         <View style={styles.boxMessageError}>
             <Text style={styles.messageError}>
-                {statusError === 'empty' ? errorFieldEmpty : errorFieldInvalid}
+                {(status !== null && status !== 'valid') && errorMessage}
             </Text>
         </View>
     );

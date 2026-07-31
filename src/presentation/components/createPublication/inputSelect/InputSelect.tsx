@@ -4,20 +4,14 @@ import { ListOptions } from './components/ListOptions';
 import { BtnSelect } from '../shared/btnSelect/BtnSelect';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { Label } from '../shared/label/Label';
-import { InputStatus } from '@/presentation/types/input';
+import { InputState } from '@/presentation/types/input';
 import { InputErrorMessage } from '../shared/inputErrorMessage/InputErrorMessage';
 
 interface Props {
     label:string;
     placeholder:string;
-    name:string;
     listOptions:InputSelectOption[];
-    isFocus:boolean;
-    value:string;
-    isRequired?: boolean;
-    statusError?: InputStatus;
-    errorFieldEmpty?: string;
-    errorFieldInvalid?: string;
+    state: InputState;
     handleChange:(field:string, value:string) => void;
     onFocus:(field:string) => void;
     closeFocus:() => void;
@@ -26,18 +20,13 @@ interface Props {
 export const InputSelect = ({
     label, 
     placeholder, 
-    name, 
+    state,
     listOptions, 
-    isFocus, 
-    value,
-    isRequired=false,
-    statusError,
-    errorFieldEmpty,
-    errorFieldInvalid,
     onFocus, 
     handleChange,
     closeFocus
 }:Props) => {
+    const { name, value, isFocus, status } = state;
     const selectOption = (optionName:string) => {
         handleChange(name, optionName);
         closeFocus();
@@ -47,13 +36,11 @@ export const InputSelect = ({
             <View style={{position: 'relative', flex:1}}>
                 <Label
                     text={label}
-                    isFocus={isFocus}
+                    state={state}
                     showTextRequire
-                    isRequired={isRequired}
-                    statusError={statusError}
                 />
                 <BtnSelect
-                    state={{name:'description', value:'', isFocus:false, status:null, isValid:false, isRequired:true}}
+                    state={state}
                     placeholder={placeholder}
                     onPress={onFocus}
                     showIconRight
@@ -66,13 +53,7 @@ export const InputSelect = ({
                         selectOption={selectOption}
                     />
                 }
-                {(statusError !== null && statusError !== 'valid') &&
-                    <InputErrorMessage
-                        statusError={statusError}
-                        errorFieldEmpty={errorFieldEmpty}
-                        errorFieldInvalid={errorFieldInvalid}
-                    />
-                }
+                <InputErrorMessage state={state} />
             </View>
         </View>
     );

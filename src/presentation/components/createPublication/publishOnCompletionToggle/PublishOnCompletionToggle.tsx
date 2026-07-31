@@ -1,18 +1,20 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalStyles } from '@/presentation/globalStyles/global.styles';
-import { useCreatePublication } from '@/presentation/context/CreatePublicationContext';
 import { Switch } from '../../ui/switch/Switch';
 
-export const PublishOnCompletionToggle = () => {
-    const { publishPublication, setPublishPublication } = useCreatePublication();
-    
+interface Props {
+    value: boolean;
+    toggle: () => void;
+}
+
+export const PublishOnCompletionToggle = ({value, toggle}:Props) => { 
     return (
         <View style={styles.container}>
             <Text style={styles.text}>
                 Publicar la vacante al terminar
             </Text>
-            <Pressable onPress={() => setPublishPublication(!publishPublication)}>
-                <Switch state={publishPublication} />
+            <Pressable onPress={toggle}>
+                <Switch state={value} />
             </Pressable>
         </View>
     );

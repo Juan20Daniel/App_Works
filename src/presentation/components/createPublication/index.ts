@@ -1,5 +1,5 @@
-export * from "./publishOnCompletionToggle/PublishOnCompletionToggle";
+export * from "./publishOnCompletionToggle";
 export * from './inputText';
 export * from './row';
-export * from './btnSelectLogo';
+export * from './inputSelectCompany';
 export * from './uploadImage';

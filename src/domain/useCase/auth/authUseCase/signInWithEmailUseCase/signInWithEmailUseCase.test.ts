@@ -1,20 +1,14 @@
-import { AuthRepository } from '@/domain/repositories';
+import { AuthRepositoryMock, createAuthRepositoryMock } from '@/domain/repositories';
 import { signInWithEmailUseCase } from './signInWithEmailUseCase';
 import { AuthEntity, UserEntity } from '@/domain/entities';
+import { AppError } from '@/shared';
+
 
 describe('signInWithEmailUseCase', () => {
-    let repository: jest.Mocked<AuthRepository>;
+    let repository: AuthRepositoryMock;
 
     beforeEach(() => {
-        repository = {
-            registerWithEmail: jest.fn(),
-            signInWithEmail: jest.fn(),
-            continueWithGoogle: jest.fn(),
-            continueWithFacebook: jest.fn(),
-            getAuth: jest.fn(),
-            signOut: jest.fn(),
-            refreshSession: jest.fn(),
-        }
+        repository = createAuthRepositoryMock();
     })
 
     test('Verificar email y password válidos', async () => {
@@ -146,5 +140,96 @@ describe('signInWithEmailUseCase', () => {
         expect(resul1).toEqual(resultAuth1);
         expect(resul2).toEqual(resultAuth2);
         expect(repository.signInWithEmail).toHaveBeenCalledTimes(2);
-    })
+    });
+
+    test('Simular un error', async () => {
+        const repositoryError = new Error(
+            'No fue posible conectar con el servidor'
+        );
+
+        repository.signInWithEmail.mockRejectedValue(repositoryError);
+
+        await expect(signInWithEmailUseCase(
+            repository,
+            'juandaniel@gmail.com',
+            '123456789'
+        )).rejects.toThrow()
+
+        expect(repository.signInWithEmail).toHaveBeenCalledTimes(1);
+        expect(repository.signInWithEmail).toHaveBeenCalledWith('juandaniel@gmail.com','123456789');
+    });
+
+    test('El caso de uso propaga correctamente el error lanzado por el repositorio', async () => {
+        const repositoryError = new Error(
+            'No fue posible conectar con el servidor'
+        );
+
+        repository.signInWithEmail.mockRejectedValue(repositoryError);
+
+        await expect(signInWithEmailUseCase(
+            repository,
+            'juandaniel@gmail.com',
+            '123456789'
+        )).rejects.toBe(repositoryError);
+    });
+
+    test('Lanzar error personalizado con credenciales correctas y en una sola llamada.', async () => {
+        const repositoryError = new AppError(
+            'BAD_REQUEST',
+            'No fue posible conectar con el servidor'
+        );
+
+        repository.signInWithEmail.mockRejectedValue(repositoryError);
+
+        await expect(signInWithEmailUseCase(
+            repository,
+            'juandaniel@gmail.com',
+            '123456789'
+        )).rejects.toBe(repositoryError);
+
+        expect(repository.signInWithEmail).toHaveBeenCalledTimes(1);
+        expect(repository.signInWithEmail).toHaveBeenCalledWith('juandaniel@gmail.com','123456789')
+    });
+
+    test('Primer intento falla, segundo funciona', async () => {
+        const repositoryError = new AppError(
+            'BAD_REQUEST',
+            'No fue posible conectar con el servidor'
+        );
+
+        const resultAuth:{auth:AuthEntity, user:UserEntity} = {
+            auth: {
+                token:'ffdsfsdfr5f77kyu0a12dd4regg',
+                refreshToken:'ffdsfsdfr5f77kyu0a12dd4regg',
+            },
+            user: {
+                id: '4556632',
+                firstname: 'juan Daniel',
+                lastname: 'Morales Abarca',
+                email: 'juandaniel@gmail.com',
+                role: 'user',
+                isActive: true,
+                avatarColor: '#000000'
+            }
+        }
+
+        repository.signInWithEmail
+            .mockRejectedValueOnce(repositoryError)
+            .mockResolvedValueOnce(resultAuth)
+
+        await expect(signInWithEmailUseCase(
+            repository,
+            'juandaniel@gmail.com',
+            '123456789'
+        )).rejects.toBe(repositoryError);
+
+        const result = await signInWithEmailUseCase(
+            repository,
+            'juandaniel@gmail.com',
+            '123456789'
+        );
+
+        expect(result).toEqual(resultAuth);
+        expect(repository.signInWithEmail).toHaveBeenCalledTimes(2);
+    });
 });

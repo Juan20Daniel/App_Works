@@ -1,6 +1,7 @@
-import { FormField } from "@/presentation/types/form";
+import { InputName } from "@/presentation/types";
 
-export const expretions:Record<FormField, RegExp> = {
+
+export const expretions:Record<InputName, RegExp> = {
     firstname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
     lastname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
     phone: /^[0-9]{10}$/,

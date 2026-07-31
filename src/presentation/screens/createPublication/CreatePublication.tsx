@@ -1,26 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Keyboard, ScrollView, StyleSheet, Text, TouchableWithoutFeedback, useWindowDimensions, View } from 'react-native';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { CreatePublicationProvider, useCreatePublication } from '@/presentation/context/CreatePublicationContext';
 import { RootStackParamList } from '../../navigators/StackNavigator';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { PublishOnCompletionToggle } from '@/presentation/components/createPublication';
+import { InputSelectCompany, PublishOnCompletionToggle } from '@/presentation/components/createPublication';
 import { BtnBasic, HeaderApp } from '@/presentation/components/ui';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { InputSelectOption } from '@/presentation/types';
 import { InputText, Row, UploadImage } from '@/presentation/components/createPublication';
+import { useForm, useKeyboard } from '@/presentation/hooks';
+import { formInitialState } from './formInitialState';
 
 interface Props extends StackScreenProps<RootStackParamList, 'CreatePublication'>{}
-
-export const CreatePublication = (props:Props) => {
-   return (
-        <CreatePublicationProvider>
-            <ScreenContent {...props} />
-        </CreatePublicationProvider>
-    );
-}
 
 const availableJobs:InputSelectOption[] = [
     {id:1, name:'Camionero', isSelected:false},
@@ -36,24 +29,13 @@ const availableJobs:InputSelectOption[] = [
     {id:11, name:'Doctor', isSelected:false},
 ]
 
-
-export const ScreenContent = ({navigation}:Props) => {
-    const [ keyboarIsShow, setKeyboardIsShow ] = useState(false);
-    const { formState, setFocus, setValue, clearInput } = useCreatePublication();
+export const CreatePublication = ({navigation}:Props) => {
+    const { formState, setFocus, setValue, clearInput } = useForm(formInitialState, {});
+    const [ publishPublication, setPublishPublication ] = useState(false);
+    const { keyboardVisible } = useKeyboard();
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
-    useEffect(() => {
-        const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-            setKeyboardIsShow(true);
-        });
-        const hideSuscription = Keyboard.addListener('keyboardDidHide', () => {
-            setKeyboardIsShow(false);
-        })
-        return () => {
-            showSubscription.remove();
-            hideSuscription.remove();
-        }
-    },[]);
+    
     const closeAlertConfirm = () => {
         // setConfirmAlert({visible:false, title:'', message:''});
     }
@@ -61,26 +43,7 @@ export const ScreenContent = ({navigation}:Props) => {
         closeAlertConfirm();
         navigation.replace('Profile', {animationType:'slide_from_left'});
     }
-    // const isFormClean = () => {
-    //     let isClear = true;
-    //     const formCamps = formState.values;
-    //     for(let camp in formCamps) {
-    //         if(formCamps[camp].value !== '') {
-    //             isClear = false;
-    //             break;
-    //         }
-    //         if(formCamps[camp].list && formCamps[camp].list.length > 0) {
-    //             isClear = false;
-    //             break;
-    //         }
-    //     }
-    //     if(isClear) return navigation.goBack();
-    //     setConfirmAlert({
-    //         visible:true, 
-    //         title:'Si sales, se perdera la información agregada.', 
-    //         message:'¿Seguro que quieres salir del formulario?'
-    //     });
-    // }
+   
     return (
         <View style={{flex: 1, backgroundColor: globalColors.white}}>
             <ScrollView 
@@ -111,20 +74,11 @@ export const ScreenContent = ({navigation}:Props) => {
                             Rellena los campos necesarios para crear una nueva publicación.  
                         </Text>
                         
-                        <Row>
-                            <InputText
-                                state={formState.companyDesc!}
-                                label="Acerca de la empresa"
-                                placeholder="Descripción de la empresa"
-                                keyboardType="default"
-                                multiline
-                                inputType='input-area'
-                                containerWidth='100%'
-                                onChange={setValue}
-                                onFocus={setFocus}
-                                clearInput={clearInput}
+                        {/* <Row>
+                            <InputSelectCompany 
+                                state={}
                             />
-                        </Row>
+                        </Row> */}
                         <Row>
                             <UploadImage />
                         </Row>
@@ -234,7 +188,10 @@ export const ScreenContent = ({navigation}:Props) => {
                                 handleChange={handleChange}
                             />
                         </Row> */}
-                        <PublishOnCompletionToggle />
+                        <PublishOnCompletionToggle 
+                            value={publishPublication}
+                            toggle={() => setPublishPublication(!publishPublication)}
+                        />
                         <BtnBasic
                             value="Crear"
                             action={() => {}}
@@ -242,8 +199,8 @@ export const ScreenContent = ({navigation}:Props) => {
                         />
                         <View style={{
                             width: '100%', 
-                            height:isTablet ? 50 : keyboarIsShow ? 350 : 30, 
-                            backgroundColor:globalColors.white
+                            height: isTablet ? 50 : keyboardVisible ? 350 : 30, 
+                            backgroundColor: globalColors.white
                         }} />
                     </View>
                 </TouchableWithoutFeedback>

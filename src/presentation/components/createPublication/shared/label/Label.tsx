@@ -1,30 +1,27 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
-import { InputStatus } from '@/presentation/types/input';
+import { InputState } from '@/presentation/types/input';
 import { Icon } from '@/presentation/components/ui';
 
 interface Props {
     text: string;
-    isFocus: boolean;
+    state: InputState;
     showTextRequire?:boolean;
-    isRequired?:boolean;
-    statusError?:InputStatus;
 }
 export const Label = ({
-    text, 
-    isFocus, 
+    text,
+    state,
     showTextRequire=false, 
-    isRequired=true,
-    statusError
 }:Props) => {
+    const { isFocus, status, isRequired } = state;
     return (
         <View style={styles.container}>
             <Text style={{
                 ...styles.label, 
                 color:isFocus
                     ?   globalColors.azureBlue 
-                    :   (statusError !== null && statusError !== 'valid') 
+                    :   (status !== null && status !== 'valid') 
                         ?   globalColors.darkRed
                         :   globalColors.black
             }}>
@@ -35,7 +32,7 @@ export const Label = ({
                     <Icon name="Circle" size={5} />
                     <Text style={{
                         fontSize:calcDimension({small:8, medium:11}), 
-                        color:(statusError !== null && statusError !== 'valid')
+                        color:(status !== null && status !== 'valid')
                             ? globalColors.darkRed
                             : globalColors.gray
                     }}>

@@ -1,14 +1,25 @@
 import { FormTypes } from "./formTypes";
 import { expretions } from "@/shared/regex";
 import { FormState } from "@/presentation/types/form";
-import { InputState, InputStatus } from "@/presentation/types/input";
+import { InputSelect, InputState, InputStatus } from "@/presentation/types/input";
 
 export const formReducer = (state:FormState, action:FormTypes) => {
     switch (action.type) {
         case 'SET_VALUE':
-            const isValid = (state[action.field]?.isRequired || state[action.field]?.value !== '') 
-                ?   expretions[action.field].test(action.value)
-                :   true
+            const { isRequired, value, type } = state[action.field]!;
+            let isValid:boolean|null = null;
+            if(type === 'text') {
+                isValid = (isRequired || value !== '') 
+                    ?   expretions[action.field].test(action.value)
+                    :   true
+            }
+
+            if(type === 'select') {
+                isValid = isRequired 
+                    ?   (state[action.field] as InputSelect).selectedOptionId !== null
+                    :   true
+            }
+
             return {
                 ...state,
                 [action.field]:{

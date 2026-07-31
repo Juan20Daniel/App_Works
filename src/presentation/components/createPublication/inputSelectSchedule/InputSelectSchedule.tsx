@@ -4,25 +4,17 @@ import { BoxModal } from './components/Modal';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { Label } from '../shared/label/Label';
 import { BtnSelect } from '../shared/btnSelect/BtnSelect';
-import { InputStatus } from '@/presentation/types/input';
+import { InputState } from '@/presentation/types/input';
 
 interface Props {
-    name: string;
-    value: string;
-    isFocus:boolean;
-    isRequired?: boolean;
-    statusError?: InputStatus;
+    state: InputState;
     handleChange:(field:string, value:string) => void;
     onFocus:(field:string) => void;
     closeFocus:() => void;
 }
 
 export const InputSelectSchedule = ({
-    name, 
-    value, 
-    isFocus, 
-    isRequired=false,
-    statusError,
+    state,
     onFocus, 
     handleChange, 
     closeFocus
@@ -38,6 +30,7 @@ export const InputSelectSchedule = ({
         finishMinute:{index:30, name:''},
         finishTime:{index:1, name:''},
     });
+    const { name, } = state;
     const onChange = (field:string, name:string, index:number) => {
         setSchedule(preState => ({
             ...preState,
@@ -56,10 +49,9 @@ export const InputSelectSchedule = ({
                 <View style={{flex:1}}>
                     <Label
                         text='Horario'
-                        isFocus={isFocus}
+                        state={state}
                         showTextRequire
-                        isRequired={isRequired}
-                        statusError={statusError}
+                     
                     />
                     <BtnSelect
                         state={{name:'benefits', value:'', isValid: false, status:null, isFocus:false, isRequired:true}}
