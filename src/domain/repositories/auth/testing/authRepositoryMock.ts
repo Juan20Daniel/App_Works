@@ -1,7 +1,4 @@
-import { AuthRepository } from "@/domain/repositories";
-
-export type AuthRepositoryMock =
-    jest.Mocked<AuthRepository>
+import { AuthRepositoryMock } from "./types";
 
 export const createAuthRepositoryMock = ():AuthRepositoryMock => ({
     registerWithEmail: jest.fn(),
