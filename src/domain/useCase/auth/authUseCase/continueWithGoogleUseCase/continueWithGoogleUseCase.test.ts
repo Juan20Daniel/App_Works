@@ -34,7 +34,7 @@ describe('continueWithGoogleUseCase', () => {
 
     test('Propaga el error', async () => {
         const authError = new AppError(
-            'BAD_REQUEST', 
+            'BAD_REQUEST',
             'El servidor no responde'
         );
 
