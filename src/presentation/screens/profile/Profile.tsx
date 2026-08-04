@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigators/StackNavigator';
 import { Container, HeaderApp } from '../../components/ui';
@@ -78,6 +78,9 @@ export const Profile = ({navigation}:Props) => {
 							background='#F9FBFA'
 							btnAction={() => navigation.navigate('CreatePublication')}
 						/>
+						<TouchableOpacity onPress={() => navigation.navigate('PruebaForm')}>
+							<Text>Prueba de form</Text>
+						</TouchableOpacity>
 						{/* <HorizontalPagination list={list}>
 						<OfferInImgSmall 
 							openOptions={() => setSavedOfferOpModal(true)}

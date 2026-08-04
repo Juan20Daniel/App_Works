@@ -8,6 +8,7 @@ import {
     Publication,
     Notifications,
     CreatePublication,
+    PruebaForm,
     SearchResults,
 } from '../screens';
 
@@ -23,6 +24,7 @@ export type RootStackParamList = {
     CreatePublication: undefined;
     Publication: {typeUser: "user"|"owner"};
     Notifications: undefined;
+    PruebaForm: undefined;
 }
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -56,6 +58,10 @@ const StackNavigator = () => {
                     options={({route}) => ({
                         animation:route.params.animationType??'slide_from_right'
                     })}
+                />
+                <Stack.Screen 
+                    name='PruebaForm'
+                    component={PruebaForm}
                 />
                 <Stack.Screen 
                     name='Publication' 
