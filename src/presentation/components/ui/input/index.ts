@@ -1,2 +1,2 @@
 export * from './inputTextAnimate';
-export * from './shared/inputController';
+export * from './shared';
