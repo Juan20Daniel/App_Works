@@ -3,17 +3,25 @@ import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, useWindowDimens
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { RootStackParamList } from '../../navigators/StackNavigator';
+import { RootStackParamList } from '../../../../navigators/StackNavigator';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { InputSelectCompany, PublishOnCompletionToggle } from '@/presentation/components/createPublication';
 import { BtnBasic, HeaderApp } from '@/presentation/components/ui';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { InputSelectOption } from '@/presentation/types';
 import { InputText, Row, UploadImage } from '@/presentation/components/createPublication';
-import { useForm, useKeyboard } from '@/presentation/hooks';
-import { formInitialState } from './formInitialState';
+import { useKeyboard } from '@/presentation/hooks';
+import { CreatePublicStackParamList } from '../../PublicationFormStack';
+import {
+    Controller,
+    SubmitErrorHandler,
+    SubmitHandler,
+    useForm
+} from 'react-hook-form';
+import { defaultValues } from './defaultValue';
+import { PublicationFormValues } from './types';
 
-interface Props extends StackScreenProps<RootStackParamList, 'CreatePublication'>{}
+interface Props extends StackScreenProps<CreatePublicStackParamList, 'PublicationForm'>{}
 
 const availableJobs:InputSelectOption[] = [
     {id:1, name:'Camionero', isSelected:false},
@@ -29,8 +37,11 @@ const availableJobs:InputSelectOption[] = [
     {id:11, name:'Doctor', isSelected:false},
 ]
 
-export const CreatePublication = ({navigation}:Props) => {
-    const { formState, setFocus, setValue, clearInput } = useForm(formInitialState, {});
+export const PublicationForm = ({navigation}:Props) => {
+    const { control, setValue } = useForm<PublicationFormValues>({
+        defaultValues:defaultValues,
+        mode:'onSubmit'
+    })
     const [ publishPublication, setPublishPublication ] = useState(false);
     const { keyboardVisible } = useKeyboard();
     const { top } = useSafeAreaInsets();
@@ -41,7 +52,7 @@ export const CreatePublication = ({navigation}:Props) => {
     }
     const confirmedAction = () => {
         closeAlertConfirm();
-        navigation.replace('Profile', {animationType:'slide_from_left'});
+        navigation.goBack();
     }
    
     return (
@@ -73,7 +84,11 @@ export const CreatePublication = ({navigation}:Props) => {
                         }}>      
                             Rellena los campos necesarios para crear una nueva publicación.  
                         </Text>
-                        
+                        <InputSelectCompany 
+                            control={control}
+                            navigation={navigation}
+                            setValue={setValue}
+                        />
                         {/* <Row>
                             <InputSelectCompany 
                                 state={}
@@ -109,7 +124,7 @@ export const CreatePublication = ({navigation}:Props) => {
                                 closeFocus={removeFocus}
                             />
                         </Row> */}
-                        <Row>
+                        {/* <Row>
                             <InputText
                                 state={formState.description!}
                                 label="Descrición del empleo"
@@ -142,7 +157,7 @@ export const CreatePublication = ({navigation}:Props) => {
                                 onFocus={setFocus}
                                 clearInput={clearInput}
                             />
-                        </Row>
+                        </Row> */}
                         {/* <Row>
                             <InputListManager
                                 name="requirements"

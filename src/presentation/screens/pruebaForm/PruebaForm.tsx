@@ -24,7 +24,7 @@ type SignInFormValues = {
 };
 
 export const PruebaForm = ({navigation}:Props) => {
-    const { control, handleSubmit, formState: {errors, isSubmitting}} = useForm<SignInFormValues>({
+    const { control, handleSubmit, setValue, formState: {errors, isSubmitting}} = useForm<SignInFormValues>({
         defaultValues: {
             email: '',
             password: '',

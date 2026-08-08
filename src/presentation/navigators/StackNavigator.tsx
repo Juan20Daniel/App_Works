@@ -7,7 +7,7 @@ import {
     Register,
     Publication,
     Notifications,
-    CreatePublication,
+    PublicationFormStack,
     PruebaForm,
     SearchResults,
 } from '../screens';
@@ -21,7 +21,7 @@ export type RootStackParamList = {
     Profile: { animationType?:StackAnimationName };
     Login: { animationType?:StackAnimationName };
     Register: { animationType?:StackAnimationName };
-    CreatePublication: undefined;
+    PublicationFormStack: undefined;
     Publication: {typeUser: "user"|"owner"};
     Notifications: undefined;
     PruebaForm: undefined;
@@ -69,9 +69,8 @@ const StackNavigator = () => {
                     options={{animation:'slide_from_right'}} 
                 />
                 <Stack.Screen 
-                    name='CreatePublication' 
-                    component={CreatePublication} 
-                    options={{animation:'slide_from_right'}} 
+                    name='PublicationFormStack' 
+                    component={PublicationFormStack}
                 />
                 <Stack.Screen 
                     name='Notifications' 

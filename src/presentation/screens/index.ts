@@ -5,5 +5,5 @@ export * from './publication';
 export * from './profile';
 export * from './auth';
 export * from './notifications';
-export * from './createPublication';
+export * from './publicationForm';
 export * from './pruebaForm';
