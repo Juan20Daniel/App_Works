@@ -80,9 +80,81 @@ describe('signInWithEmailUseCase', () => {
         expect(repository.signInWithEmail).toHaveBeenCalledWith('juandaniel@gmail.com','123456789');
     });
 
-    test('Comprobación de diferentes mensajes', () => {
-        const validateCredentials = (email: string,password: string) => {
-            // Implementación sencilla para el ejercicio
-        };
-    })
+    test('Devolver el email recibido', async () => {
+        repository.signInWithEmail.mockImplementation(
+            async (email) => {
+                return createAuthResultSimulation({email});
+            }
+        );
+
+        const result = await signInWithEmailUseCase(repository, 'juandaniel@gmail.com','123446789');
+
+        expect(result.user.email).toBe('juandaniel@gmail.com')
+    });
+
+    test('Dos usuarios, mismo mock', async () => {
+        const authResultJuan = createAuthResultSimulation({email:'juandaniel@gmail.com'});
+        const authResultFernando = createAuthResultSimulation({email:'fernando@gmail.com'});
+        const authResultError = new AppError('BAD_REQUEST', 'No se logró realizar la operación');
+
+        repository.signInWithEmail.mockImplementation(
+            async (email) => {
+                if(email === 'juandaniel@gmail.com') {
+                    return authResultJuan;
+                }
+                if(email === 'fernando@gmail.com') {
+                    return authResultFernando;
+                }
+                
+                throw authResultError;
+            }
+        );
+
+        const result1 = await signInWithEmailUseCase(repository, 'juandaniel@gmail.com','123446789');
+        const result2 = await signInWithEmailUseCase(repository, 'fernando@gmail.com','123446789');
+        await expect(
+            signInWithEmailUseCase(repository, 'elpepe@gmail.com','123446789')
+        ).rejects.toBe(authResultError)
+
+        expect(result1).toEqual(authResultJuan);
+        expect(result2).toEqual(authResultFernando);
+        expect(repository.signInWithEmail).toHaveBeenCalledWith('elpepe@gmail.com','123446789')
+    });
+
+    test('comprobar email y contraseña', async () => {
+        const authResult = createAuthResultSimulation({email:'juan@gmail.com'});
+        const authResultError = new AppError('BAD_REQUEST', 'Credenciales incorrectas');
+
+        repository.signInWithEmail.mockImplementation(
+            async (email, password) => {
+                if(email === 'juan@gmail.com' && password === '123456789') {
+                    return authResult;
+                }
+                
+               throw authResultError;
+            }
+        );
+
+        const result = await signInWithEmailUseCase(repository, 'juan@gmail.com','123456789');
+       
+        await expect(
+            signInWithEmailUseCase(repository, 'elpepe@gmail.com','123456789')
+        ).rejects.toBe(authResultError);
+
+        expect(result).toEqual(authResult);
+        expect(repository.signInWithEmail).toHaveBeenCalledWith('elpepe@gmail.com','123456789');
+    });
+
+    test('Prueba A', async () => {
+        repository.signInWithEmail
+            .mockResolvedValueOnce(createAuthResultSimulation({email:'juan@gmail.com'}))
+            .mockResolvedValueOnce(createAuthResultSimulation({email:'pedro@gmail.com'}))
+       
+
+        const resultJuan = await signInWithEmailUseCase(repository, 'pedro@gmail.com','123456789');
+        const resultPedro = await signInWithEmailUseCase(repository, 'juan@gmail.com','123456789');
+       
+        console.log(resultJuan);
+        console.log(resultPedro);
+    });
 });
