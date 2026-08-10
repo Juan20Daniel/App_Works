@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { formStyles } from '@/presentation/components/createPublication/styles';
+import { formStyles } from '../../styles';
+
 
 export const Placeholder = () => {
     return (

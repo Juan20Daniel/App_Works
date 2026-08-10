@@ -1,5 +1,5 @@
-import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
 import { StyleSheet } from "react-native";
+import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
 
 export const styles = StyleSheet.create({
     containerBtn: {
@@ -17,4 +17,4 @@ export const styles = StyleSheet.create({
         fontSize: 15,
         color: globalColors.gray
     }
-})
+});

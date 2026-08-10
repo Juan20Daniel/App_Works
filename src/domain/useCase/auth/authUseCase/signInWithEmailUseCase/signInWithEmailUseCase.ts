@@ -12,3 +12,7 @@ export const signInWithEmailUseCase = async (
 
     return repository.signInWithEmail(email, password);
 }
+
+export const suma = (num1: number, num2:number):number => {
+    return num1+num2;
+}

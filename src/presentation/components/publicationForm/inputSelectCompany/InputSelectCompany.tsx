@@ -2,7 +2,7 @@ import { Pressable, Text } from "react-native";
 import { CreatePublicStackParamList, PublicationFormValues } from "@/presentation/screens";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Control, Controller, UseFormSetValue } from "react-hook-form";
-import { InputContainer } from "../../ui";
+import { InputContainer, InputLabel } from "../../ui";
 import { styles } from "./styles";
 import { globalColors } from "@/presentation/globalStyles/global.styles";
 
@@ -12,9 +12,17 @@ interface Props {
     setValue: UseFormSetValue<PublicationFormValues>;
 }
 
-export const InputSelectCompany = ({control, navigation, setValue}:Props) => {
+export const InputSelectCompany = ({
+    control, 
+    navigation, 
+    setValue
+}:Props) => {
     return (
         <InputContainer>
+            <InputLabel
+                text="Empresa" 
+                isRequire
+            />
             <Controller
                 control={control}
                 name="selectCompany"

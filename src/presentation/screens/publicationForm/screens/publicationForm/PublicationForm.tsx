@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableWithoutFeedback, useWindowDimensions, View } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { RootStackParamList } from '../../../../navigators/StackNavigator';
+import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { InputSelectCompany, PublishOnCompletionToggle } from '@/presentation/components/createPublication';
+import {
+    InputSelectCompany,
+    NoteForm,
+    PublishOnCompletionToggle,
+    TitleForm
+} from '@/presentation/components/publicationForm';
 import { BtnBasic, HeaderApp } from '@/presentation/components/ui';
-import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { InputSelectOption } from '@/presentation/types';
-import { InputText, Row, UploadImage } from '@/presentation/components/createPublication';
 import { useKeyboard } from '@/presentation/hooks';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import {
@@ -38,26 +40,29 @@ const availableJobs:InputSelectOption[] = [
 ]
 
 export const PublicationForm = ({navigation}:Props) => {
-    const { control, setValue } = useForm<PublicationFormValues>({
-        defaultValues:defaultValues,
-        mode:'onSubmit'
-    })
     const [ publishPublication, setPublishPublication ] = useState(false);
+    const { control, formState:{errors}, setValue, handleSubmit } = useForm<PublicationFormValues>({
+        defaultValues: defaultValues,
+        mode:'onSubmit'
+    });
     const { keyboardVisible } = useKeyboard();
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
+    console.log('errors');
+    console.log(errors);
     
-    const closeAlertConfirm = () => {
-        // setConfirmAlert({visible:false, title:'', message:''});
-    }
     const confirmedAction = () => {
-        closeAlertConfirm();
         navigation.goBack();
+    }
+
+    const onSubmit:SubmitHandler<PublicationFormValues> = async (data) => {
+        console.log('Datos del form')
+        console.log(data);
     }
    
     return (
         <View style={{flex: 1, backgroundColor: globalColors.white}}>
-            <ScrollView 
+            <ScrollView
                 style={{flex: 1, backgroundColor: globalColors.white, marginTop: top}} 
                 nestedScrollEnabled={true}
                 keyboardShouldPersistTaps='handled'
@@ -72,18 +77,8 @@ export const PublicationForm = ({navigation}:Props) => {
                 />
                 <TouchableWithoutFeedback accessible={false} onPress={() => {}}>
                     <View style={{width, backgroundColor:globalColors.white}}>
-                        <Text style={{
-                            ...styles.title, 
-                            fontSize: calcDimension({small: 15, medium: 20, large: 20, extraLarge: 30})
-                        }}>
-                            Nueva publicación
-                        </Text>
-                        <Text style={{
-                            ...styles.description, 
-                            fontSize:calcDimension({small: 12, medium: 15, large: 15, extraLarge: 17})
-                        }}>      
-                            Rellena los campos necesarios para crear una nueva publicación.  
-                        </Text>
+                        <TitleForm />
+                        <NoteForm />
                         <InputSelectCompany 
                             control={control}
                             navigation={navigation}
@@ -209,11 +204,11 @@ export const PublicationForm = ({navigation}:Props) => {
                         />
                         <BtnBasic
                             value="Crear"
-                            action={() => {}}
+                            action={handleSubmit(onSubmit)}
                             customStylesBox={{marginTop: 20, marginBottom: 50, paddingHorizontal:10}}
                         />
                         <View style={{
-                            width: '100%', 
+                            width: '100%',  
                             height: isTablet ? 50 : keyboardVisible ? 350 : 30, 
                             backgroundColor: globalColors.white
                         }} />
@@ -223,16 +218,3 @@ export const PublicationForm = ({navigation}:Props) => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    title: {
-        fontFamily: globalStyles.fontMonserratSemiBold,
-        paddingHorizontal: 10,
-    },
-    description: {
-        width: calcDimension({small: 280, medium: 300, large: 300, extraLarge: 300}),
-        paddingTop: 10,
-        paddingHorizontal: 10,
-        fontFamily: globalStyles.fontMonserratMedium,
-    }
-});

@@ -5,13 +5,13 @@ import { isTablet } from '@/presentation/helpers/isTablet';
 import { useAlertMessageStore } from '@/presentation/store';
 
 export const UploadImage = () => {
-    const { formState, setValue } = useCreatePublication();
+    // const { formState, setValue } = useCreatePublication();
     const openAlertModal = useAlertMessageStore(state => state.openAlertMessage);
     const loadImage = async () => {
         try {
             const result = await PictureAdapter.getPictureFromLibrary(200000);
             console.log(result);
-            setValue('image', result.url??'');
+            // setValue('image', result.url??'');
         } catch (error) {
             const errorMessage = (error as Error).message;
             openAlertModal('error', 'Error al cargar la imagen', errorMessage);
@@ -28,13 +28,14 @@ export const UploadImage = () => {
                     onPress={() => loadImage()}
                     style={({pressed}) => [{flex:1, opacity: pressed ? 0.5 : 1}]}
                 >
-                    {(formState.image?.value !== '')
+                    {/* {(formState.image?.value !== '')
                         ?   <Image
                                 source={{uri:formState.image?.value}}
                                 style={styles.imgOffer}
                             />
                         :   <Placeholder />
-                    }
+                    } */}
+                    <Placeholder />
                 </Pressable>
             </View>
        </>
