@@ -1,3 +1,5 @@
+import { InputSelect } from "@/presentation/types";
+
 export type PublicationFormValues = {
-    selectCompany: number;
+    selectCompany: InputSelect | null;
 }

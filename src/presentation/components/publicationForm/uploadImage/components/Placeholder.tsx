@@ -8,7 +8,7 @@ export const Placeholder = () => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../../../assets/createPublication/uploadPublicationImg.png')}
+                source={require('../../../../assets/publicationForm/uploadPublicationImg.png')}
                 style={{
                     objectFit: 'contain', 
                     width: isTablet ? 300 : 250, 

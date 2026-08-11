@@ -7,7 +7,7 @@ export const IlustrationSearch = () => {
     return (
         <View style={{width: '100%', alignItems: 'center', marginTop:isTable?40:0}}>
             <Image
-                source={require('../../../../assets/search/ilustration.png')}
+                source={require('../../../assets/search/ilustration.png')}
                 style={{width:maxWidth, height:maxWidth, objectFit:'contain', marginTop:30}}  
             />
         </View>

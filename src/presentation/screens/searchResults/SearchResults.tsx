@@ -40,7 +40,7 @@ export const SearchResults = ({ navigation, route }: Props) => {
                     } 
                     return <ItemPublication
                         title='Cores netos'
-                        source={require('../../../assets/publications/imgOffer3.jpg')}
+                        source={require('../../assets/publications/imgOffer3.jpg')}
                     />
                 }}
             />

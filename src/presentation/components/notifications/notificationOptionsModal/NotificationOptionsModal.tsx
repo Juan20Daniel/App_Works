@@ -13,8 +13,8 @@ export const NotificationOptionsModal = ({visible, closeOptions}:Props) => {
             visible={visible}
             closeModal={() => closeOptions()}
         >
-            <BasicModalOption iconName='ban-outline' text='No mostrar notificaciones como esta' />
-            <BasicModalOption iconName='trash-outline' text='Eliminar notificación' />
+            <BasicModalOption iconName='AccountCircle' text='No mostrar notificaciones como esta' />
+            <BasicModalOption iconName='BookmarkFill' text='Eliminar notificación' />
         </BoxModalBottom>
     )
 }

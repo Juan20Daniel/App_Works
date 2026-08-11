@@ -28,7 +28,7 @@ export const ItemSummaryPublication = ({hasSeen=false, openOptions}:Props) => {
                 ]}
             >
                 <Image
-                    source={require('../../../../assets/publications/imgOffer.jpg')}
+                    source={require('../../../assets/publications/imgOffer.jpg')}
                     style={{
                         ...styles.imgOffer, 
                         opacity: hasSeen ? 0.4 : 1, objectFit:'cover',

@@ -10,7 +10,7 @@ export const Ads = ({width, action}:Props) => {
     return (
         <Pressable onPress={() => action()}>
             <Image
-                source={require('../../../../assets/home/imgRegister.jpg')} 
+                source={require('../../../assets/home/imgRegister.jpg')} 
                 style={{...styles.img, width:width, height:(width/2)+(isTablet?100:50)}}
             />
         </Pressable>

@@ -133,13 +133,13 @@ export const Register = ({navigation}:Props) => {
                                 <View style={{width:'100%', height: 40}} />
                                 <SocialAuthButton
                                     value='Crear con google'
-                                    image={require('../../../../assets/auth/imgGoogle.png')}
+                                    image={require('../../../assets/auth/imgGoogle.png')}
                                     action={continueWithGoogle}
                                 />
                                 <View style={{width:'100%', height: 30}} />
                                 <SocialAuthButton 
                                     value='Crear con facebook'
-                                    image={require('../../../../assets/auth/ImgFacebook.png')}
+                                    image={require('../../../assets/auth/ImgFacebook.png')}
                                     action={continueWithFacebook}
                                 />
                                 {keyboardVisible &&

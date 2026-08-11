@@ -15,7 +15,7 @@ export const Header = ({companyName, description}:Props) => {
         <View style={styles.container}>
             <View style={styles.boxImage}>
                 <Image 
-                    source={require('../../../../../assets/publications/logoIndustry.png')}
+                    source={require('../../../../assets/publications/logoIndustry.png')}
                     style={styles.img}
                 />
             </View>

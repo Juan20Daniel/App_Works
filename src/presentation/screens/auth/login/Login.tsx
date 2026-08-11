@@ -119,13 +119,13 @@ export const Login = ({navigation}:Props) => {
                         <View style={{width:'100%', height: calcDimension({small:20, medium:40, large:50})}} />
                         <SocialAuthButton
                             value='Iniciar con google'
-                            image={require('../../../../assets/auth/imgGoogle.png')}
+                            image={require('../../../assets/auth/imgGoogle.png')}
                             action={continueWithGoogle}
                         />
                         <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
                         <SocialAuthButton
                             value='Iniciar con facebook'
-                            image={require('../../../../assets/auth/ImgFacebook.png')}
+                            image={require('../../../assets/auth/ImgFacebook.png')}
                             action={continueWithFacebook}
                         />
                     </View>

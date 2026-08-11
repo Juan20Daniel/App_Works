@@ -33,9 +33,9 @@ export interface InputText extends Input {
     type: 'text';
 }
 
-export interface InputSelect extends Input {
-    type: 'select';
-    selectedOptionId: number | null;
+export interface InputSelect {
+    id: number;
+    value:string;
 }
 
 export type InputState = 

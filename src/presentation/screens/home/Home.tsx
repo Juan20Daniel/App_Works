@@ -7,9 +7,9 @@ import {
     ItemPublication
 } from '@/presentation/components/publication';
 
-const source:ImageSourcePropType = require('../../../assets/publications/imgOffer.jpg');
-const source2:ImageSourcePropType = require('../../../assets/publications/imgOffer2.jpg');
-const source3:ImageSourcePropType = require('../../../assets/publications/imgOffer3.jpg');
+const source:ImageSourcePropType = require('../../assets/publications/imgOffer.jpg');
+const source2:ImageSourcePropType = require('../../assets/publications/imgOffer2.jpg');
+const source3:ImageSourcePropType = require('../../assets/publications/imgOffer3.jpg');
 
 export const Home = () => {
     return (

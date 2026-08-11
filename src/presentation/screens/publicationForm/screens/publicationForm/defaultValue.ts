@@ -1,3 +1,3 @@
 export const defaultValues = {
-    selectCompany: 0,
+    selectCompany: null,
 }

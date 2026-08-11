@@ -58,7 +58,7 @@ export const Profile = ({navigation}:Props) => {
 							title='Aún no has guardado ninguna publicación'
 							description='Guarda publicaciones que te interesen y encuéntralas fácilmente.'
 							textBtnAction='Explorar publicaciones'
-							ilustration={require('@/assets/profile/empty-saved-posts.png')}
+							ilustration={require('@/presentation/assets/profile/empty-saved-posts.png')}
 							background='#F9FCFF'
 							btnAction={() => {
 								navigation.replace('Home', {animationType:"slide_from_left"})
@@ -74,7 +74,7 @@ export const Profile = ({navigation}:Props) => {
 							title='Aún no has creado ninguna publicación'
 							description='Comparte tu primera publicación y comienza a conectar con audiencia.'
 							textBtnAction='Crear publicacion'
-							ilustration={require('@/assets/profile/empty-created-posts.png')}
+							ilustration={require('@/presentation/assets/profile/empty-created-posts.png')}
 							background='#F9FBFA'
 							btnAction={() => navigation.navigate('PublicationFormStack')}
 						/>

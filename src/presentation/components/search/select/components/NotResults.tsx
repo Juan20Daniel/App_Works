@@ -7,7 +7,7 @@ export const NotResults = () => {
     return (
         <View style={styles.container}>
             <Image 
-                source={require('../../../../../assets/notData.png')}
+                source={require('../../../../assets/notData.png')}
                 style={styles.image}
             />
             <Text style={styles.message}>No hay resultados que coincidan con tu busqueda.</Text>

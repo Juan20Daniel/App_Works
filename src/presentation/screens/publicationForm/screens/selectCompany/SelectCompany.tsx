@@ -1,14 +1,16 @@
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { HeaderApp } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
+import { CompanyListEmpty } from '@/presentation/components/selectCompany';
+import { Text } from 'react-native-svg';
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'SelectCompany'>{}
 
 export const SelectCompany = ({navigation}:Props) => {
-    const { top } = useSafeAreaInsets();
-    const width = useWindowDimensions().width;
+    const { top, bottom } = useSafeAreaInsets();
+    const height = useWindowDimensions().height;
     
     const closeAlertConfirm = () => {
         // setConfirmAlert({visible:false, title:'', message:''});
@@ -19,11 +21,10 @@ export const SelectCompany = ({navigation}:Props) => {
     }
    
     return (
-        <View style={{flex: 1, backgroundColor: globalColors.white}}>
+        <View style={{height:height, backgroundColor: globalColors.white}}>
             <ScrollView 
-                style={{flex: 1, backgroundColor: globalColors.white, marginTop: top}} 
+                style={{height:height-bottom, backgroundColor: globalColors.white, marginTop: top}} 
                 nestedScrollEnabled={true}
-                keyboardShouldPersistTaps='handled'
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[0]}
                 stickyHeaderHiddenOnScroll={true}
@@ -33,8 +34,17 @@ export const SelectCompany = ({navigation}:Props) => {
                     actionBtnClose={() => confirmedAction()}
                     actionBox={() => {}}
                 />
-               
+                <CompanyListEmpty />
             </ScrollView>
+            <View style={{alignItems:'center'}}>
+                <Pressable style={{
+                    backgroundColor:'black',
+                    height: 60,
+                    width: 300
+                }}>
+                    <Text>AGREGAR EMPRESA</Text>
+                </Pressable>
+            </View>
         </View>
     );
 }

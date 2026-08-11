@@ -4,7 +4,7 @@ import { globalColors } from '@/presentation/globalStyles/global.styles';
 export const LogoCompany = () => {
   return (
     <Image
-      source={require('../../../../../../../assets/publications/logoIndustry.png')}
+      source={require('../../../../../../assets/publications/logoIndustry.png')}
       style={styles.logo}
     />
   );
