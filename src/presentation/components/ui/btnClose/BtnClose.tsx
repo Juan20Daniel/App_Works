@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { Icon } from '../icon/Icon';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     top?: number;
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
         bottom: 15,
         backgroundColor: 'black',
         width: 40,
-        height: 50,
+        height: calcDimension({small:40, medium:50}),
         alignItems: 'center',
         justifyContent: 'center',
         borderTopLeftRadius: 10,

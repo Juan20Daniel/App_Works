@@ -1,11 +1,11 @@
-import { Pressable, ScrollView, useWindowDimensions, View } from 'react-native';
+import { Pressable, ScrollView, useWindowDimensions, View, Text } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { globalColors } from '@/presentation/globalStyles/global.styles';
+import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { HeaderApp } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { CompanyListEmpty } from '@/presentation/components/selectCompany';
-import { Text } from 'react-native-svg';
+import { BtnAddCompany } from '@/presentation/components/selectCompany/btnAddCompany';
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'SelectCompany'>{}
 
 export const SelectCompany = ({navigation}:Props) => {
@@ -23,7 +23,7 @@ export const SelectCompany = ({navigation}:Props) => {
     return (
         <View style={{height:height, backgroundColor: globalColors.white}}>
             <ScrollView 
-                style={{height:height-bottom, backgroundColor: globalColors.white, marginTop: top}} 
+                style={{height:height-bottom-100, backgroundColor: globalColors.white, marginTop: top}} 
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[0]}
@@ -35,16 +35,9 @@ export const SelectCompany = ({navigation}:Props) => {
                     actionBox={() => {}}
                 />
                 <CompanyListEmpty />
+                {/* <CompanyListEmpty /> */}
             </ScrollView>
-            <View style={{alignItems:'center'}}>
-                <Pressable style={{
-                    backgroundColor:'black',
-                    height: 60,
-                    width: 300
-                }}>
-                    <Text>AGREGAR EMPRESA</Text>
-                </Pressable>
-            </View>
+            <BtnAddCompany />
         </View>
     );
 }
