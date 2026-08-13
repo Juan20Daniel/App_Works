@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
+        position: 'relative',
         alignItems:'center',
         height: calcDimension({small:80, medium:100})
     },
@@ -10,6 +11,7 @@ export const styles = StyleSheet.create({
         backgroundColor:'black',
         height: calcDimension({small: 40, medium:50, large: 60}),
         width: calcDimension({small: 280, medium:340, large: 380}),
+        marginTop: 15,
         justifyContent:'center',
         alignItems: 'center',
         borderRadius: calcDimension({small: 15, medium:20}),

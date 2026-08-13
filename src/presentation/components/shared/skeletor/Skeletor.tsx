@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useInfiniteHorizontalScroll } from '@/presentation/hooks';
-import { LayoutChangeEvent, View } from 'react-native';
+import { View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated from 'react-native-reanimated';
 import { styles } from './styles';

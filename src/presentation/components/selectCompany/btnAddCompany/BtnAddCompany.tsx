@@ -1,10 +1,12 @@
 import { Pressable, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles'
 import { styles } from './styles';
+import { ScrollEdgeFade } from '../../shared';
 
 export const BtnAddCompany = () => {
     return (
         <View style={styles.container}>
+            <ScrollEdgeFade />
             <Pressable 
                 style={({pressed}) => [{
                     ...styles.btn,

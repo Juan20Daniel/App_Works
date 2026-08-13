@@ -15,11 +15,11 @@ interface Props {
 }
 
 export const HeaderApp = ({
-    alignTitle='flex-start', 
-    subText, 
-    paddingTop, 
+    alignTitle='flex-start',
+    subText,
+    paddingTop,
     showBtnClose=true,
-    actionBtnClose, 
+    actionBtnClose,
     actionBox
 }:Props) => {
     return (

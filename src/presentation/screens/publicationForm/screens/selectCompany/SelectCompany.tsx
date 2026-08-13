@@ -1,7 +1,7 @@
-import { Pressable, ScrollView, useWindowDimensions, View, Text } from 'react-native';
+import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
+import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { HeaderApp } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { CompanyListEmpty } from '@/presentation/components/selectCompany';
@@ -35,7 +35,7 @@ export const SelectCompany = ({navigation}:Props) => {
                     actionBox={() => {}}
                 />
                 <CompanyListEmpty />
-                {/* <CompanyListEmpty /> */}
+                <CompanyListEmpty />
             </ScrollView>
             <BtnAddCompany />
         </View>
