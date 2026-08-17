@@ -29,7 +29,7 @@ export const InputSelectCompany = ({
                 rules={{
                     required: 'La empresa es requerida',
                 }}
-                render={({field: {value,onBlur,ref}}) => {
+                render={({field: {value, onBlur, ref}}) => {
                     console.log(value);
                     return (
                         <Pressable

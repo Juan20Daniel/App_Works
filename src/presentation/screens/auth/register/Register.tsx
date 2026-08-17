@@ -3,7 +3,7 @@ import { Keyboard, ScrollView, TouchableWithoutFeedback, View } from 'react-nati
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { AuthHeader, AuthSwitchLink, SocialAuthButton } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
+import { InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useRegister } from './hooks';
@@ -12,6 +12,7 @@ import { formErrorMessage } from './formErrorMessages';
 import { useForm, useKeyboard } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useCheckSession, useContinueWithFacebook, useContinueWithGoogle } from '../shared';
+import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
@@ -121,9 +122,9 @@ export const Register = ({navigation}:Props) => {
                                     removeFocus={removeFocus}
                                     togglePasswordVisibility={() => setShowPass(!showPass)}
                                 />
-                                <BtnBasic
-                                    value='CREAR CUENTA'
-                                    action={register}
+                                <PrimaryBtn
+                                    text='CREAR CUENTA'
+                                    onPress={register}
                                 />
                                 <AuthSwitchLink 
                                     textQuestion='¿Ya tienes una cuenta?'

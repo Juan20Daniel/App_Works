@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { Icon } from '@/presentation/components/ui';
-import { IconType } from '@/presentation/types/icons';
+import { IconType } from '@/presentation/types/ui/icons';
 
 interface Props {
     value: string;

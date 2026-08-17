@@ -1,6 +1,6 @@
 import { Pressable } from 'react-native';
 import { Icon } from '../../icon/Icon';
-import { IconType } from '@/presentation/types/icons';
+import { IconType } from '@/presentation/types/ui/icons';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 
 interface Props {

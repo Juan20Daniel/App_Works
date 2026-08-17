@@ -1,2 +1,2 @@
 export * from './companyListEmpty';
-export * from './companyListEmpty';
+export * from './btnGoToCompanyForm';

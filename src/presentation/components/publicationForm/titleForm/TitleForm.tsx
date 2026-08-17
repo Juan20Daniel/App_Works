@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: globalStyles.fontMonserratSemiBold,
         paddingHorizontal: 10,
+        marginTop: 15,
         fontSize: calcDimension({
             small: 15, 
             medium: 20, 

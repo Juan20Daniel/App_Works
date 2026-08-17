@@ -7,7 +7,7 @@ import {
     AuthSwitchLink,
     SocialAuthButton
 } from '@/presentation/components/auth';
-import { BtnBasic, InputTextAnimate } from '@/presentation/components/ui';
+import { InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useLoginWithEmail } from './hooks';
@@ -19,6 +19,7 @@ import {
     useContinueWithGoogle, 
     useContinueWithFacebook
 } from '../shared';
+import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
@@ -105,9 +106,9 @@ export const Login = ({navigation}:Props) => {
                             togglePasswordVisibility={() => setShowPass(!showPass)}
                             removeFocus={removeFocus}
                         />
-                        <BtnBasic
-                            value='INICIAR SESIÓN'
-                            action={loginWithEmail}
+                        <PrimaryBtn
+                            text='INICIAR SESIÓN'
+                            onPress={loginWithEmail}
                         />
                         <AuthSwitchLink
                             textQuestion='¿Aún no tienes una cuenta?'

@@ -1,0 +1,11 @@
+export type Colors = 
+    | 'white'
+    | 'gray'
+    | 'black'
+    | 'azureBlue'
+    | 'cornfsmallerBlue'
+    | 'lightGray'
+    | 'softGray'
+    | 'darkGray'
+    | 'limeGreen'
+    | 'darkRed'

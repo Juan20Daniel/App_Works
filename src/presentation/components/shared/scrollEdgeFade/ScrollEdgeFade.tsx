@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface Props {
@@ -8,30 +8,31 @@ interface Props {
 }
 
 export const ScrollEdgeFade = ({
-    heigth, 
+    heigth=50, 
     zIndex, 
     direction='bottom'
 }:Props) => {
+    const width = useWindowDimensions().width;
     return (
         <View 
             style={{
                 position: 'absolute',
-                width: '100%',
+                width: width,
                 height: heigth??50,
-                top: direction === 'bottom' ? -50 : 'auto',
-                bottom: direction === 'top' ? -50 : 'auto',
-                zIndex: zIndex??1
+                top: direction === 'bottom' ? -heigth : undefined,
+                bottom: direction === 'top' ? -heigth : undefined,
+                zIndex: zIndex??1,
+                transform:[{
+                    rotate:direction === 'top' ? '180deg' : '0deg'
+                }]
             }}
         >
             <LinearGradient 
                 colors={['#ffffff00', '#ffffff80', '#ffffff']}
                 style={{
-                    flex:1,
-                    transform:[{
-                        rotate:direction === 'top' ? '90deg' : '0deg'
-                    }]
+                    flex:1
                 }}
             />
         </View>
-    )
+    );
 }

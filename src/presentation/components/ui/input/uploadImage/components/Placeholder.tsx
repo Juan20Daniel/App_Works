@@ -1,14 +1,12 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { formStyles } from '../../styles';
-
 
 export const Placeholder = () => {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../../../../assets/publicationForm/uploadPublicationImg.png')}
+                source={require('@/presentation/assets/publicationForm/uploadPublicationImg.png')}
                 style={{
                     objectFit: 'contain', 
                     width: isTablet ? 300 : 250, 
@@ -27,7 +25,9 @@ const styles = StyleSheet.create({
         backgroundColor: globalColors.lightGray,
         borderRadius: 40,
         gap: 30,
-        ...formStyles.fullBoxCenter
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     message: {
         fontFamily: globalStyles.fontMonserratMedium,

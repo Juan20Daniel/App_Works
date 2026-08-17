@@ -10,7 +10,7 @@ import {
     PublishOnCompletionToggle,
     TitleForm
 } from '@/presentation/components/publicationForm';
-import { BtnBasic, HeaderApp } from '@/presentation/components/ui';
+import { HeaderApp } from '@/presentation/components/ui';
 import { InputSelectOption } from '@/presentation/types';
 import { useKeyboard } from '@/presentation/hooks';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
@@ -22,6 +22,7 @@ import {
 } from 'react-hook-form';
 import { defaultValues } from './defaultValue';
 import { PublicationFormValues } from './types';
+import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'PublicationForm'>{}
 
@@ -73,7 +74,7 @@ export const PublicationForm = ({navigation}:Props) => {
                 <HeaderApp
                     subText='Crear publicación'
                     actionBtnClose={() => confirmedAction()}
-                    actionBox={() => {}}
+                    heigthScrollEdgeFade={30}
                 />
                 <TouchableWithoutFeedback accessible={false} onPress={() => {}}>
                     <View style={{width, backgroundColor:globalColors.white}}>
@@ -202,11 +203,16 @@ export const PublicationForm = ({navigation}:Props) => {
                             value={publishPublication}
                             toggle={() => setPublishPublication(!publishPublication)}
                         />
-                        <BtnBasic
-                            value="Crear"
-                            action={handleSubmit(onSubmit)}
-                            customStylesBox={{marginTop: 20, marginBottom: 50, paddingHorizontal:10}}
-                        />
+                        <View style={{
+                            marginTop: 20,
+                            marginBottom: 50,
+                            paddingHorizontal: 10
+                        }}>
+                            <PrimaryBtn
+                                text="Crear"
+                                onPress={handleSubmit(onSubmit)}
+                            />
+                        </View>
                         <View style={{
                             width: '100%',  
                             height: isTablet ? 50 : keyboardVisible ? 350 : 30, 

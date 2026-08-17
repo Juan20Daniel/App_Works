@@ -5,7 +5,7 @@ import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { HeaderApp } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { CompanyListEmpty } from '@/presentation/components/selectCompany';
-import { BtnAddCompany } from '@/presentation/components/selectCompany/btnAddCompany';
+import { BtnGoToCompanyForm } from '@/presentation/components/selectCompany';
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'SelectCompany'>{}
 
 export const SelectCompany = ({navigation}:Props) => {
@@ -23,7 +23,11 @@ export const SelectCompany = ({navigation}:Props) => {
     return (
         <View style={{height:height, backgroundColor: globalColors.white}}>
             <ScrollView 
-                style={{height:height-bottom-100, backgroundColor: globalColors.white, marginTop: top}} 
+                style={{
+                    height:height-bottom-100, 
+                    backgroundColor: globalColors.white, 
+                    marginTop: top
+                }}
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 stickyHeaderIndices={[0]}
@@ -32,12 +36,14 @@ export const SelectCompany = ({navigation}:Props) => {
                 <HeaderApp
                     subText='Seleccionar empresa'
                     actionBtnClose={() => confirmedAction()}
-                    actionBox={() => {}}
                 />
                 <CompanyListEmpty />
                 <CompanyListEmpty />
             </ScrollView>
-            <BtnAddCompany />
+            <BtnGoToCompanyForm
+                text='AGREGAR EMPRESA'
+                onPress={() => navigation.navigate('CompanyForm', {form:{type:'CREATE'}})}
+            />
         </View>
     );
 }

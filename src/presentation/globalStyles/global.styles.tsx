@@ -1,4 +1,6 @@
-export const globalColors = {
+import { Colors } from "../types"
+
+export const globalColors: Record<Colors, string> = {
     white: '#ffffff',
     gray: '#767676',
     black: '#000000',
@@ -16,12 +18,4 @@ export const globalStyles = {
     marginHorizontal: 10,
     fontMonserratMedium: 'Montserrat-Medium',
     fontMonserratSemiBold: 'Montserrat-SemiBold',
-    backgroundColor: '#fff',
-    shadow: {
-        shadowColor: '#000000b4',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.18,
-        shadowRadius: 8,
-        elevation: 8,
-    }
 }

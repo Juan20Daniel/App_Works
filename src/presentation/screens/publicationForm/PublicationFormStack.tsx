@@ -1,9 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { CompanyForm, PublicationForm, SelectCompany} from "./screens";
+import type { CompanyForm as CompanyFormType } from "@/presentation/types";
 
 export type CreatePublicStackParamList = {
     PublicationForm: undefined;
-    CompanyForm: undefined;
+    CompanyForm: {form:CompanyFormType};
     SelectCompany: undefined;
 }
 

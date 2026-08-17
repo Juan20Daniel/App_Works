@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { Icon } from '../icon/Icon';
-import { IconType } from '@/presentation/types/icons';
+import { IconType } from '@/presentation/types/ui/icons';
 
 interface Props {
     disable?:boolean;

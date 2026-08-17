@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { Icon } from '../icon/Icon';
-import { IconType } from '@/presentation/types/icons';
+import { IconType } from '@/presentation/types/ui/icons';
 
 interface Props {
     iconName: IconType;

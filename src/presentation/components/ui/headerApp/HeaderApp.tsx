@@ -1,17 +1,19 @@
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { TitleApp } from '../titleApp/TitleApp';
 import { BtnClose } from '../btnClose/BtnClose';
-import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { Icon } from '../icon/Icon';
+import { ScrollEdgeFade } from '../../shared';
+import { styles } from './styles';
 
 interface Props {
     alignTitle?: 'center'|'flex-start',
     subText?: string;
     paddingTop?: number;
     showBtnClose?: boolean;
+    heigthScrollEdgeFade?: number;
+    marginBottom?: number; 
     actionBtnClose: () => void;
-    actionBox?: () => void;
 }
 
 export const HeaderApp = ({
@@ -19,41 +21,39 @@ export const HeaderApp = ({
     subText,
     paddingTop,
     showBtnClose=true,
-    actionBtnClose,
-    actionBox
+    heigthScrollEdgeFade,
+    marginBottom=0,
+    actionBtnClose
 }:Props) => {
     return (
-        <TouchableWithoutFeedback onPress={() => {
-            actionBox && actionBox();
+        <View style={{
+            ...styles.container, 
+            justifyContent: alignTitle, 
+            paddingTop:paddingTop??20,
+            marginBottom:marginBottom
         }}>
-            <View style={{...styles.container, justifyContent: alignTitle, paddingTop:paddingTop??20}}>
-                <TitleApp />
-                {subText &&
-                    <>
-                        <Icon name="Circle" size={6} color={globalColors.darkGray} />
-                        <Text style={styles.subText}>{subText}</Text>
-                    </>
-                }
-                {showBtnClose && 
-                    <BtnClose backTo={() => {actionBtnClose()}} />
-                }
-            </View>
-        </TouchableWithoutFeedback>
+            <TitleApp />
+            {subText &&
+                <>
+                    <Icon 
+                        name="Circle" 
+                        size={6} 
+                        color={globalColors.darkGray} 
+                    />
+                    <Text style={styles.subText}>
+                        {subText}
+                    </Text>
+                </>
+            }
+            {showBtnClose &&
+                <BtnClose 
+                    backTo={() => {actionBtnClose()}} 
+                />
+            }
+            <ScrollEdgeFade
+                direction='top'
+                heigth={heigthScrollEdgeFade}
+            />
+        </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems:'center',
-        gap:10,
-        backgroundColor: globalColors.white,
-        paddingLeft: globalStyles.marginHorizontal,
-        paddingBottom: 10,
-    },
-    subText: {
-        fontSize: calcDimension({small:12, medium: 16, large: 20}), 
-        color:globalColors.darkGray,
-        fontFamily: globalStyles.fontMonserratSemiBold
-    }
-});

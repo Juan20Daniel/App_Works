@@ -1,5 +1,5 @@
-import { InputSelect } from "@/presentation/types";
+import { FormValue } from "@/presentation/types";
 
-export type PublicationFormValues = {
-    selectCompany: InputSelect | null;
-}
+export type PublicationFormValues = FormValue<
+    | 'selectCompany'
+>
