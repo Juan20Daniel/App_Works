@@ -1,3 +1,4 @@
+import { AppError } from "@/shared";
 import { launchImageLibrary, PhotoQuality } from "react-native-image-picker";
 
 interface Result {
@@ -22,18 +23,27 @@ export class PictureAdapter {
                 return {url:null, name:''}
             }
             if(!verifyExtention(response.assets![0].fileName!)) {
-                throw new Error("La imagen no es válida, verifica que sea imagen JPG o PNG.");
+                throw new AppError(
+                    "INVALID_IMAGE",
+                    "La imagen no es válida, verifica que sea imagen JPG o PNG."
+                );
             }
             if(response.assets![0].fileSize! > limitFileSize) {
-                throw new Error(`La imagen es muy grande, el tamaño maximo es de ${limitFileSize}kb, selecciona una mas pequeña.`);
+                throw new AppError(
+                    "IMAGE_TOO_LONG",
+                    `La imagen es muy grande, el tamaño maximo es de ${limitFileSize}kb, selecciona una mas pequeña.`,
+                );
             }
             const image = response.assets![0];
             return {url:image.uri!, name:image.fileName!};
         } catch (error) {
-            if (error instanceof Error) {
+            if (error instanceof AppError) {
                 throw error;
             } else {
-                throw new Error(String(error));
+                throw new AppError(
+                    "UNKNOWN_ER",
+                    String(error),
+                );
             } 
         }
     }

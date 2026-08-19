@@ -1,11 +1,7 @@
 import { getUserById } from './userApi';
 
-export const getUserName = async (id: number) => {
-    try {
-        const user = await getUserById(id);
+export const getUserGreeting = async (id: number) => {
+    const user = await getUserById(id);
 
-        return user.name;
-    } catch {
-        return 'Usuario no encontrado';
-    }
+    return `Hola ${user.name}`;
 };

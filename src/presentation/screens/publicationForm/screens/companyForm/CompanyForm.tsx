@@ -5,20 +5,29 @@ import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { HeaderApp, UploadImage } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { SubmitBtn } from '@/presentation/components/companyForm';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { CompanyFormValue } from './types';
 import { defaultValue } from './defaultValue';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'CompanyForm'>{}
 
 export const CompanyForm = ({navigation, route}:Props) => {
-    const { control, setValue } = useForm<CompanyFormValue>({
+    const { control, handleSubmit } = useForm<CompanyFormValue>({
         defaultValues: defaultValue,
         mode: 'onSubmit'
     });
     const { type } = route.params.form;
     const { top, bottom } = useSafeAreaInsets();
     const height = useWindowDimensions().height;
+
+    const onSubmit:SubmitHandler<CompanyFormValue> = async (data) => {
+        console.log(data);
+    }
+
+    const onInvalid: SubmitErrorHandler<CompanyFormValue> = errors => {
+        console.log('Formulario inválido:', errors);
+    };
+    
    
     return (
         <View style={{height:height, backgroundColor: globalColors.white}}>
@@ -44,14 +53,13 @@ export const CompanyForm = ({navigation, route}:Props) => {
                 <UploadImage
                     control={control}
                     name='companyLogo'
-                    setValue={setValue}
                 />
                 <SubmitBtn
                     text={type === 'CREATE' 
                         ? 'AGREGAR EMPRESA' 
                         : 'Edit company'
                     }
-                    onPress={() => {}}
+                    onPress={handleSubmit(onSubmit, onInvalid)}
                 />
             </ScrollView>
         </View>

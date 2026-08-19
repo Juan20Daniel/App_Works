@@ -9,16 +9,26 @@ jest.mock('./userApi', () => ({
 const mockGetUserById = jest.mocked(getUserById);
 
 describe('mockResolvedValue()', () => {
-    test('Devolver procesa resulta', async () => {
-
-        mockGetUserById.mockRejectedValue(new Error('Error de servidor'));
-
-        const result = await getUserName(10)
-    
-        expect(result).toBe('Usuario no encontrado');
-       
-        expect(mockGetUserById).toHaveBeenLastCalledWith(10)
+    test('Me regresa el nombre del usuario', async () => {
+        mockGetUserById.mockResolvedValue({
+            id: 10,
+            name: 'Juan'
+        });
+        
+        await expect(
+            getUserName(10)
+        ).resolves.toBe('Juan');
     });
+
+    test('Propaga el error de forma correcta', async () => {
+        mockGetUserById.mockRejectedValue(
+            new Error('Error de servidor')
+        );
+
+        await expect(
+            getUserName(10)
+        ).rejects.toThrow('Error de servidor');
+    })
 });
 
 // jest.mock('./priceCalculator');

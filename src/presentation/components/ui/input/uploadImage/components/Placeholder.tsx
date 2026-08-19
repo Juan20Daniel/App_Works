@@ -2,7 +2,12 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
 import { isTablet } from '@/presentation/helpers/isTablet';
 
-export const Placeholder = () => {
+interface Props {
+    show?: boolean;
+}
+
+export const Placeholder = ({show=true}:Props) => {
+    if(!show) return;
     return (
         <View style={styles.container}>
             <Image

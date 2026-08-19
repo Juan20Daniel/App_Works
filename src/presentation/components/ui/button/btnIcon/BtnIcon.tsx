@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { Icon } from '../icon/Icon';
 import { IconType } from '@/presentation/types/ui/icons';
+import { Icon } from '../../icon';
 
 interface Props {
     iconName: IconType;
@@ -10,7 +10,12 @@ interface Props {
     action: () => void;
 }
 
-export const BtnIcon = ({iconName, iconColor, marginRight, action}:Props) => {
+export const BtnIcon = ({
+    iconName,
+    iconColor,
+    marginRight,
+    action
+}:Props) => {
     return (
         <Pressable 
             onPress={action}

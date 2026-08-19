@@ -1,46 +1,46 @@
-import { Image, Pressable } from 'react-native';
-import { Placeholder } from './components/Placeholder';
+import { Pressable } from 'react-native';
+import { BtnRemoveImage, Placeholder, ShowImage} from './components';
 import { useLoadImage } from './hooks';
 import { InputContainer, InputLabel } from '../shared';
-import { Controller, Control, FieldValues, FieldPath, UseFormSetValue, FieldPathByValue } from 'react-hook-form';
+import { Controller, Control, FieldValues, FieldPathByValue } from 'react-hook-form';
 import { isTablet } from '@/presentation/helpers/isTablet';
-import { styles } from './styles';
 
 interface Props<T extends FieldValues> {
     control: Control<T>;
     name: FieldPathByValue<T, string>;
-    setValue: UseFormSetValue<T>;
 }
 
 export const UploadImage = <T extends FieldValues,> ({
     control, 
-    name,
-    setValue
+    name
 }:Props<T>) => {
-    const { loadImage } = useLoadImage<T>(name, setValue);
+    const { loadImage } = useLoadImage();
     return (
         <InputContainer>
             <InputLabel text='Logo de la empresa' />
             <Controller
                 control={control}
                 name={name}
-                render={({field:{value}}) => (
-                    //usar la funcion y sacar el valor desde aquí.
+                render={({field:{value, onChange}}) => (
                     <Pressable
-                        onPress={() => loadImage()}
+                        onPress={async () => {
+                            const image = await loadImage();
+                            if(!image) return;
+                            onChange(image);
+                        }}
                         style={({pressed}) => [{
+                            position: 'relative',
                             flex: 1,
                             height: isTablet ? 500 : 350,
                             opacity: pressed ? 0.5 : 1,
                         }]}
                     >
-                        {value !== ''
-                            ?   <Image
-                                    source={{uri:''}}
-                                    style={styles.imgOffer}
-                                />
-                            :   <Placeholder />
-                        }
+                        <BtnRemoveImage 
+                            show={value !== ''} 
+                            onPress={() => onChange('')}
+                        />
+                        <ShowImage url={value} />
+                        <Placeholder show={value === ''} />
                     </Pressable>
                 )}
             />

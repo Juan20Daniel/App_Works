@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { BtnIcon } from '@/presentation/components/ui/btnIcon/BtnIcon';
+import { BtnIcon } from '@/presentation/components/ui';
 import { CompanyNameAndDate } from './components/CompanyNameAndDate';
 import { LogoCompany } from './components/LogoCompany';
 import { isTablet } from '@/presentation/helpers/isTablet';

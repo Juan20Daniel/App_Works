@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { BtnIcon } from '@/presentation/components/ui/btnIcon/BtnIcon';
+import { BtnIcon } from '@/presentation/components/ui';
 
 import { publicationStyles } from '../styles';
 import { UserAvatar } from '@/presentation/components/user';
@@ -10,7 +10,10 @@ export const UserInfo = () => {
   const mountModalOptions = useVisibleModalPublicOpStore((state) => state.open);
   return (
     <View style={styles.container}>
-      <UserAvatar username='Carlos Manuel Hernandes Chavez' />
+      <UserAvatar 
+        avatarColor=''
+        userName='Carlos Manuel Hernandes Chavez' 
+      />
       <View style={styles.boxUserData}>
         <View style={styles.userData}>
           <Text style={styles.nameUser} numberOfLines={3}>

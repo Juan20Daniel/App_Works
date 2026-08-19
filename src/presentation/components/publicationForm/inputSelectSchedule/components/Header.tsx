@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { BtnIcon } from '@/presentation/components/ui/btnIcon/BtnIcon';
+import { BtnIcon } from '@/presentation/components/ui';
 
 interface Props {
     action: () => void;

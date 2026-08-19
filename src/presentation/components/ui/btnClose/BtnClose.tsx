@@ -7,7 +7,7 @@ interface Props {
     top?: number;
     backTo: () => void; 
 }
-export const BtnClose = ({top,backTo}:Props) => {
+export const BtnClose = ({top, backTo}:Props) => {
     return (
         <Pressable 
             style={({pressed}) => [

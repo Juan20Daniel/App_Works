@@ -3,7 +3,7 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 
-import { BtnIcon } from '@/presentation/components/ui/btnIcon/BtnIcon';
+import { BtnIcon } from '@/presentation/components/ui';
 import { isTablet } from '@/presentation/helpers/isTablet';
 import { Icon } from '../../ui/icon/Icon';
 
