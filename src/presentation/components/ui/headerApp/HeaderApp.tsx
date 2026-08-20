@@ -1,13 +1,11 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { TitleApp } from '../titleApp/TitleApp';
 import { BtnClose } from '../btnClose/BtnClose';
-import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { Icon } from '../icon/Icon';
 import { ScrollEdgeFade } from '../../shared';
 import { styles } from './styles';
+import { SubTitle } from './components';
 
 interface Props {
-    alignTitle?: 'center'|'flex-start',
     subText?: string;
     paddingTop?: number;
     showBtnClose?: boolean;
@@ -17,39 +15,34 @@ interface Props {
 }
 
 export const HeaderApp = ({
-    alignTitle='flex-start',
     subText,
     paddingTop,
     showBtnClose=true,
     heigthScrollEdgeFade,
-    marginBottom=0,
+    marginBottom,
     actionBtnClose
 }:Props) => {
     return (
         <View style={{
-            ...styles.container, 
-            justifyContent: alignTitle, 
-            paddingTop:paddingTop??20,
-            marginBottom:marginBottom
+            ...styles.container,
+            paddingTop:paddingTop??0,
+            marginBottom:marginBottom??0
         }}>
-            <TitleApp />
-            {subText &&
-                <>
-                    <Icon 
-                        name="Circle" 
-                        size={6} 
-                        color={globalColors.darkGray} 
-                    />
-                    <Text style={styles.subText}>
-                        {subText}
-                    </Text>
-                </>
-            }
-            {showBtnClose &&
-                <BtnClose 
+            <View style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flex:1,
+            }}>
+                <View style={styles.boxTitle}>
+                    <TitleApp />
+                    <SubTitle text={subText} />
+                </View>
+                <BtnClose
+                    show={showBtnClose}
                     backTo={() => {actionBtnClose()}} 
                 />
-            }
+            </View>
             <ScrollEdgeFade
                 direction='top'
                 heigth={heigthScrollEdgeFade}

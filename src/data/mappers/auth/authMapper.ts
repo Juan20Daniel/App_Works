@@ -11,7 +11,7 @@ export class AuthMapper {
             user: {
                 id:authApi.user._id,
                 profile_image:authApi.user.profile_image,
-                fisrtname:authApi.user.firstname,
+                firstname:authApi.user.firstname,
                 lastname:authApi.user.lastname,
                 email:authApi.user.email,
                 role: authApi.user.role,

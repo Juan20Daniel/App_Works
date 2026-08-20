@@ -26,7 +26,8 @@ export const ProfileEmptySection = ({
         <View style={styles.outSpace}>
             <View style={{
                 ...styles.container, 
-                backgroundColor:background,
+                // backgroundColor:background,
+                backgroundColor: 'green',
                 height: height < 750 
                     ? 160 
                     : percentageHeight(isTablet ? 25 : 22),    

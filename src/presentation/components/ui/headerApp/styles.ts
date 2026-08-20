@@ -1,5 +1,4 @@
 import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
-import { calcDimension } from "@/presentation/helpers/calcDimension";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -7,14 +6,14 @@ export const styles = StyleSheet.create({
         position: 'relative',
         flexDirection: 'row',
         alignItems:'center',
-        gap:10,
+        height: 65,
         backgroundColor: globalColors.white,
-        paddingLeft: globalStyles.marginHorizontal,
-        paddingBottom: 10,
+        paddingLeft: globalStyles.marginHorizontal,   
     },
-    subText: {
-        fontSize: calcDimension({small:12, medium: 16, large: 20}), 
-        color:globalColors.darkGray,
-        fontFamily: globalStyles.fontMonserratSemiBold
+    boxTitle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap:10,
     }
 });

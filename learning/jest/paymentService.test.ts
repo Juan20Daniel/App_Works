@@ -1,34 +1,18 @@
-import { getUserById } from "./userApi";
-import { getUserName } from "./userService";
+import {calculator} from './userService';
 
+describe('Restablecimiento de mocks con resetAllMocks', () => {
 
-jest.mock('./userApi', () => ({
-    getUserById: jest.fn()
-}));
+    const mockCalculateTax = jest.spyOn(calculator, 'sum')
+        .mockReturnValue(500);
 
-const mockGetUserById = jest.mocked(getUserById);
+    test('Verificación de llamada', async () => {
+        let result = calculator.sum(2, 3);
+        expect(result).toBe(500);
 
-describe('mockResolvedValue()', () => {
-    test('Me regresa el nombre del usuario', async () => {
-        mockGetUserById.mockResolvedValue({
-            id: 10,
-            name: 'Juan'
-        });
-        
-        await expect(
-            getUserName(10)
-        ).resolves.toBe('Juan');
+        jest.restoreAllMocks();
+        result = calculator.sum(2, 3);
+        expect(result).toBe(5);
     });
-
-    test('Propaga el error de forma correcta', async () => {
-        mockGetUserById.mockRejectedValue(
-            new Error('Error de servidor')
-        );
-
-        await expect(
-            getUserName(10)
-        ).rejects.toThrow('Error de servidor');
-    })
 });
 
 // jest.mock('./priceCalculator');

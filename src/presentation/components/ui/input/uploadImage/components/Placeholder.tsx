@@ -18,7 +18,7 @@ export const Placeholder = ({show=true}:Props) => {
                     height: isTablet ? 200 : 150
                 }}
             />
-            <Text style={{...styles.message, fontSize: isTablet ? 20 : 15}}>
+            <Text style={styles.message}>
                 Presiona para añadir alguna imagen a la publicación.
             </Text>
         </View>
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         fontFamily: globalStyles.fontMonserratMedium,
         color: globalColors.gray,
         maxWidth: 300,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: isTablet ? 20 : 15
     }
 });

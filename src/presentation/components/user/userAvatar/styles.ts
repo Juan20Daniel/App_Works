@@ -7,8 +7,8 @@ export const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        width:isTablet ? 90 : 70, 
-        height:isTablet ? 90 : 70
+        width: isTablet ? 90 : 70, 
+        height: isTablet ? 90 : 70
     },
     img: {
         borderRadius: 35,

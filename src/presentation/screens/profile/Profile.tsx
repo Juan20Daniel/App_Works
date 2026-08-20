@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ScrollView, useWindowDimensions, View } from 'react-native';
+import { ScrollView, Text, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigators/StackNavigator';
 import { Container, HeaderApp } from '../../components/ui';
@@ -32,7 +32,6 @@ export const Profile = ({navigation}:Props) => {
 					<View style={{
 						position: 'relative',
 						width:'100%',
-						
 						height:height < 700 
 							? 700 
 							: height-statusBarSpace-bottomMenuSpace,
@@ -40,21 +39,23 @@ export const Profile = ({navigation}:Props) => {
 							? 70 
 							: 0,
 					}}>
+						{/* 65px */}
 						<HeaderApp
-							alignTitle='flex-start'
 							subText='Mi cuenta' 
+							heigthScrollEdgeFade={5}
 							actionBtnClose={() => {
 								navigation.replace('Home', {animationType:"slide_from_left"})
 							}} 
 						/>
+						{/* 75 en phones o 95 en tablets */}
 						<UserAccountInformation />
-						<ProfileSectionHeader 
+						{/* <ProfileSectionHeader 
 							iconName='BookmarkFill'
 							title='Publicaciones guardadas'
 							subTitle='Aquí puedes ver las publicaciones que has guardado'
 							marginTop={20}
-						/>
-						<ProfileEmptySection
+						/> */}
+						{/* <ProfileEmptySection
 							title='Aún no has guardado ninguna publicación'
 							description='Guarda publicaciones que te interesen y encuéntralas fácilmente.'
 							textBtnAction='Explorar publicaciones'
@@ -63,21 +64,21 @@ export const Profile = ({navigation}:Props) => {
 							btnAction={() => {
 								navigation.replace('Home', {animationType:"slide_from_left"})
 							}}
-						/>
-						<ProfileSectionHeader 
+						/> */}
+						{/* <ProfileSectionHeader 
 							iconName='EditDocumentFill'
 							title='Mis publicaciones'
 							subTitle='Aquí puedes gestionar y consultar todas las publicaciones que has creado.'
 							marginTop={20}
-						/>
-						<ProfileEmptySection
+						/> */}
+						{/* <ProfileEmptySection
 							title='Aún no has creado ninguna publicación'
 							description='Comparte tu primera publicación y comienza a conectar con audiencia.'
 							textBtnAction='Crear publicacion'
 							ilustration={require('@/presentation/assets/profile/empty-created-posts.png')}
 							background='#F9FBFA'
 							btnAction={() => navigation.navigate('PublicationFormStack')}
-						/>
+						/> */}
 						{/* <HorizontalPagination list={list}>
 						<OfferInImgSmall 
 							openOptions={() => setSavedOfferOpModal(true)}
@@ -86,9 +87,9 @@ export const Profile = ({navigation}:Props) => {
 						{/* <HorizontalPagination>
 						<OfferPersonalizedSmall />
 						</HorizontalPagination> */}
-						<BtnCloseSession navigation={navigation} />
+						{/* <BtnCloseSession navigation={navigation} /> */}
 					</View>
-				</ScrollView>
+				</ScrollView> 
 			</Container>
 			<ModalPublicationSettings />
 			<SavedPublicationOptionsModal

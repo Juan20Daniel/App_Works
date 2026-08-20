@@ -4,15 +4,16 @@ import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
-    top?: number;
+    show?: boolean;
     backTo: () => void; 
 }
-export const BtnClose = ({top, backTo}:Props) => {
+export const BtnClose = ({show=true, backTo}:Props) => {
+    if(!show) return null;
     return (
         <Pressable 
             style={({pressed}) => [
                 styles.container,
-                {opacity: pressed ? 0.5 : 1, top:top??'auto'}
+                {opacity: pressed ? 0.5 : 1}
             ]} 
             onPressOut={() => backTo()}
         >
@@ -23,9 +24,6 @@ export const BtnClose = ({top, backTo}:Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        position:'absolute',
-        right: 0,
-        bottom: 15,
         backgroundColor: 'black',
         width: 40,
         height: calcDimension({small:40, medium:50}),
@@ -33,6 +31,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
-        zIndex:7,
     }
-})
+});

@@ -1,7 +1,5 @@
-import { getUserById } from './userApi';
-
-export const getUserGreeting = async (id: number) => {
-    const user = await getUserById(id);
-
-    return `Hola ${user.name}`;
+export const calculator = {
+    sum: (a: number, b: number) => {
+        return a + b;
+    }
 };

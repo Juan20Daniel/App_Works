@@ -9,7 +9,7 @@ export const UserAccountInformation = () => {
         <View style={styles.container}>
             <UserAvatar 
                 imageUrl={user?.profile_image}
-                userName={user?.fisrtname!}
+                userName={user?.firstname!}
                 avatarColor={user?.avatarColor!}
             />
             <AcountInformation />

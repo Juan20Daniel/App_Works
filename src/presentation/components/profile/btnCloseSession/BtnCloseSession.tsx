@@ -30,7 +30,7 @@ export const BtnCloseSession = ({navigation}:Props) => {
 			...styles.boxBtnCloseSession,
 			bottom: 10,
 			marginTop:isTablet ? 40 : 10,
-
+		
 		}}>
 			<Pressable 
 				onPress={signOut}

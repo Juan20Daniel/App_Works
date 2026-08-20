@@ -15,7 +15,7 @@ export const UserAvatar = ({
     avatarColor,
     isLoading
 }:Props) => {
-
+    console.log({userName})
     if(isLoading || !userName) {
         return <UserAvatarSkeletor />
     }

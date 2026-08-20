@@ -2,7 +2,7 @@ import { ScrollView, useWindowDimensions, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { HeaderApp, UploadImage } from '@/presentation/components/ui';
+import { HeaderApp, InputTextBasic, UploadImage } from '@/presentation/components/ui';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { SubmitBtn } from '@/presentation/components/companyForm';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -53,6 +53,23 @@ export const CompanyForm = ({navigation, route}:Props) => {
                 <UploadImage
                     control={control}
                     name='companyLogo'
+                    marginBottom={20}
+                />
+                <InputTextBasic 
+                    control={control}
+                    name='companyName'
+                    label='Nombre de la empresa'
+                    placeholder='Ingresa el nombre de la empresa'
+                    isRequire
+                    marginBottom={20}
+                />
+                <InputTextBasic 
+                    control={control}
+                    name='companyName'
+                    label='Nombre de la empresa'
+                    placeholder='Ingresa el nombre de la empresa'
+                    isRequire
+                    marginBottom={20}
                 />
                 <SubmitBtn
                     text={type === 'CREATE' 

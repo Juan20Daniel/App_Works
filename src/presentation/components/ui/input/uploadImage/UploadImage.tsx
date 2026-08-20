@@ -8,15 +8,19 @@ import { isTablet } from '@/presentation/helpers/isTablet';
 interface Props<T extends FieldValues> {
     control: Control<T>;
     name: FieldPathByValue<T, string>;
+    marginBottom?: number;
 }
 
 export const UploadImage = <T extends FieldValues,> ({
     control, 
-    name
+    name,
+    marginBottom
 }:Props<T>) => {
     const { loadImage } = useLoadImage();
     return (
-        <InputContainer>
+        <InputContainer
+            marginBottom={marginBottom}
+        >
             <InputLabel text='Logo de la empresa' />
             <Controller
                 control={control}
@@ -31,7 +35,7 @@ export const UploadImage = <T extends FieldValues,> ({
                         style={({pressed}) => [{
                             position: 'relative',
                             flex: 1,
-                            height: isTablet ? 500 : 350,
+                            height: isTablet ? 450 : 300,
                             opacity: pressed ? 0.5 : 1,
                         }]}
                     >

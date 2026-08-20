@@ -12,6 +12,7 @@ export const Container = ({marginTop, children, customStyles}:Props) => {
     const height = useWindowDimensions().height;
     const width = useWindowDimensions().width;
     const { top } = useSafeAreaInsets();
+   
     return (
         <View style={[
             {
