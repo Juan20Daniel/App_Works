@@ -15,8 +15,8 @@ export const BtnClearInput = ({top, right, onPress}:Props) => {
                 styles.btnClear,
                 {
                     opacity: pressed ? 0.3 : 1,
-                    top: top, 
-                    right:right??20
+                    // top: top, 
+                    // right:right??20
                 }
             ]} 
             onPress={onPress}

@@ -6,7 +6,8 @@ export const styles = StyleSheet.create({
         position: 'relative',
         borderRadius: 20,
         borderWidth: 1,
-        borderColor: globalColors.softGray
+        borderColor: globalColors.softGray,
+        justifyContent: 'center'
     },
     inputText: {
         flex: 1,

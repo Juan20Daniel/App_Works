@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, Platform, ScrollView, useWindowDimensions, View } from 'react-native';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
@@ -9,6 +9,7 @@ import { SubmitBtn } from '@/presentation/components/companyForm';
 import { CompanyFormValue } from './types';
 import { defaultValue } from './defaultValue';
 import { expretions } from '@/shared';
+import { useCreateCompany } from './hooks';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'CompanyForm'>{}
 
@@ -18,14 +19,11 @@ export const CompanyForm = ({navigation, route}:Props) => {
         mode: 'onSubmit',
         shouldFocusError:false,
     });
+    const { createCompany } = useCreateCompany();
     const { type } = route.params.form;
     const { top, bottom } = useSafeAreaInsets();
     const height = useWindowDimensions().height;
 
-    const onSubmit:SubmitHandler<CompanyFormValue> = async (data) => {
-        console.log(data);
-    }
- 
     return (
         <View style={{height:height, backgroundColor: globalColors.white}}>
             <KeyboardAvoidingView
@@ -39,6 +37,7 @@ export const CompanyForm = ({navigation, route}:Props) => {
                         marginTop: top
                     }}
                     nestedScrollEnabled={true}
+                    keyboardShouldPersistTaps='handled'
                     showsVerticalScrollIndicator={false}
                     stickyHeaderIndices={[0]}
                     stickyHeaderHiddenOnScroll={true}
@@ -79,14 +78,14 @@ export const CompanyForm = ({navigation, route}:Props) => {
                         regex={expretions.companyDesc}
                         returnKeyType='done'
                         marginBottom={20}
-                        onSubmitEditing={handleSubmit(onSubmit)}
+                        onSubmitEditing={handleSubmit(createCompany)}
                     />
                     <SubmitBtn
                         text={type === 'CREATE' 
                             ? 'AGREGAR EMPRESA' 
                             : 'Edit company'
                         }
-                        onPress={handleSubmit(onSubmit)}
+                        onPress={handleSubmit(createCompany)}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>
