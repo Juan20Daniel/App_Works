@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   boxBtnCloseSession: {
     position: 'absolute',
-    backgroundColor:'red',
+
     width:'100%', 
     alignItems:'center', 
     paddingTop:10, 

@@ -46,7 +46,6 @@ export const PublicationForm = ({navigation}:Props) => {
         defaultValues: defaultValues,
         mode:'onSubmit'
     });
-    const { keyboardVisible } = useKeyboard();
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
     console.log('errors');
@@ -213,11 +212,6 @@ export const PublicationForm = ({navigation}:Props) => {
                                 onPress={handleSubmit(onSubmit)}
                             />
                         </View>
-                        <View style={{
-                            width: '100%',  
-                            height: isTablet ? 50 : keyboardVisible ? 350 : 30, 
-                            backgroundColor: globalColors.white
-                        }} />
                     </View>
                 </TouchableWithoutFeedback>
             </ScrollView>

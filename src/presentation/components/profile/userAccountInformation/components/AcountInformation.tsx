@@ -12,7 +12,7 @@ export const AcountInformation = () => {
                 style={styles.username} 
                 numberOfLines={2}
             >
-                {user?.fisrtname} {user?.lastname.split(' ')[0]}
+                {user?.firstname} {user?.lastname.split(' ')[0]}
             </Text>
             <Text 
                 style={styles.email} 

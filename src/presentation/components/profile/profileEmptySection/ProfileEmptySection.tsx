@@ -1,8 +1,8 @@
-import { ImageSourcePropType, useWindowDimensions, View } from 'react-native';
+import { ImageSourcePropType, View } from 'react-native';
 import { percentageHeight } from '@/presentation/helpers/calcPercentage';
-import { isTablet } from '@/presentation/helpers/isTablet';
 import { BtnAction, Description, Ilustration, Title } from './components';
 import { styles } from './styles';
+import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     title: string;
@@ -21,17 +21,18 @@ export const ProfileEmptySection = ({
     background,
     btnAction
 }:Props) => {
-    const height = useWindowDimensions().height;
     return (
         <View style={styles.outSpace}>
             <View style={{
                 ...styles.container, 
-                // backgroundColor:background,
-                backgroundColor: 'green',
-                height: height < 750 
-                    ? 160 
-                    : percentageHeight(isTablet ? 25 : 22),    
-            }}> 
+                backgroundColor:background,
+                height: percentageHeight(calcDimension({
+                    small: 30,
+                    medium: 23,
+                    large: 25,
+                    extraLarge: 27
+                })),
+            }}>
                 <Ilustration ilustration={ilustration} />
                 <View style={styles.boxInfo}>
                     <Title text={title} />

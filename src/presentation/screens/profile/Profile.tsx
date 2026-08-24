@@ -22,7 +22,7 @@ export const Profile = ({navigation}:Props) => {
 	const statusBarSpace = useSafeAreaInsets().top;
 	const bottomMenuSpace = useSafeAreaInsets().bottom;
 	const height = useWindowDimensions().height;
-
+	
 	return (
 		<>
 			<Container>
@@ -49,13 +49,14 @@ export const Profile = ({navigation}:Props) => {
 						/>
 						{/* 75 en phones o 95 en tablets */}
 						<UserAccountInformation />
-						{/* <ProfileSectionHeader 
+						{/* calcDimension({small: 32, medium:37, large: 42}) */}
+						<ProfileSectionHeader
 							iconName='BookmarkFill'
 							title='Publicaciones guardadas'
 							subTitle='Aquí puedes ver las publicaciones que has guardado'
 							marginTop={20}
-						/> */}
-						{/* <ProfileEmptySection
+						/>
+						<ProfileEmptySection
 							title='Aún no has guardado ninguna publicación'
 							description='Guarda publicaciones que te interesen y encuéntralas fácilmente.'
 							textBtnAction='Explorar publicaciones'
@@ -64,21 +65,21 @@ export const Profile = ({navigation}:Props) => {
 							btnAction={() => {
 								navigation.replace('Home', {animationType:"slide_from_left"})
 							}}
-						/> */}
-						{/* <ProfileSectionHeader 
+						/>
+						<ProfileSectionHeader 
 							iconName='EditDocumentFill'
 							title='Mis publicaciones'
 							subTitle='Aquí puedes gestionar y consultar todas las publicaciones que has creado.'
 							marginTop={20}
-						/> */}
-						{/* <ProfileEmptySection
+						/>
+						<ProfileEmptySection
 							title='Aún no has creado ninguna publicación'
 							description='Comparte tu primera publicación y comienza a conectar con audiencia.'
 							textBtnAction='Crear publicacion'
 							ilustration={require('@/presentation/assets/profile/empty-created-posts.png')}
 							background='#F9FBFA'
 							btnAction={() => navigation.navigate('PublicationFormStack')}
-						/> */}
+						/>
 						{/* <HorizontalPagination list={list}>
 						<OfferInImgSmall 
 							openOptions={() => setSavedOfferOpModal(true)}
@@ -87,7 +88,7 @@ export const Profile = ({navigation}:Props) => {
 						{/* <HorizontalPagination>
 						<OfferPersonalizedSmall />
 						</HorizontalPagination> */}
-						{/* <BtnCloseSession navigation={navigation} /> */}
+						<BtnCloseSession navigation={navigation} />
 					</View>
 				</ScrollView> 
 			</Container>

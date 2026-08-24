@@ -1,16 +1,14 @@
 import { Pressable, StyleSheet } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles'; 
 import { Icon } from '../../ui';
-import { FormField } from '@/presentation/types/form';
 
 interface Props {
-    name: FormField;
     top?: number;
     right?: number;
-    action:(name:FormField) => void;
+    onPress:() => void;
 }
 
-export const BtnClearInput = ({name, top, right, action}:Props) => {
+export const BtnClearInput = ({top, right, onPress}:Props) => {
     return (
         <Pressable
             style={({pressed}) => [
@@ -21,7 +19,7 @@ export const BtnClearInput = ({name, top, right, action}:Props) => {
                     right:right??20
                 }
             ]} 
-            onPress={() =>  action(name)}
+            onPress={onPress}
         >
             <Icon name='Close' color={globalColors.gray}/>
         </Pressable>

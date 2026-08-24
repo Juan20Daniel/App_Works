@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 10,
         flexDirection: 'row',
         gap: 10,
+        height: calcDimension({small: 32, medium:37, large: 42}),
     },
     iconContainer: {
         backgroundColor: '#F4F4F4',
@@ -22,7 +23,7 @@ export const styles = StyleSheet.create({
     title: {
         fontSize: calcDimension({small: 12, medium:14, large: 16}),
         fontFamily: globalStyles.fontMonserratSemiBold,
-        color: globalColors.black
+        color: globalColors.black,
     },
     subTitle: {
         fontFamily: globalStyles.fontMonserratMedium,

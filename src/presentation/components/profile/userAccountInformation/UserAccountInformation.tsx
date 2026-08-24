@@ -5,6 +5,7 @@ import { UserAvatar } from '../../user';
 
 export const UserAccountInformation = () => {
     const user = useUserStore(state => state.user);
+    console.log(user);
     return (
         <View style={styles.container}>
             <UserAvatar 

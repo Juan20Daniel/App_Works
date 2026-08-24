@@ -1,7 +1,10 @@
-import { KeyboardTypeOptions, TextInput, View } from "react-native";
-import { Control, Controller, FieldPathByValue, FieldValues } from "react-hook-form";
-import { InputContainer, InputLabel } from "../shared";
-import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
+import { useState } from "react";
+import { KeyboardTypeOptions, ReturnKeyTypeOptions, TextInput, View } from "react-native";
+import { Control, FieldPathByValue, FieldValues, RegisterOptions, useController } from "react-hook-form";
+import { globalColors } from "@/presentation/globalStyles/global.styles";
+import { InputContainer, InputErrorMessage, InputLabel } from "../shared";
+import { styles } from "./styles";
+import { BtnClearInput } from "@/presentation/components/shared";
 
 interface Props<T extends FieldValues> {
     control: Control<T>;
@@ -9,9 +12,13 @@ interface Props<T extends FieldValues> {
     label: string;
     placeholder: string;
     isRequire?: boolean;
-    requireMessage?: string;
     keyboardType?: KeyboardTypeOptions;
     marginBottom?: number;
+    returnKeyType?: ReturnKeyTypeOptions;
+    regex: RegExp;
+    errorRequireMessage?: string;
+    errorInvalidInputMessage?: string;
+    onSubmitEditing?: () => void;
 }
 
 export const InputTextBasic = <T extends FieldValues,> ({
@@ -20,60 +27,77 @@ export const InputTextBasic = <T extends FieldValues,> ({
     label,
     placeholder,
     isRequire,
-    requireMessage="El campo es requerido",
     keyboardType,
-    marginBottom
+    marginBottom,
+    returnKeyType='default',
+    regex,
+    errorRequireMessage="El campo es requerido",
+    errorInvalidInputMessage="El campo no es válido",
+    onSubmitEditing,
 }:Props<T>) => {
+    const [ isFocused, setIsFocused ] = useState(false);
 
+    const rules:Omit<RegisterOptions<T, FieldPathByValue<T, string>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined = {
+        pattern: {
+            value: regex,
+            message: errorInvalidInputMessage,
+        }
+    }
+    if(isRequire) {
+        rules.required=errorRequireMessage
+    }
+
+    const {
+        field: {value, onChange, onBlur, ref},
+        fieldState: {error, invalid}
+    } = useController({control, name, rules});
+   
     return (
         <InputContainer marginBottom={marginBottom}>
-            <InputLabel 
+            <InputLabel
                 text={label}
                 isRequire={isRequire}
+                isFocused={isFocused}
+                isInvalid={invalid}
             />
-            <Controller
-                control={control}
-                name={name}
-                rules={{
-                    required: 'El correo electrónico es obligatorio',
-                    pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Ingresa un correo electrónico válido',
-                    },
-                }}
-                render={({field: {value,onChange,onBlur,ref}}) => (
-                    <View
-                        style={{
-                            borderRadius: 20,
-                            borderWidth: 1,
-                            borderColor: globalColors.softGray
-                        }}
-                    >
-                        <TextInput
-                            ref={ref}
-                            value={value}
-                            onChangeText={onChange}
-                            onBlur={onBlur}
-                            keyboardType={keyboardType}
-                            autoCorrect={false}
-                            placeholder={placeholder}
-                            placeholderTextColor={globalColors.gray}
-                            style={[
-                                {
-                                    flex: 1,
-                                    borderRadius: 20,
-                                    minHeight: 65,
-                                    paddingRight: 50,
-                                    paddingLeft: 23,
-                                    fontFamily: globalStyles.fontMonserratMedium,
-                                    fontSize: 15,
-                                    color: globalColors.gray
-                                }
-                                // errors.email && styles.inputError,
-                            ]}
-                        />
-                    </View>
-                )}
+            <View style={[
+                styles.boxInputText,
+                invalid && styles.boderColorError,
+                isFocused && styles.boderColorFocus,
+            ]}>
+                <TextInput
+                    ref={ref}
+                    value={value}
+                    onChangeText={onChange}
+                    returnKeyType={returnKeyType}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => {
+                        onBlur();
+                        setIsFocused(false);
+                    }}
+                    keyboardType={keyboardType}
+                    onSubmitEditing={onSubmitEditing}
+                    autoCorrect={false}
+                    placeholder={placeholder}
+                    placeholderTextColor={isFocused 
+                        ? globalColors.azureBlue 
+                        : invalid 
+                            ? globalColors.darkRed
+                            : globalColors.gray
+                    }
+                    style={styles.inputText}
+                />
+                {value !== '' &&
+                    <BtnClearInput
+                        top={53}
+                        right={20}
+                        onPress={() => onChange('')}
+                    />
+                }
+            </View>  
+            <InputErrorMessage
+                show={invalid}
+                message={error?.message}
             />
         </InputContainer>
     );

@@ -4,9 +4,15 @@ import { calcDimension } from '@/presentation/helpers/calcDimension';
 
 interface Props {
     text: string;
+    isFocused?: boolean;
+    isInvalid?: boolean;
 }
 
-export const TextLabel = ({text}:Props) => {
+export const TextLabel = ({
+    text, 
+    isFocused=false,
+    isInvalid=false
+}:Props) => {
     return (
         <Text style={{
             paddingLeft: 20,
@@ -16,7 +22,11 @@ export const TextLabel = ({text}:Props) => {
                 medium:16
             }),
             fontFamily: globalStyles.fontMonserratMedium,
-            color: globalColors.black
+            color: isFocused 
+                ? globalColors.azureBlue 
+                : isInvalid
+                    ? globalColors.darkRed
+                    : globalColors.black
         }}>
             {text}
         </Text>
