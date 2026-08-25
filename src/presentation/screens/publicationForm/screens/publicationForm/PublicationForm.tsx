@@ -3,7 +3,6 @@ import { ScrollView, TouchableWithoutFeedback, useWindowDimensions, View } from 
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { isTablet } from '@/presentation/helpers/isTablet';
 import {
     InputSelectCompany,
     NoteForm,
@@ -12,11 +11,8 @@ import {
 } from '@/presentation/components/publicationForm';
 import { HeaderApp } from '@/presentation/components/ui';
 import { InputSelectOption } from '@/presentation/types';
-import { useKeyboard } from '@/presentation/hooks';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import {
-    Controller,
-    SubmitErrorHandler,
     SubmitHandler,
     useForm
 } from 'react-hook-form';

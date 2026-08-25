@@ -3,8 +3,6 @@ import {
     Home,
     Search,
     Profile,
-    Login,
-    Register,
     Publication,
     Notifications,
     PublicationFormStack,
@@ -76,16 +74,16 @@ const StackNavigator = () => {
                     name='Notifications' 
                     component={Notifications} 
                 />
-                <Stack.Screen 
-                    name='Login' 
-                    component={Login}
+                <Stack.Screen
+                    name='Login'
+                    getComponent={() => require('../screens/auth/login/Login').default}
                     options={({route}) => ({
                         animation:route.params.animationType??'fade'
                     })}
                 />
                 <Stack.Screen
                     name='Register'
-                    component={Register}
+                    getComponent={() => require('../screens/auth/register/Register').default}
                     options={({route}) => ({
                         animation:route.params.animationType??'fade'
                     })}

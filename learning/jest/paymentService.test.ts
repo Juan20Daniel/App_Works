@@ -1,16 +1,75 @@
-import { calculateShipping } from './userService';
+import { getProducts } from './userService';
 
-describe('Ejercicio 6 de 6 — Reto final de test.each()', () => {
-    test.each([
-       {total:500, isPremium:false, result:150},
-       {total:1000, isPremium:false, result:0},
-       {total:1500, isPremium:false, result:0},
-       {total:500, isPremium:true, result:0},
-       {total:2000, isPremium:true, result:0},
-    ])('Total:$total, isPremium:$isPremium, resultado:$result', ({total, isPremium, result}) => {
-        expect(calculateShipping(total, isPremium)).toBe(result);
+describe('Ejercicio 4 de 6 — objetos dentro de un array', () => {
+    test('La lista contiene un objeto dado', () => {
+        const list = getProducts();
+
+        expect(list).toContainEqual({
+            id: 2,
+            name: 'Keyboard',
+            price: 1200
+        });
     });
+    test('La lista contiene Ana', () => {
+        const list = getProducts();
+
+        expect(list).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    name: 'Monitor'
+                })
+            ])
+        )
+    });
+    // test('La lista contiene Juan', () => {
+    //     const list = getUsers();
+
+    //     expect(list).toContain('Juan')
+    // });
+    // test('La lista contiene almenos Pedro y Luis', () => {
+    //     const list = getUsers();
+
+    //     expect(list).toEqual(
+    //         expect.arrayContaining([
+    //             'Pedro',
+    //             'Luis'
+    //         ])
+    //     )
+    // })
 });
+
+// describe('Ejercicio 2 de 6 — propiedad específica', () => {
+//     test('Existe una propiedad llamada name', () => {
+//         const product = createProduct();
+//         expect(product).toHaveProperty('name');
+//     });
+//     test('La propiedad price tiene exactamente 4500', () => {
+//         const product = createProduct();
+//         expect(product.price).toBe(4500);
+//     });
+//      test('La propiedad available existe y es true', () => {
+//         const product = createProduct();
+//         expect(product).toEqual(
+//             expect.objectContaining({
+//                 details: expect.objectContaining({
+//                     available:true
+//                 })
+//             })
+//         )
+//     });
+// });
+
+// describe('Ejercicio 6 de 6 — Reto final de test.each()', () => {
+//     test.each([
+//        {total:500, isPremium:false, result:150},
+//        {total:1000, isPremium:false, result:0},
+//        {total:1500, isPremium:false, result:0},
+//        {total:500, isPremium:true, result:0},
+//        {total:2000, isPremium:true, result:0},
+//     ])('Total:$total, isPremium:$isPremium, resultado:$result', ({total, isPremium, result}) => {
+//         expect(calculateShipping(total, isPremium)).toBe(result);
+//     });
+// });
 
 
 // describe('Ejercicio 2 — Preparar una vez para todo el grupo', () => {

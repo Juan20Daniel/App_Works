@@ -16,7 +16,7 @@ import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
-export const Register = ({navigation}:Props) => {
+const Register = ({navigation}:Props) => {
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const { top, bottom } = useSafeAreaInsets();
@@ -154,3 +154,5 @@ export const Register = ({navigation}:Props) => {
         </View>
     );
 }
+
+export default Register;

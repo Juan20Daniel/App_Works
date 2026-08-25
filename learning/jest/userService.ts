@@ -1,14 +1,19 @@
-export const calculateShipping = (
-    total: number,
-    isPremium: boolean
-) => {
-    if (isPremium) {
-        return 0;
-    }
-
-    if (total >= 1000) {
-        return 0;
-    }
-
-    return 150;
+export const getProducts = () => {
+    return [
+        {
+            id: 1,
+            name: 'Mouse',
+            price: 500
+        },
+        {
+            id: 2,
+            name: 'Keyboard',
+            price: 1200
+        },
+        {
+            id: 3,
+            name: 'Monitor',
+            price: 4500
+        }
+    ];
 };

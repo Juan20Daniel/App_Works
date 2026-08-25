@@ -23,7 +23,7 @@ import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
 
-export const Login = ({navigation}:Props) => {
+const Login = ({navigation}:Props) => {
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const {
@@ -73,13 +73,21 @@ export const Login = ({navigation}:Props) => {
                     }}
                 />
                 <View style={{
-                    paddingHorizontal: calcDimension({small: 10, medium: 10, large: 30}),
+                    paddingHorizontal: calcDimension({
+                        small: 10, 
+                        medium: 10, 
+                        large: 30
+                    }),
                     width:'100%',
                     alignItems: 'center',
                 }}>
                     <View style={{
                         width:'100%', 
-                        paddingTop: calcDimension({small: 20, medium:30, large:40}), 
+                        paddingTop: calcDimension({
+                            small: 20, 
+                            medium: 30, 
+                            large: 40
+                        }), 
                         maxWidth: 500
                     }}>
                         <InputTextAnimate
@@ -117,13 +125,27 @@ export const Login = ({navigation}:Props) => {
                                 navigation.replace('Register', {animationType:'slide_from_right'})
                             }}
                         />
-                        <View style={{width:'100%', height: calcDimension({small:20, medium:40, large:50})}} />
+                        <View style={{
+                            width:'100%',
+                            height: calcDimension({
+                                small: 20, 
+                                medium: 40, 
+                                large: 50
+                            })
+                        }}/>
                         <SocialAuthButton
                             value='Iniciar con google'
                             image={require('../../../assets/auth/imgGoogle.png')}
                             action={continueWithGoogle}
                         />
-                        <View style={{width:'100%', height: calcDimension({small:15, medium:20, large:30})}} />
+                        <View style={{
+                            width:'100%', 
+                            height: calcDimension({
+                                small: 15, 
+                                medium: 20, 
+                                large: 30
+                            })
+                        }} />
                         <SocialAuthButton
                             value='Iniciar con facebook'
                             image={require('../../../assets/auth/ImgFacebook.png')}
@@ -135,3 +157,5 @@ export const Login = ({navigation}:Props) => {
         </TouchableWithoutFeedback>
     );
 }
+
+export default Login;
