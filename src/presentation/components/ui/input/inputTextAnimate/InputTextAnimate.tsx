@@ -1,155 +1,139 @@
-import { KeyboardTypeOptions, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { KeyboardTypeOptions, Pressable, ReturnKeyTypeOptions, Text, TextInput, View } from 'react-native';
+import { Control, FieldPathByValue, FieldValues, RegisterOptions, useController } from 'react-hook-form';
 import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { InputState } from '@/presentation/types/input';
-import { FormField } from '@/presentation/types/form';
-import { Icon } from '../../';
+import { Icon, InputErrorMessage } from '../../';
 import { BtnClearInput } from '../../../shared';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { styles } from './styles';
 
-interface Props {
-    state:InputState;
+interface Props<T extends FieldValues> {
+    control: Control<T>;
+    name: FieldPathByValue<T, string>;
     label: string;
     placeholder: string;
     type: KeyboardTypeOptions;
-    secureTextEntry?:boolean;
-    inputPassword?:boolean;
-    onChange:(field:FormField, value:string) => void;
-    onFocus:(field:FormField) => void;
-    clearInput:(field:FormField) => void;
+    secureTextEntry?: boolean;
+    inputPassword?: boolean;
+    isRequire?: boolean;
+    regex: RegExp;
+    errorRequireMessage?: string;
+    errorInvalidInputMessage?: string;
+    returnKeyType?: ReturnKeyTypeOptions;
+    marginBottom?:number;
     togglePasswordVisibility?: () => void;
-    removeFocus:() => void;
+    onSubmitEditing?: () => void;
 }
 
-export const InputTextAnimate = ({
-    state,
+export const InputTextAnimate = <T extends FieldValues,> ({
+    control,
+    name,
     label, 
     placeholder, 
     type,
+    isRequire,
+    regex,
+    errorRequireMessage='El campo es requerido',
+    errorInvalidInputMessage='El campo no es válido',
     secureTextEntry=true,
     inputPassword=false,
-    onChange,
-    onFocus,
-    clearInput,
+    returnKeyType='default',
+    marginBottom=0,
     togglePasswordVisibility,
-    removeFocus
-}:Props) => {
-    const { status, isFocus, value, name } = state;
+    onSubmitEditing
+}:Props<T>) => {
+    const [ isFocused, setIsFocused ] = useState(false);
+    const rules:Omit<RegisterOptions<T, FieldPathByValue<T, string>>, "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"> | undefined = {
+        pattern: {
+            value: regex,
+            message: errorInvalidInputMessage,
+        }
+    }
+    if(isRequire) {
+        rules.required=errorRequireMessage
+    }
+    const {
+        field: {value, onChange, onBlur, ref},
+        fieldState:{error, invalid}
+    } = useController({control, name, rules});
+
     return (
-        <View style={{
-            ...styles.container, 
-            borderColor: isFocus
-                ? globalColors.azureBlue 
-                : (status !== null && status !== 'valid') 
-                    ?   globalColors.darkRed
-                    :   globalColors.softGray,
-        }}>
-            <View style={{
-                ...styles.boxLabel, 
-                transform: [{translateY:(isFocus || value!=='')? calcDimension({small:-25, medium:-33})  : 0}]}
-            }>
-                <Text style={{
-                    ...styles.label, 
-                    color:isFocus 
-                        ?   globalColors.azureBlue 
-                        :   (status !== null && status !== 'valid') 
-                            ?   globalColors.darkRed
-                            :   globalColors.gray
-                }}>
-                    {(isFocus || value!=='') ? label : placeholder}
-                </Text>
-            </View>
-            <TextInput
-                style={{...styles.textInput, paddingRight:inputPassword ? 100 : 50}}
-                keyboardType={type}
-                value={value}
-                onChangeText={textValue => onChange(name, textValue)}
-                secureTextEntry={!secureTextEntry}
-                onFocus={() => {
-                    onFocus(name);
-                }}
-                onBlur={removeFocus}
-            />
-            {inputPassword &&
-                <Pressable 
-                    style={{
-                        ...styles.btnRight,
-                        ...styles.btnShowPassword, 
-                        right:inputPassword 
-                            ?   value !== ''   
-                                ?   60
-                                :   15
-                            :   15
-                    }} 
-                    onPress={() => {
-                        togglePasswordVisibility && togglePasswordVisibility();
-                    }}
-                >
-                    <Icon name={ secureTextEntry ? "Visibility" : "Visibility_off" } />
-                </Pressable>
-            }
-            {value !== '' &&
-                <BtnClearInput
-                    name={name}
-                    action={() => clearInput(name)}
-                />
-            }
-            {(status !== null && status !== 'valid') &&
-                <View style={styles.boxMessageError}>
-                    <Text style={styles.messageError}>
-                        {state.errorMessage}
+        <>
+            <View style={[
+                styles.container, 
+                invalid && globalStyles.boderColorError,
+                isFocused && globalStyles.boderColorFocus
+            ]}>
+                <View style={{
+                    ...styles.boxLabel, 
+                    transform: [{translateY:(isFocused || value!=='')
+                        ? calcDimension({small:-33, medium:-33}) 
+                        : 0
+                    }]}
+                }>
+                    <Text style={{
+                        ...styles.label,
+                        color:isFocused
+                            ?   globalColors.azureBlue
+                            :   invalid
+                                ?   globalColors.darkRed
+                                :   globalColors.gray
+                    }}>
+                        {(invalid || value !== '') ? label : placeholder}
                     </Text>
                 </View>
-            }
-        </View>
+                <TextInput
+                    ref={ref}
+                    style={{
+                        ...styles.textInput, 
+                        paddingRight:inputPassword ? 100 : 50
+                    }}
+                    keyboardType={type}
+                    value={value}
+                    secureTextEntry={!secureTextEntry}
+                    autoCorrect={false}
+                    returnKeyType={returnKeyType}
+                    onChangeText={onChange}
+                    onSubmitEditing={onSubmitEditing}
+                    onFocus={() => {
+                        setIsFocused(true);
+                    }}
+                    onBlur={() => {
+                        onBlur();
+                        setIsFocused(false);
+                    }}
+                />
+                {inputPassword &&
+                    <Pressable 
+                        style={{
+                            ...styles.btnRight,
+                            ...styles.btnShowPassword, 
+                            right:inputPassword
+                                ?   value !== ''   
+                                    ?   60
+                                    :   15
+                                :   15
+                        }} 
+                        onPress={() => {
+                            togglePasswordVisibility && togglePasswordVisibility();
+                        }}
+                    >
+                        <Icon name={ secureTextEntry ? "Visibility" : "Visibility_off" } />
+                    </Pressable>
+                }
+                {value !== '' &&
+                    <BtnClearInput 
+                        top={53}
+                        right={20}
+                        onPress={() => onChange('')}
+                    />
+                }
+            </View>
+            <InputErrorMessage
+                show={invalid}
+                message={error?.message}
+            />
+            <View style={{marginBottom}} />
+        </>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        position: 'relative',
-        height: calcDimension({small:50, medium: 65}),
-        borderRadius: 20,
-        justifyContent: 'center',
-        borderWidth: 1,
-        marginBottom: 30
-    },
-    boxLabel: {
-        position: 'relative',
-        alignItems: 'flex-start',
-        paddingLeft: 20,
-    },
-    label: {
-        backgroundColor: globalColors.white,
-        paddingHorizontal: 3,
-        fontSize: 15,
-        fontFamily: globalStyles.fontMonserratMedium
-    },
-    textInput: {
-        position: 'absolute',
-        width:'100%',
-        height: '100%',
-        borderRadius: 20,
-        backgroundColor: undefined,
-        paddingLeft: 23,
-        fontFamily: globalStyles.fontMonserratMedium,
-        fontSize: 15,
-        zIndex:1
-    },
-    btnRight: {
-        position: 'absolute',
-        padding: 2,
-        zIndex: 1,
-    },
-    btnShowPassword: {
-        backgroundColor: globalColors.white,
-    },
-    boxMessageError: {
-        position: 'absolute',
-        bottom: -20,
-        left: 20,
-    },
-    messageError: {
-        color: globalColors.darkRed,
-        fontSize: 11,
-    }
-});

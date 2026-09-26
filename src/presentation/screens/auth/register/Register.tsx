@@ -7,12 +7,14 @@ import { InputTextAnimate } from '@/presentation/components/ui';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useRegister } from './hooks';
-import { formInitialState } from './formInitialState';
-import { formErrorMessage } from './formErrorMessages';
-import { useForm, useKeyboard } from '@/presentation/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useCheckSession, useContinueWithFacebook, useContinueWithGoogle } from '../shared';
 import { PrimaryBtn } from '@/presentation/components/ui/button';
+import { useMutation } from '@tanstack/react-query';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { RegisterFormValue } from './type';
+import { defaultValue } from './defaultValue';
+import { expretions } from '@/shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
 
@@ -20,32 +22,37 @@ const Register = ({navigation}:Props) => {
     const [ showPass, setShowPass ] = useState(false);
     useCheckSession();
     const { top, bottom } = useSafeAreaInsets();
-    const {
-        formState,
-        setFocus,
-        setValue,
-        clearInput,
-        removeFocus,
-        isFormValid,
-    } = useForm(formInitialState(), formErrorMessage);
-    const { register } = useRegister(
-        formState,
-        () => navigation.replace("Home", {animationType:'fade'}),
-        isFormValid
-    );
-    const { keyboardVisible } = useKeyboard();
-
+   
     const {
         continueWithGoogle 
     } = useContinueWithGoogle(
         () => navigation.replace("Home", {animationType:'fade'})
     );
-
+    
     const {
         continueWithFacebook
     } = useContinueWithFacebook(
         () => navigation.replace("Home", {animationType:'fade'})
     );
+
+    const {control, handleSubmit, setFocus} = useForm<RegisterFormValue>({
+        defaultValues: defaultValue,
+        mode: 'onSubmit',
+        shouldFocusError: false
+    })
+
+    const { register } = useRegister(
+        () => navigation.replace("Home", {animationType:'fade'}),
+    );
+
+    const motarionRegister = useMutation({
+        mutationFn:register
+    });
+
+    const onSubmit:SubmitHandler<RegisterFormValue> = (data) => {
+        motarionRegister.mutate(data);
+    }
+
 
     return (
         <View style={{paddingTop:top, backgroundColor: globalColors.white}}>
@@ -55,7 +62,6 @@ const Register = ({navigation}:Props) => {
             >
                 <TouchableWithoutFeedback onPress={() => {
                     Keyboard.dismiss();
-                    removeFocus();
                 }}>
                     <View style={{
                         position:'relative',
@@ -80,72 +86,105 @@ const Register = ({navigation}:Props) => {
                                 maxWidth: 500,
                             }}>
                                 <InputTextAnimate
-                                    state={formState.firstname!}
+                                    control={control}
+                                    name='firstname'
                                     label='Nombre'
                                     placeholder='Ingresa tu nombre'
                                     type='default'
-                                    onChange={setValue}
-                                    onFocus={setFocus}
-                                    clearInput={clearInput}
-                                    removeFocus={removeFocus}
+                                    regex={expretions.firstname!}
+                                    isRequire
+                                    errorRequireMessage='El nombre es requerido'
+                                    errorInvalidInputMessage='El nombre no es válido'
+                                    returnKeyType='next'
+                                    marginBottom={10}
+                                    onSubmitEditing={() => {
+                                        setFocus('lastname');
+                                    }}
                                 />
                                 <InputTextAnimate
-                                    state={formState.lastname!}
+                                    control={control}
+                                    name='lastname'
                                     label='Apellido'
                                     placeholder='Ingresa tu apellido'
                                     type='default'
-                                    onChange={setValue}
-                                    onFocus={setFocus}
-                                    clearInput={clearInput}
-                                    removeFocus={removeFocus}
+                                    regex={expretions.lastname!}
+                                    isRequire
+                                    errorRequireMessage='El apellido es requerido'
+                                    errorInvalidInputMessage='El apellido no es válido'
+                                    returnKeyType='next'
+                                    marginBottom={10}
+                                    onSubmitEditing={() => {
+                                        setFocus('email');                                        
+                                    }}
                                 />
                                 <InputTextAnimate
-                                    state={formState.email!}
+                                    control={control}
+                                    name='email'
                                     label='Correo electrónico'
                                     placeholder='Ingresa tu correo electrónico'
                                     type='email-address'  
-                                    onChange={setValue}
-                                    onFocus={setFocus}
-                                    clearInput={clearInput}
-                                    removeFocus={removeFocus}
+                                    regex={expretions.email!}
+                                    isRequire
+                                    errorRequireMessage='El correo es requerido'
+                                    errorInvalidInputMessage='El correo no es válido'
+                                    returnKeyType='next'
+                                    marginBottom={10}
+                                    onSubmitEditing={() => {
+                                        setFocus('password');                                        
+                                    }}
                                 />
                                 <InputTextAnimate
-                                    state={formState.password!}
+                                    control={control}
+                                    name='password'
                                     label='Contraseña'
                                     placeholder='Ingresa tu contraseña'
                                     type='default'
                                     secureTextEntry={showPass}
                                     inputPassword
-                                    onChange={setValue}
-                                    onFocus={setFocus}
-                                    clearInput={clearInput}
-                                    removeFocus={removeFocus}
+                                    regex={expretions.password!}
+                                    isRequire
+                                    returnKeyType='done'
+                                    errorRequireMessage='La contraseña es requerida'
+                                    errorInvalidInputMessage='LA contraseña no es válida'
+                                    marginBottom={10}
                                     togglePasswordVisibility={() => setShowPass(!showPass)}
+                                    onSubmitEditing={handleSubmit(onSubmit)}
                                 />
                                 <PrimaryBtn
                                     text='CREAR CUENTA'
-                                    onPress={register}
+                                    onPress={handleSubmit(onSubmit)}
                                 />
                                 <AuthSwitchLink 
                                     textQuestion='¿Ya tienes una cuenta?'
                                     textLink='inicia sesión'
                                     navigateTo={() => navigation.replace('Login', {animationType:'slide_from_left'})}
                                 />
-                                <View style={{width:'100%', height: 40}} />
+                                <View style={{
+                                    width:'100%',
+                                    height: calcDimension({
+                                        small: 20,
+                                        medium: 40,
+                                        large: 50
+                                    })
+                                }}/>
                                 <SocialAuthButton
                                     value='Crear con google'
                                     image={require('../../../assets/auth/imgGoogle.png')}
                                     action={continueWithGoogle}
                                 />
-                                <View style={{width:'100%', height: 30}} />
-                                <SocialAuthButton 
+                                <View style={{
+                                    width:'100%', 
+                                    height: calcDimension({
+                                        small: 15,
+                                        medium: 20,
+                                        large: 30
+                                    })
+                                }}/>
+                                <SocialAuthButton
                                     value='Crear con facebook'
                                     image={require('../../../assets/auth/ImgFacebook.png')}
                                     action={continueWithFacebook}
                                 />
-                                {keyboardVisible &&
-                                    <View style={{width:'100%', height: 100}} />
-                                }
                             </View>
                         </View>
                     </View>

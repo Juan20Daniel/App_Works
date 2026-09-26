@@ -10,8 +10,7 @@ export const handleError = (error:unknown):AppError => {
         const errorData = (error as any).response.data
         
         const { errorCode, message } = errorData;
-        return new AppError(errorCode, message, error);
-        
+        return new AppError(errorCode, message, error);   
     }
     if(typeof error === 'object' && error !== null && 'code' in error) {
         if (error.code === 'ERR_NETWORK') {

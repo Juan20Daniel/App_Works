@@ -1,8 +1,14 @@
 import { AuthEntity, UserEntity } from "@/domain/entities";
-import { RegisterUser } from "@/domain/types";
+
+export interface RegisterData {
+    firstname: string;
+    lastname:  string;
+    email:     string;
+    password:  string;
+}
 
 export interface AuthRepository {
-    registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}>;  
+    registerWithEmail(data:RegisterData): Promise<{user:UserEntity, auth:AuthEntity}>;  
     signInWithEmail(email:string, password:string): Promise<{user:UserEntity, auth:AuthEntity}>;
     continueWithGoogle(): Promise<{user:UserEntity, auth:AuthEntity}>;
     continueWithFacebook(): Promise<{user:UserEntity, auth:AuthEntity}>;

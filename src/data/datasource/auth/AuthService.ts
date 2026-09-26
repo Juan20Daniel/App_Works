@@ -1,4 +1,4 @@
-import { AuthAPIResponse } from "@/data/models";
+import { AuthAPIResponse } from "@/data/apiModels";
 import { axiosInstance } from "@/data/network/axios";
 import { RegisterUser } from "@/domain/types";
 

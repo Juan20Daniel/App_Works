@@ -17,7 +17,9 @@
     "@react-native/new-app-screen": "0.84.1",
     "@react-navigation/native": "7.2.2",
     "@react-navigation/stack": "7.8.9",
+    "@tanstack/react-query": "5.103.1",
     "axios": "1.19.0",
+    "browserslist": "4.28.7",
     "nullthrows": "1.1.1",
     "react": "19.2.3",
     "react-hook-form": "7.84.0",
@@ -67,6 +69,10 @@
   "overrides": {
     "@react-native/eslint-config": {
       "eslint-plugin-ft-flow": "3.0.11"
-    }
+    },
+    "decode-uri-component": "0.5.0",
+      "metro": "0.83.8",
+      "metro-config": "0.83.8",
+      "metro-transform-worker": "0.83.8"
   }
 }

@@ -4,7 +4,7 @@ import {
     AuthenticationToken,
 } from 'react-native-fbsdk-next';
 import { axiosInstance } from '@/data/network/axios';
-import { AuthAPIResponse } from '@/data/models';
+import { AuthAPIResponse } from '@/data/apiModels';
 import { AppError } from '@/shared';
 import { Platform } from 'react-native';
 

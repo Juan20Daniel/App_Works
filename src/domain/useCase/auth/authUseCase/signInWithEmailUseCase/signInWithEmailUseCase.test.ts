@@ -1,9 +1,7 @@
-import { AuthRepositoryMock, createAuthRepositoryMock, createAuthResultSimulation } from '@/domain/repositories';
-import { signInWithEmailUseCase, suma} from './signInWithEmailUseCase';
-import { AppError } from '@/shared';
-test('Prueba de suma', () => {
-    expect(suma(5,5)).toEqual(10);
-})
+// import { AuthRepositoryMock, createAuthRepositoryMock, createAuthResultSimulation } from '@/domain/repositories';
+// import { signInWithEmailUseCase} from './signInWithEmailUseCase';
+// import { AppError } from '@/shared';
+
 // type InvalidCredentialsCases = {
 //     esenary: string,
 //     email: string,

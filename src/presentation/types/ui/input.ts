@@ -17,6 +17,8 @@ export type InputName =
     | 'firstname'
     | 'lastname'
     | 'phone'
+    | 'email'
+    | 'password'
 
 export interface InputSelect {
     id: number;
@@ -24,6 +26,10 @@ export interface InputSelect {
 }
 
 export type InputValueMap = {
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
     companyName: string;
     companyLogo: string;
     companyDesc: string;

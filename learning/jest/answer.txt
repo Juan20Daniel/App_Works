@@ -1,0 +1,51 @@
+¿Cuáles son los caminos exitosos diferentes?
+    - Cuando la imagen viene vacía
+    - Cuando la imagen viene
+
+¿Cuáles son los caminos de error?
+    - Cuando el nombre viene vacío !name.trim()
+    los siguientes no son erreres del proceso pero de todas formas interrumpen el proceso si ocurren 
+        - Error propagado por createCompany
+        - Error propagado por uploadCompanyLogo y cacheado por el catch
+        - Error propagado por updateCompanyLogo y cacheado por el catch
+    En este deleteCompany tengo duda ya que nunca me surgio la duda de que pasa cuando una función en el catch falla
+        } catch (error) {
+            await deleteCompany(company.id);
+
+            throw error;
+        }
+
+¿Qué cuatro dependencias aislarías?
+    - createCompany
+    - uploadCompanyLogo
+    - updateCompanyLogo
+    - deleteCompany
+
+Si name está vacío, ¿qué dependencias deberían ejecutarse?
+    - Ninguna ya que el proceso como tal depende mucho de name
+
+Si se crea una empresa sin imagen, ¿qué dependencias deberían ejecutarse y cuáles no?
+    Deverian ejecutarse 
+        - createCompany
+    Las que no
+        - uploadCompanyLogo
+        - updateCompanyLogo
+        - deleteCompany
+
+Si uploadCompanyLogo() falla después de que createCompany() ya tuvo éxito, ¿qué debe ocurrir?
+    - Si falla uploadCompanyLogo el error se propaga y es cacheado por el catch que a su ves, ejecuta deleteCompany lo que eliminaria la empresa previamente creada.
+
+Si updateCompanyLogo() falla, fíjate bien en el try/catch: ¿también se elimina la empresa?
+    - Si ya que estaria siendo cacheado por el catch que a su ves ejecuta deleteCompany que a su ves elimina la empresa
+
+Si createCompany() falla, ¿debería ejecutarse deleteCompany()?
+    - No ya que si el error se propaga de forma correcta, la ejecución ni siquiera llegaria al catch
+
+En el camino exitoso con imagen, ¿qué datos deberían pasar de una dependencia a la siguiente?
+    - la constante company que guarda el valor que regresa createCompany
+    - logoKey que con contiene la llave de la imagen
+
+¿Qué interacciones considerarías especialmente importantes comprobar además del valor retornado?
+    - Que cada dependencia sea llamada con los valores correctos
+    - Si hay valor de retorno, verificar que no se ejecute deleteCompany
+    - Si no lo hay, verificar que se ejecute deleteCompany

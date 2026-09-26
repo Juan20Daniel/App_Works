@@ -18,11 +18,5 @@ export const styles = StyleSheet.create({
         fontFamily: globalStyles.fontMonserratMedium,
         fontSize: 15,
         color: globalColors.gray,
-    },
-    boderColorFocus: {
-        borderColor:globalColors.azureBlue
-    },
-    boderColorError: {
-        borderColor:globalColors.darkRed
     }
 });

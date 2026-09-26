@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { KeyboardTypeOptions, ReturnKeyTypeOptions, TextInput, View } from "react-native";
 import { Control, FieldPathByValue, FieldValues, RegisterOptions, useController } from "react-hook-form";
-import { globalColors } from "@/presentation/globalStyles/global.styles";
+import { globalColors, globalStyles } from "@/presentation/globalStyles/global.styles";
 import { InputContainer, InputErrorMessage, InputLabel } from "../shared";
-import { styles } from "./styles";
 import { BtnClearInput } from "@/presentation/components/shared";
+import { styles } from "./styles";
 
 interface Props<T extends FieldValues> {
     control: Control<T>;
@@ -43,6 +43,7 @@ export const InputTextBasic = <T extends FieldValues,> ({
             message: errorInvalidInputMessage,
         }
     }
+    
     if(isRequire) {
         rules.required=errorRequireMessage
     }
@@ -62,8 +63,8 @@ export const InputTextBasic = <T extends FieldValues,> ({
             />
             <View style={[
                 styles.boxInputText,
-                invalid && styles.boderColorError,
-                isFocused && styles.boderColorFocus,
+                invalid && globalStyles.boderColorError,
+                isFocused && globalStyles.boderColorFocus
             ]}>
                 <TextInput
                     ref={ref}

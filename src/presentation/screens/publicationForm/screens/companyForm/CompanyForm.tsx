@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, Platform, ScrollView, useWindowDimensions, View } from 'react-native';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
@@ -10,25 +10,40 @@ import { CompanyFormValue } from './types';
 import { defaultValue } from './defaultValue';
 import { expretions } from '@/shared';
 import { useCreateCompany } from './hooks';
+import { useMutation } from '@tanstack/react-query';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'CompanyForm'>{}
 
 export const CompanyForm = ({navigation, route}:Props) => {
+    const { type } = route.params.form;
+    const { top, bottom } = useSafeAreaInsets();
+    const height = useWindowDimensions().height;
     const { control, handleSubmit, setFocus } = useForm<CompanyFormValue>({
         defaultValues: defaultValue,
         mode: 'onSubmit',
         shouldFocusError:false,
     });
     const { createCompany } = useCreateCompany();
-    const { type } = route.params.form;
-    const { top, bottom } = useSafeAreaInsets();
-    const height = useWindowDimensions().height;
-
+    
+    const mutation = useMutation({
+        mutationFn:createCompany
+    });
+    
+    const onSubmit: SubmitHandler<CompanyFormValue> = (data) => {
+        mutation.mutate(data);
+    }
+ 
     return (
-        <View style={{height:height, backgroundColor: globalColors.white}}>
+        <View style={{
+            height:height, 
+            backgroundColor: globalColors.white
+        }}>
             <KeyboardAvoidingView
                 style={{flex:1}}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                behavior={Platform.OS === 'ios' 
+                    ? 'padding' 
+                    : 'height'
+                }
             >
                 <ScrollView 
                     style={{
@@ -63,7 +78,7 @@ export const CompanyForm = ({navigation, route}:Props) => {
                         isRequire
                         errorRequireMessage='El nombre es requerido'
                         errorInvalidInputMessage='El nombre no es válido'
-                        regex={expretions.companyName}
+                        regex={expretions.companyName!}
                         returnKeyType='next'
                         onSubmitEditing={() => setFocus('companyDesc')}
                     />
@@ -75,17 +90,17 @@ export const CompanyForm = ({navigation, route}:Props) => {
                         isRequire
                         errorRequireMessage='La descripción es requerido'
                         errorInvalidInputMessage='La descripción no es válida'
-                        regex={expretions.companyDesc}
+                        regex={expretions.companyDesc!}
                         returnKeyType='done'
                         marginBottom={20}
-                        onSubmitEditing={handleSubmit(createCompany)}
+                        onSubmitEditing={handleSubmit(onSubmit)}
                     />
                     <SubmitBtn
                         text={type === 'CREATE' 
                             ? 'AGREGAR EMPRESA' 
                             : 'Edit company'
                         }
-                        onPress={handleSubmit(createCompany)}
+                        onPress={handleSubmit(onSubmit)}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>

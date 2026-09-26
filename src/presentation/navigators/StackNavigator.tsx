@@ -6,7 +6,6 @@ import {
     Publication,
     Notifications,
     PublicationFormStack,
-    PruebaForm,
     SearchResults,
 } from '../screens';
 
@@ -56,10 +55,6 @@ const StackNavigator = () => {
                     options={({route}) => ({
                         animation:route.params.animationType??'slide_from_right'
                     })}
-                />
-                <Stack.Screen 
-                    name='PruebaForm'
-                    component={PruebaForm}
                 />
                 <Stack.Screen 
                     name='Publication' 

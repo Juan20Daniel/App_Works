@@ -1,4 +1,3 @@
-import { FormField, InputState } from "@/presentation/types";
 import { 
     useAlertMessageStore, 
     useAuthStore, 
@@ -8,11 +7,10 @@ import {
 import { handleError } from "@/shared/error";
 import { signInWithEmailUseCase } from "@/domain/useCase";
 import { authRepositoryImpl } from "@/data/dependencies";
+import { LoginFormValue } from "../types";
 
 export const useLoginWithEmail = (
-    formState: Partial<Record<FormField, InputState>>,
-    navigation: () => void,
-    isFormValid: () => boolean,
+    navigation: () => void
 ) => {
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
     const setUserStore = useUserStore(state => state.setUser);
@@ -20,12 +18,11 @@ export const useLoginWithEmail = (
     const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
     const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
-    const loginWithEmail = async () => {
-        if(!isFormValid()) return;
+    const loginWithEmail = async (data:LoginFormValue) => {
         try {
             openLoaderScreen('Iniciando sesión...');
-            const email = formState.email?.value!;
-            const password = formState.password?.value!;
+            const email = data.email;
+            const password = data.password;
             const result = await signInWithEmailUseCase(authRepositoryImpl, email, password);
             setUserStore(result.user);
             autenticate();

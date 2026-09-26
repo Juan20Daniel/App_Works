@@ -6,4 +6,3 @@ export * from './profile';
 export * from './auth';
 export * from './notifications';
 export * from './publicationForm';
-export * from './pruebaForm';

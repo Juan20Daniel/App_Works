@@ -18,4 +18,10 @@ export const globalStyles = {
     marginHorizontal: 10,
     fontMonserratMedium: 'Montserrat-Medium',
     fontMonserratSemiBold: 'Montserrat-SemiBold',
+    boderColorFocus: {
+        borderColor: globalColors.azureBlue
+    },
+    boderColorError: {
+        borderColor: globalColors.darkRed
+    }
 }

@@ -1,5 +1,5 @@
 import { googleAuthConfig } from "@/config";
-import { AuthAPIResponse } from "@/data/models";
+import { AuthAPIResponse } from "@/data/apiModels";
 import { axiosInstance } from "@/data/network/axios"
 import { AppError } from "@/shared";
 import { authorize } from 'react-native-app-auth';

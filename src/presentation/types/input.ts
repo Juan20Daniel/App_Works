@@ -12,6 +12,8 @@ export type InputName =
     | 'logoCompany'
     | 'description'
     | 'companyDesc'
+    | 'selectCompany'
+    | 'companyLogo'
     | 'requirements'
     | 'benefits'
     | 'coords'

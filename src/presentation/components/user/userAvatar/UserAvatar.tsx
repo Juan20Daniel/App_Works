@@ -18,13 +18,11 @@ export const UserAvatar = ({
     if(isLoading || !userName) {
         return <UserAvatarSkeletor />
     }
-    
-    console.log({userName})
-    console.log({imageUrl})
+
     return (
         <View style={{
             ...styles.container,
-            // backgroundColor: avatarColor
+            backgroundColor: avatarColor
         }}>
             {imageUrl
                 ?   <Image

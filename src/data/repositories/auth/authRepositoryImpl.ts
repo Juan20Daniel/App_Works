@@ -1,8 +1,13 @@
 import { AuthEntity, UserEntity } from "@/domain/entities";
 import { AuthRepository } from "@/domain/repositories";
 import { AuthMapper} from "@/data/mappers";
-import { RegisterUser } from "@/domain/types";
-import { AuthLocalService, AuthService, FacebookAuthService, GoogleAuthService } from "@/data/datasource";
+import { 
+    AuthLocalService, 
+    AuthService, 
+    FacebookAuthService, 
+    GoogleAuthService 
+} from "@/data/datasource";
+import { RegisterUserRequest } from "@/data/apiModels";
 
 export class AuthRepositoryImpl implements AuthRepository {
     constructor(
@@ -12,7 +17,7 @@ export class AuthRepositoryImpl implements AuthRepository {
         private facebookAuthService:FacebookAuthService
     ) {}
 
-    async registerWithEmail(data:RegisterUser): Promise<{user:UserEntity, auth:AuthEntity}> {
+    async registerWithEmail(data:RegisterUserRequest): Promise<{user:UserEntity, auth:AuthEntity}> {
         try {
             const response = await this.authService.registerWithEmail(data);
             const result = AuthMapper.fromAuthApiToAuthEntity(response);

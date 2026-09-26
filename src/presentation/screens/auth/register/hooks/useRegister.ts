@@ -1,5 +1,3 @@
-import { RegisterUser } from "@/domain/types";
-import { FormField, InputState } from "@/presentation/types";
 import { registerUserUseCase } from "@/domain/useCase";
 import { handleError } from "@/shared/error";
 import {
@@ -9,11 +7,10 @@ import {
     useUserStore
 } from "@/presentation/store";
 import { authRepositoryImpl } from "@/data/dependencies";
+import { RegisterFormValue } from "../type";
 
 export const useRegister = (
-    formState: Partial<Record<FormField, InputState>>, 
     navigation: () => void,
-    isFormValid: () => boolean,
 ) => {
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
     const setUserStore = useUserStore(state => state.setUser);
@@ -21,14 +18,8 @@ export const useRegister = (
     const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
     const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
-    const register = async () => {
-        if(!isFormValid()) return;
-        const data:RegisterUser = {
-            firstname: formState.firstname?.value!,
-            lastname: formState.lastname?.value!,
-            email: formState.email?.value!,
-            password: formState.password?.value!
-        }
+    const register = async (data:RegisterFormValue) => {
+
         try {
             openLoaderScreen('Registrando usuario...')
             const result = await registerUserUseCase(authRepositoryImpl, data);
