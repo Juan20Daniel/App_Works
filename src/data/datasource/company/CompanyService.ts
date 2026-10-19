@@ -1,9 +1,13 @@
-import { CompaniesPaginationApiResponse, CreateCompanyApiResponse } from "@/data/apiModels";
 import { axiosInstance } from "@/data/network";
-import { CreateCompanyParams, GetCompaniesQueryParams } from "@/domain/types";
+import { 
+    CompaniesPaginationApiResponse, 
+    CreateCompanyApiResponse, 
+    CreateCompanyRequest, 
+    GetCompaniesQueryRequest 
+} from "@/data/apiModels";
 
 export class CompanyService {
-    async get(query:GetCompaniesQueryParams):Promise<CompaniesPaginationApiResponse> {
+    async get(query:GetCompaniesQueryRequest):Promise<CompaniesPaginationApiResponse> {
         try {
             const response = await axiosInstance.get<CompaniesPaginationApiResponse>('/', {
                 params: query
@@ -14,9 +18,14 @@ export class CompanyService {
             throw error;
         }
     }
-    async create(data:CreateCompanyParams):Promise<CreateCompanyApiResponse> {
+    async create(data:CreateCompanyRequest):Promise<CreateCompanyApiResponse> {
         try {
             const formData = new FormData();
+            
+            formData.append('name', data.name);
+            formData.append('desc', data.desc);
+            
+            if(data.logo) formData.append('image', data.logo);
             
             const response = await axiosInstance.post<CreateCompanyApiResponse>('/company', formData, {
                 headers: {

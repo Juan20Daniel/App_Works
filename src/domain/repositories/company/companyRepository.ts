@@ -1,25 +1,24 @@
 import { CompanyEntity } from "@/domain/entities";
+import { PaginationResult } from "@/domain/pagination";
 
-export interface CreateCompanyData {
-    logo?: string;
+interface CreateCompanyData {
+    logo: null | {
+        uri: string;
+        name: string;
+        type: string;
+    };
     name: string;
     desc: string;
 }
 
-export interface GetCompaniesQueryParams {
+interface GetCompaniesQueryParams {
     createdBy?: string;
     page?: number;
     limit?: number;
     active?: boolean;
 }
 
-export interface PaginationResult {
-    items:     CompanyEntity[];
-    nextPage:  number;
-    limit:     number;
-}
-
 export interface CompanyRepository {
-    get(query:GetCompaniesQueryParams): Promise<PaginationResult>;
+    get(query:GetCompaniesQueryParams): Promise<PaginationResult<CompanyEntity>>;
     create(data:CreateCompanyData): Promise<CompanyEntity>;
 }

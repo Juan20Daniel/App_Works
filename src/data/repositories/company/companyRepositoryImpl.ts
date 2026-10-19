@@ -1,15 +1,16 @@
+import { CreateCompanyRequest, GetCompaniesQueryRequest } from "@/data/apiModels/company";
 import { CompanyService } from "@/data/datasource";
 import { CompanyMapper } from "@/data/mappers";
 import { CompanyEntity } from "@/domain/entities";
+import { PaginationResult } from "@/domain/pagination";
 import { CompanyRepository } from "@/domain/repositories/company";
-import { CreateCompanyParams, GetCompaniesQueryParams, Pagination } from "@/domain/types";
 
 export class CompanyRepositoryImpl implements CompanyRepository {
     constructor(
         private companyService:CompanyService
     ) {}
 
-    async get(query:GetCompaniesQueryParams): Promise<Pagination<CompanyEntity>> {
+    async get(query:GetCompaniesQueryRequest): Promise<PaginationResult<CompanyEntity>> {
         try {
             const response = await this.companyService.get(query);
 
@@ -26,10 +27,9 @@ export class CompanyRepositoryImpl implements CompanyRepository {
             throw error;
         }
     }
-    async create(data: CreateCompanyParams): Promise<CompanyEntity> {
+    async create(data: CreateCompanyRequest): Promise<CompanyEntity> {
         try {
             const response = await this.companyService.create(data);
-
             return CompanyMapper.fromCompanyApiToCompanyEntity(response.company);
         } catch (error) {
             throw error;

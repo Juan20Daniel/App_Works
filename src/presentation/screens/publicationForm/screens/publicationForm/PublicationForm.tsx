@@ -44,9 +44,7 @@ export const PublicationForm = ({navigation}:Props) => {
     });
     const { top } = useSafeAreaInsets();
     const width = useWindowDimensions().width;
-    console.log('errors');
-    console.log(errors);
-    
+  
     const confirmedAction = () => {
         navigation.goBack();
     }

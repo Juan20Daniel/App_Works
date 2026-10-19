@@ -1,5 +1,5 @@
 import { KeyboardAvoidingView, Platform, ScrollView, useWindowDimensions, View } from 'react-native';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
@@ -8,11 +8,12 @@ import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import { SubmitBtn } from '@/presentation/components/companyForm';
 import { CompanyFormValue } from './types';
 import { defaultValue } from './defaultValue';
-import { expretions } from '@/shared';
+import { regex } from '@/shared';
 import { useCreateCompany } from './hooks';
-import { useMutation } from '@tanstack/react-query';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'CompanyForm'>{}
+
+const expretions = regex<CompanyFormValue>();
 
 export const CompanyForm = ({navigation, route}:Props) => {
     const { type } = route.params.form;
@@ -25,14 +26,6 @@ export const CompanyForm = ({navigation, route}:Props) => {
     });
     const { createCompany } = useCreateCompany();
     
-    const mutation = useMutation({
-        mutationFn:createCompany
-    });
-    
-    const onSubmit: SubmitHandler<CompanyFormValue> = (data) => {
-        mutation.mutate(data);
-    }
- 
     return (
         <View style={{
             height:height, 
@@ -93,14 +86,14 @@ export const CompanyForm = ({navigation, route}:Props) => {
                         regex={expretions.companyDesc!}
                         returnKeyType='done'
                         marginBottom={20}
-                        onSubmitEditing={handleSubmit(onSubmit)}
+                        onSubmitEditing={handleSubmit(createCompany)}
                     />
                     <SubmitBtn
                         text={type === 'CREATE' 
                             ? 'AGREGAR EMPRESA' 
                             : 'Edit company'
                         }
-                        onPress={handleSubmit(onSubmit)}
+                        onPress={handleSubmit(createCompany)}
                     />
                 </ScrollView>
             </KeyboardAvoidingView>

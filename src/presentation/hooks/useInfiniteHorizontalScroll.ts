@@ -19,7 +19,7 @@ export const useInfiniteHorizontalScroll = (width: number) => {
             -1,
             false
         );
-    },[]);
+    },[translateX, width]);
 
     const animationTranslateX = useAnimatedStyle(() => ({
         transform: [{translateX: translateX.value}]

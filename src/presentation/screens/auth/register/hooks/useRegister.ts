@@ -19,7 +19,6 @@ export const useRegister = (
     const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
     const register = async (data:RegisterFormValue) => {
-
         try {
             openLoaderScreen('Registrando usuario...')
             const result = await registerUserUseCase(authRepositoryImpl, data);

@@ -1,21 +1,26 @@
-import { InputName } from "@/presentation/types";
-
-export const expretions:Partial<Record<InputName, RegExp>> = {
+const allExpressions = {
     firstname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
     lastname: /^[a-zA-ZáÁéÉíÍóÓúÚñÑ ]{3,40}$/,
-    email: /^[a-zA-Z0-9+%,=\._-]{1,64}@[a-zA-Z0-9\.-]{1,63}\.[a-zA-Z]{2,15}(\.[a-zA-Z]{2,5})?$/,
+    email: /^[a-zA-Z0-9+%,=._-]{1,64}@[a-zA-Z0-9.-]{1,63}\.[a-zA-Z]{2,15}(\.[a-zA-Z]{2,5})?$/,
     password: /^.{8,}$/,
-    selectCompany:/^.{30,}$/,
+    selectCompany: /^.{30,}$/,
     companyLogo: /^.{30,}$/,
     companyName: /^[A-Za-z0-9+áÁúÚíÍóÓéÉñÑ_ .-]{2,100}$/,
-    companyDesc: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{5,}$/,
-    // image:/^.{30,}$/,
-    // typeWork: /^[A-Za-zñÑÁáúÚéÉíÍóÓ ]{5,50}$/,
-    // minimumWage: /^[0-9]{3,6}$/,
-    // maximumWage: /^[0-9]{3,6}$/,
-    // schedule: /^.{10,}$/,
-    // description: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{5,}$/,
-    // requirements: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
-    // benefits: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
-    // coords: /^.{10,}$/,
-}
+    companyDesc: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{1,200}$/,
+    image: /^.{30,}$/,
+    typeWork: /^[A-Za-zñÑÁáúÚéÉíÍóÓ ]{5,50}$/,
+    minimumWage: /^[0-9]{3,6}$/,
+    maximumWage: /^[0-9]{3,6}$/,
+    schedule: /^.{10,}$/,
+    description: /^[0-9A-Za-zñÑáÁÉéí|\-ÍóÓúÚ:!&=;()+*[\]#$%?¡¿"'_., \s]{5,}$/,
+    requirements: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
+    benefits: /^[0-9A-Za-zñÑáÁÉéíÍóÓúÚ:;#$&()., ]{5,40}$/,
+    coords: /^.{10,}$/,
+};
+
+type ExpressionKey = keyof typeof allExpressions;
+
+export const regex = <T>(): Record<keyof T & ExpressionKey, RegExp> => {
+    
+    return allExpressions;
+};

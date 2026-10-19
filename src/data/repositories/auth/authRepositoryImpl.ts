@@ -101,6 +101,10 @@ export class AuthRepositoryImpl implements AuthRepository {
         }
     }
 
+    async saveAuth(auth:AuthEntity): Promise<void> {
+        await this.authLocalService.saveAuth(auth);
+    }
+
     async signOut(): Promise<void> {
         await this.authLocalService.removeAuth();
     }

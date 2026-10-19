@@ -4,15 +4,16 @@ import { useLoadImage } from './hooks';
 import { InputContainer, InputLabel } from '../shared';
 import { Controller, Control, FieldValues, FieldPathByValue } from 'react-hook-form';
 import { isTablet } from '@/presentation/helpers/isTablet';
+import { ImageData } from '@/presentation/types';
 
 interface Props<T extends FieldValues> {
     control: Control<T>;
-    name: FieldPathByValue<T, string>;
+    name: FieldPathByValue<T, ImageData | null>;
     marginBottom?: number;
 }
 
 export const UploadImage = <T extends FieldValues,> ({
-    control, 
+    control,
     name,
     marginBottom
 }:Props<T>) => {
@@ -39,12 +40,12 @@ export const UploadImage = <T extends FieldValues,> ({
                             opacity: pressed ? 0.5 : 1,
                         }]}
                     >
-                        <BtnRemoveImage 
-                            show={value !== ''} 
-                            onPress={() => onChange('')}
+                        <BtnRemoveImage
+                            show={value !== null}
+                            onPress={() => onChange(null)}
                         />
-                        <ShowImage url={value} />
-                        <Placeholder show={value === ''} />
+                        <ShowImage url={value ? value.uri : null} />
+                        <Placeholder show={value === null} />
                     </Pressable>
                 )}
             />

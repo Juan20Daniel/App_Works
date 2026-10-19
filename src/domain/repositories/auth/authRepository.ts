@@ -1,6 +1,6 @@
 import { AuthEntity, UserEntity } from "@/domain/entities";
 
-export interface RegisterData {
+interface RegisterData {
     firstname: string;
     lastname:  string;
     email:     string;
@@ -14,5 +14,6 @@ export interface AuthRepository {
     continueWithFacebook(): Promise<{user:UserEntity, auth:AuthEntity}>;
     getAuth(): Promise<AuthEntity | null>;
     signOut(): Promise<void>;
+    saveAuth(auth:AuthEntity): Promise<void>;
     refreshSession(): Promise<{user:UserEntity, auth:AuthEntity} | null>;
 }

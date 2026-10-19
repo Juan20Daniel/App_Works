@@ -1,9 +1,8 @@
-import { AuthAPIResponse } from "@/data/apiModels";
+import { AuthAPIResponse, RegisterUserRequest } from "@/data/apiModels";
 import { axiosInstance } from "@/data/network/axios";
-import { RegisterUser } from "@/domain/types";
 
 export class AuthService {
-    async registerWithEmail(data:RegisterUser):Promise<AuthAPIResponse> {
+    async registerWithEmail(data:RegisterUserRequest):Promise<AuthAPIResponse> {
         try {
             const response = await axiosInstance.post<AuthAPIResponse>('/auth/register-with-email', data);
 

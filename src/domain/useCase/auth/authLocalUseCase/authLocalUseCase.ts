@@ -5,6 +5,6 @@ export const getAuthLocalStorageUseCase = async (repo:AuthRepositoryImpl): Promi
     return await repo.getAuth();
 }
 
-export const signOutUseCase = async (repo:AuthRepositoryImpl) => {
+export const signOutUseCase = async (repo:AuthRepositoryImpl):Promise<void> => {
     return await repo.signOut();
 }

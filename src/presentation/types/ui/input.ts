@@ -22,7 +22,13 @@ export type InputName =
 
 export interface InputSelect {
     id: number;
-    value:string;
+    value: string;
+}
+
+export interface ImageData {
+    uri: string;
+    name: string;
+    type: string;
 }
 
 export type InputValueMap = {
@@ -31,7 +37,7 @@ export type InputValueMap = {
     email: string;
     password: string;
     companyName: string;
-    companyLogo: string;
+    companyLogo: ImageData | null;
     companyDesc: string;
     selectCompany: InputSelect | null;
 }

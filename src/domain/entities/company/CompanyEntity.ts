@@ -3,7 +3,7 @@ export interface CompanyEntity {
     logo: string|null;
     name: string;
     desc: string;
-    createBy: string;
+    createdBy: string;
     isActive: boolean;
     createdAt: Date;
     updatedAt: Date;

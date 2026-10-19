@@ -1,7 +1,7 @@
 import { CompanyFormValue } from "./types";
 
 export const defaultValue:CompanyFormValue = {
-    companyLogo:'',
+    companyLogo: null,
     companyName:'',
-    companyDesc:''
+    companyDesc: ''
 }

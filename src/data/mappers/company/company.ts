@@ -8,7 +8,7 @@ export class CompanyMapper {
             logo: companyApi.logo,
             name: companyApi.name,
             desc: companyApi.desc,
-            createBy: companyApi.createBy,
+            createdBy: companyApi.createdBy,
             isActive: companyApi.isActive,
             createdAt: companyApi.createdAt,
             updatedAt: companyApi.updatedAt

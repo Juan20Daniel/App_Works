@@ -12,10 +12,10 @@ export interface CompaniesPaginationApiResponse {
 
 export interface CompanyApi {
     _id:       string;
-    logo:      null | string;
+    logo:      string|null;
     name:      string;
     desc:      string;
-    createBy:  string;
+    createdBy: string;
     isActive:  boolean;
     createdAt: Date;
     updatedAt: Date;

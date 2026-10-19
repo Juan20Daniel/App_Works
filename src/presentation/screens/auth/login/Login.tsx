@@ -21,9 +21,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginFormValue } from './types';
 import { defaultValue } from './defaultValue';
 import { useMutation } from '@tanstack/react-query';
-import { expretions } from '@/shared';
+import { regex } from '@/shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Login'>{}
+
+const expretions = regex<LoginFormValue>();
 
 const Login = ({navigation}:Props) => {
     const [ showPass, setShowPass ] = useState(false);
@@ -62,10 +64,10 @@ const Login = ({navigation}:Props) => {
         }}>
             <View style={{
                 position:'relative',
-                backgroundColor: globalColors.white, 
+                backgroundColor:globalColors.white,
                 justifyContent:'center',
                 width:'100%',
-                height:'100%',
+                height:'100%'
             }}>
                 <AuthHeader
                     subTitle='Inicia sesión con tu cuenta o crea una'

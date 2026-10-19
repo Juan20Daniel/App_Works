@@ -14,9 +14,11 @@ import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { RegisterFormValue } from './type';
 import { defaultValue } from './defaultValue';
-import { expretions } from '@/shared';
+import { regex } from '@/shared';
 
 interface Props extends StackScreenProps<RootStackParamList, 'Register'>{}
+
+const expretions = regex<RegisterFormValue>();
 
 const Register = ({navigation}:Props) => {
     const [ showPass, setShowPass ] = useState(false);
