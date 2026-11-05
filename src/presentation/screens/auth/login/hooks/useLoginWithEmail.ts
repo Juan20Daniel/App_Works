@@ -1,20 +1,18 @@
 import { 
     useAlertMessageStore, 
-    useAuthStore, 
-    useLoaderScreenStore, 
-    useUserStore 
+    useLoaderScreenStore
 } from "@/presentation/store";
 import { handleError } from "@/shared/error";
 import { signInWithEmailUseCase } from "@/domain/useCase";
 import { authRepositoryImpl } from "@/data/dependencies";
 import { LoginFormValue } from "../types";
+import { sessionQueryOptions } from "@/presentation/queries";
+import { queryClient } from "@/config";
 
 export const useLoginWithEmail = (
     navigation: () => void
 ) => {
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
-    const setUserStore = useUserStore(state => state.setUser);
-    const autenticate = useAuthStore(state => state.autenticate);
     const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
     const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
 
@@ -24,8 +22,7 @@ export const useLoginWithEmail = (
             const email = data.email;
             const password = data.password;
             const result = await signInWithEmailUseCase(authRepositoryImpl, email, password);
-            setUserStore(result.user);
-            autenticate();
+            queryClient.setQueryData(sessionQueryOptions.queryKey, result);
             navigation();
         } catch (error) {
             const {message, errorCode} = handleError(error);

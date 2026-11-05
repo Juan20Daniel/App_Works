@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { PaginationResult } from "@/domain/pagination";
-import { InfiniteData, QueryKey, useInfiniteQuery } from "@tanstack/react-query"
+import { InfiniteData, QueryKey, useInfiniteQuery } from "@tanstack/react-query";
 
 interface UsePaginatedQueryOptions<T> {
     queryKey: QueryKey;
@@ -14,8 +14,8 @@ const flattenPages = <T> (data:InfiniteData<PaginationResult<T>>): T[] => {
 
 export const usePaginatedQuery = <T> ({
     queryKey,
+    enabled=true,
     queryFn,
-    enabled=true
 }:UsePaginatedQueryOptions<T>) => {
     const query = useInfiniteQuery({
         queryKey,
@@ -23,7 +23,7 @@ export const usePaginatedQuery = <T> ({
         enabled,
         queryFn:({pageParam}) => queryFn(pageParam),
         getNextPageParam:(lastPage) => lastPage.nextPage,
-        select: flattenPages<T>,
+        select: flattenPages<T>
     });
 
     const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
@@ -34,7 +34,6 @@ export const usePaginatedQuery = <T> ({
 
     return {
         ...query,
-        items: query.data??[],
         loadMore
     }
 }

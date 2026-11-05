@@ -10,7 +10,6 @@ import {
     TitleForm
 } from '@/presentation/components/publicationForm';
 import { HeaderApp } from '@/presentation/components/ui';
-import { InputSelectOption } from '@/presentation/types';
 import { CreatePublicStackParamList } from '../../PublicationFormStack';
 import {
     SubmitHandler,
@@ -22,23 +21,23 @@ import { PrimaryBtn } from '@/presentation/components/ui/button';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'PublicationForm'>{}
 
-const availableJobs:InputSelectOption[] = [
-    {id:1, name:'Camionero', isSelected:false},
-    {id:2, name:'Asistente', isSelected:false},
-    {id:3, name:'Montacargas', isSelected:false},
-    {id:4, name:'Mesero', isSelected:false},
-    {id:5, name:'Cajero', isSelected:false},
-    {id:6, name:'Repartidor', isSelected:false},
-    {id:7, name:'Albañil', isSelected:false},
-    {id:8, name:'Errero', isSelected:false},
-    {id:9, name:'Conductor', isSelected:false},
-    {id:10, name:'Bombero', isSelected:false},
-    {id:11, name:'Doctor', isSelected:false},
-]
+// const availableJobs:InputSelectOption[] = [
+//     {id:1, name:'Camionero', isSelected:false},
+//     {id:2, name:'Asistente', isSelected:false},
+//     {id:3, name:'Montacargas', isSelected:false},
+//     {id:4, name:'Mesero', isSelected:false},
+//     {id:5, name:'Cajero', isSelected:false},
+//     {id:6, name:'Repartidor', isSelected:false},
+//     {id:7, name:'Albañil', isSelected:false},
+//     {id:8, name:'Errero', isSelected:false},
+//     {id:9, name:'Conductor', isSelected:false},
+//     {id:10, name:'Bombero', isSelected:false},
+//     {id:11, name:'Doctor', isSelected:false},
+// ]
 
 export const PublicationForm = ({navigation}:Props) => {
     const [ publishPublication, setPublishPublication ] = useState(false);
-    const { control, formState:{errors}, setValue, handleSubmit } = useForm<PublicationFormValues>({
+    const { control, setValue, handleSubmit } = useForm<PublicationFormValues>({
         defaultValues: defaultValues,
         mode:'onSubmit'
     });

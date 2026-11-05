@@ -1,7 +1,7 @@
 import { AppError } from "./appError";
 
 export const handleError = (error:unknown):AppError => {
-    console.log(error);
+    
     if(error instanceof AppError) {
         return error;
     }

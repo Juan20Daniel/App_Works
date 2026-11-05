@@ -1,37 +1,29 @@
 import { Pressable, Text, View } from 'react-native';
-import { globalColors, globalStyles } from '@/presentation/globalStyles/global.styles';
-import { isTablet } from '@/presentation/helpers/isTablet';
+import { globalColors } from '@/presentation/globalStyles/global.styles';
 import { signOutUseCase } from '@/domain/useCase';
 import { authRepositoryImpl } from '@/data/dependencies';
-import { useAuthStore, useUserStore } from '@/presentation/store';
 import { RootStackParamList } from '@/presentation/navigators/StackNavigator';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { Icon } from '../../ui';
+import { queryClient } from '@/config';
+import { sessionQueryOptions } from '@/presentation/queries';
 
 interface Props {
 	navigation: StackNavigationProp<RootStackParamList, "Profile", undefined>
 }
 
 export const BtnCloseSession = ({navigation}:Props) => {
-	const removeUser = useUserStore(state => state.removeUser);
-	const deauthenticate = useAuthStore(state => state.deauthenticate);
-	const bottom = useSafeAreaInsets().bottom;
+	
+	// const bottom = useSafeAreaInsets().bottom;
 	const signOut = async () => {
 		await signOutUseCase(authRepositoryImpl);
-		removeUser();
-		deauthenticate();
+		queryClient.setQueryData(sessionQueryOptions.queryKey, null);
 		navigation.navigate("Home", {animationType:'slide_from_left'});
 	}
 
 	return (
-		<View style={{
-			...styles.boxBtnCloseSession,
-			bottom: 10,
-			marginTop:isTablet ? 40 : 10,
-		
-		}}>
+		<View style={styles.boxBtnCloseSession}>
 			<Pressable 
 				onPress={signOut}
 				style={({pressed})=>[
@@ -43,7 +35,7 @@ export const BtnCloseSession = ({navigation}:Props) => {
 					name='Logout'
 					color={globalColors.gray}
 				/>
-				<Text style={{fontSize: 18, fontFamily:globalStyles.fontMonserratMedium, color:globalColors.gray}}>
+				<Text style={styles.text}>
 					CERRAR SESIÓN
 				</Text>
 			</Pressable>

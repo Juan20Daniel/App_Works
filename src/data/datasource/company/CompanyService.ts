@@ -9,10 +9,10 @@ import {
 export class CompanyService {
     async get(query:GetCompaniesQueryRequest):Promise<CompaniesPaginationApiResponse> {
         try {
-            const response = await axiosInstance.get<CompaniesPaginationApiResponse>('/', {
+            const response = await axiosInstance.get<CompaniesPaginationApiResponse>('/company', {
                 params: query
             });
-
+            
             return response.data;
         } catch (error) {
             throw error;

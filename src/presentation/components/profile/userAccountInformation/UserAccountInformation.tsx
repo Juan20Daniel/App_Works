@@ -1,10 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import { BtnEdith, AcountInformation } from './components';
-import { useUserStore } from '@/presentation/store';
+
 import { UserAvatar } from '../../user';
+import { useSession } from '@/presentation/hooks';
 
 export const UserAccountInformation = () => {
-    const user = useUserStore(state => state.user);
+    const {user} = useSession();
     return (
         <View style={styles.container}>
             <UserAvatar 

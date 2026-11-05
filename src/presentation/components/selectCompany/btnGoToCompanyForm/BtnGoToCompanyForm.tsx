@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { ScrollEdgeFade } from '../../shared';
 import { PrimaryBtn } from '../../ui/button';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { styles } from './styles';
 
 interface Props {
     text: string;
@@ -12,14 +13,7 @@ export const BtnGoToCompanyForm = ({
     text, 
     onPress
 }:Props) => (
-    <View style={{
-        position: 'relative',
-        alignItems:'center',
-        height: calcDimension({
-            small:80,
-            medium:100
-        })
-    }}>
+    <View style={styles.container}>
         <ScrollEdgeFade />
         <PrimaryBtn
             text={text}

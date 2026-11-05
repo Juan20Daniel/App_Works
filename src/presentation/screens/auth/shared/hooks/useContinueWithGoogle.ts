@@ -2,17 +2,15 @@ import { continueWithGoogleUseCase } from '@/domain/useCase';
 import { authRepositoryImpl } from '@/data/dependencies';
 import { 
     useAlertMessageStore, 
-    useAuthStore, 
     useLoaderScreenStore, 
-    useUserStore 
 } from '@/presentation/store';
 import { handleError } from '@/shared/error';
+import { sessionQueryOptions } from '@/presentation/queries';
+import { queryClient } from '@/config';
 
 export const useContinueWithGoogle = (
     navigation: () => void
 ) => {
-    const setUserStore = useUserStore(state => state.setUser);
-    const autenticate = useAuthStore(state => state.autenticate);
     const openAlertMessage = useAlertMessageStore(state => state.openAlertMessage);
     const openLoaderScreen = useLoaderScreenStore(state => state.openLoader);
     const closeLoaderScreen = useLoaderScreenStore(state => state.closeLoader);
@@ -21,8 +19,7 @@ export const useContinueWithGoogle = (
         try {
             openLoaderScreen('Iniciando sesión...');
             const result = await continueWithGoogleUseCase(authRepositoryImpl);
-            setUserStore(result.user);
-            autenticate();
+            queryClient.setQueryData(sessionQueryOptions.queryKey, result);
             navigation();
         } catch (error) {
             console.log(error);

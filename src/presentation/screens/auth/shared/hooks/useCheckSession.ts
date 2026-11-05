@@ -1,18 +1,19 @@
 import { useLayoutEffect } from "react";
-import { useAuthStore } from "@/presentation/store";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "@/presentation/navigators/StackNavigator";
+import { useSession } from "@/presentation/hooks";
 
 export const useCheckSession = () => {
-    const isAutenticated = useAuthStore(state => state.isAutenticated);
+    const { authStatus } = useSession();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    
     useLayoutEffect(() => {
-        if(isAutenticated) {
+        if(authStatus === 'authenticated') {
             navigation.reset({
                 index: 0,
                 routes: [{ name:"Home" }],
             });
         }
-    },[]);
+    },[authStatus, navigation]);
 }

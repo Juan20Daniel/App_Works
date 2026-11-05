@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles';
-import { useUserStore } from '@/presentation/store';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
+import { useSession } from '@/presentation/hooks';
 
 export const AcountInformation = () => {
-    const user = useUserStore(state => state.user);
+    const {user} = useSession();
     
     return (
         <View style={styles.container}>

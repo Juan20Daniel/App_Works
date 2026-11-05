@@ -1,24 +1,26 @@
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { globalColors } from '@/presentation/globalStyles/global.styles'
-import { useUserStore } from '@/presentation/store';
+import { useSession } from '@/presentation/hooks';
 
 export const UserAvatar = () => {
-    const user = useUserStore(state => state.user);
+    const {user} = useSession();
     return (
-        <View
-            style={{
-                width:30, 
-                height:30, 
-                borderRadius: 15,
-                backgroundColor: user?.avatarColor,
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
-            <Text style={{
-                color:globalColors.white,
-                fontSize: 16
-            }}>J</Text>
+        <View style={{...styles.container, backgroundColor: user?.avatarColor,}}>
+            <Text style={styles.text}>J</Text>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        width:30, 
+        height:30, 
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text: {
+        color:globalColors.white,
+        fontSize: 16
+    }
+})

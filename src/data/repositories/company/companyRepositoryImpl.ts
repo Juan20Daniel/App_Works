@@ -30,6 +30,7 @@ export class CompanyRepositoryImpl implements CompanyRepository {
     async create(data: CreateCompanyRequest): Promise<CompanyEntity> {
         try {
             const response = await this.companyService.create(data);
+           
             return CompanyMapper.fromCompanyApiToCompanyEntity(response.company);
         } catch (error) {
             throw error;
