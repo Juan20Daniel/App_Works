@@ -20,7 +20,6 @@ export const Skeletor = ({
     marginRight,
 }:Props) => {
     const { animationTranslateX } = useInfiniteHorizontalScroll(width);
-    
     return (
         <View style={{
             width: width,

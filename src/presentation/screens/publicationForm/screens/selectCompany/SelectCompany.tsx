@@ -9,6 +9,7 @@ import { BtnGoToCompanyForm } from '@/presentation/components/selectCompany';
 import { useCompaniesByCreatorId } from './hooks';
 import { calcDimension } from '@/presentation/helpers/calcDimension';
 import { useOnPullToRefresh, useSession } from '@/presentation/hooks';
+import { ItemCompany, LoaderSkeletor } from './components';
 
 interface Props extends StackScreenProps<CreatePublicStackParamList, 'SelectCompany'>{}
 
@@ -17,16 +18,16 @@ export const SelectCompany = ({navigation}:Props) => {
     const { top, bottom } = useSafeAreaInsets();
     const height = useWindowDimensions().height;
     const { 
-        companies, 
-        isPending, 
-        isLoading, 
-        isError, 
+        companies,
+        isPending,
+        isLoading,
+        isError,
         isFetchNextPageError, 
         refetch, 
         fetchNextPage, 
         loadMore 
     } = useCompaniesByCreatorId(user?.id!); 
-    const { 
+    const {
         isPullRefreshing,
         onPullToRefresh
      } = useOnPullToRefresh(async () => {
@@ -64,6 +65,9 @@ export const SelectCompany = ({navigation}:Props) => {
                             onRefresh={onPullToRefresh}
                         />
                     }
+                    ListHeaderComponent={
+                        <View style={styles.topSpace} />
+                    }
                     ListEmptyComponent={
                         <>
                             {(!isPending && !isLoading && isError) 
@@ -73,9 +77,7 @@ export const SelectCompany = ({navigation}:Props) => {
                                 :   undefined
                             }
                             {(!isPending && !isLoading && !isError)
-                                ?    <View style={styles.erorrr}>
-                                        <Text>No hay ni vergas</Text>
-                                    </View>
+                                ?   <CompanyListEmpty />
                                 :   undefined
                             }
                         </>
@@ -83,9 +85,7 @@ export const SelectCompany = ({navigation}:Props) => {
                     ListFooterComponent={
                         <>
                             {isPending
-                                ?    <View style={styles.loading}>
-                                        <Text>Cargando mas jodidos datos</Text>
-                                    </View>
+                                ?   <LoaderSkeletor />
                                 :   undefined
                             }
                         </>
@@ -93,8 +93,8 @@ export const SelectCompany = ({navigation}:Props) => {
                     onEndReached={loadMore}
                     onEndReachedThreshold={0.5}
                     keyExtractor={(item) => item.id}
-                    renderItem={() => (
-                        <CompanyListEmpty />
+                    renderItem={({item}) => (
+                        <ItemCompany company={item} />
                     )}
                 />
             </View>
@@ -114,5 +114,8 @@ const styles = StyleSheet.create({
         width:'100%',
         height: 400,
         backgroundColor: 'gray'
+    },
+    topSpace: {
+        height:30
     }
 })

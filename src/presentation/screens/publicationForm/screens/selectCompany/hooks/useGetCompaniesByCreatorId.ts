@@ -4,6 +4,8 @@ import { getCompaniesUseCase } from "@/domain/useCase";
 import { usePaginatedQuery } from "@/presentation/hooks";
 import { companyKeys } from "@/presentation/queryKeys";
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(() => r(true), ms))
+
 export const useCompaniesByCreatorId = (creatorId:string) => {
     const {
         data, 
@@ -17,7 +19,10 @@ export const useCompaniesByCreatorId = (creatorId:string) => {
         fetchNextPage,
     } = usePaginatedQuery<CompanyEntity>({
         queryKey:companyKeys.list({createdBy:creatorId}),
-        queryFn:(page) => getCompaniesUseCase(companyRepositoryImpl, {createdBy:creatorId, page})
+        queryFn:async (page) => {
+            await sleep(5000);
+            return getCompaniesUseCase(companyRepositoryImpl, {createdBy:creatorId, page})
+        }
     });
 
 

@@ -1,5 +1,7 @@
-export { BasicModalOption } from "./basicModalOption/BasicModalOption";
-export { BoxModalBottom } from "./boxModalBottom/BoxModalBottom";
-export { BtnClearInput } from "./btnClearInput/BtnClearInput";
+export * from "./basicModalOption/BasicModalOption";
+export * from "./boxModalBottom/BoxModalBottom";
+export * from "./btnClearInput/BtnClearInput";
 export * from "./skeletor/Skeletor";
 export * from './scrollEdgeFade';
+export * from './companyLogo';
+export * from './pressableHighlight';
