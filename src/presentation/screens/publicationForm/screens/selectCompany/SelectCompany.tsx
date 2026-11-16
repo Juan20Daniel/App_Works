@@ -22,11 +22,11 @@ export const SelectCompany = ({navigation}:Props) => {
         isPending,
         isLoading,
         isError,
-        isFetchNextPageError, 
-        refetch, 
-        fetchNextPage, 
-        loadMore 
-    } = useCompaniesByCreatorId(user?.id!); 
+        isFetchNextPageError,
+        refetch,
+        fetchNextPage,
+        loadMore
+    } = useCompaniesByCreatorId(user?.id!);
     const {
         isPullRefreshing,
         onPullToRefresh

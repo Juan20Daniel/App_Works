@@ -25,7 +25,6 @@ export const useCompaniesByCreatorId = (creatorId:string) => {
         }
     });
 
-
     return {
         companies:data,
         isLoading,
